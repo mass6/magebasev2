@@ -748,7 +748,7 @@ class Insync_Approve_Model_Id extends Mage_Sales_Model_Order {
 
         $contractName = '';
         $tempIncrementId = $order->getIncrementId();
-        if ($nextAppId == 0) {
+        if ($nextAppId == 0) {  // order received final approval
 			
 			/*
 			$approvalTimestamp = date('Y-m-d H:i:s');
@@ -774,7 +774,8 @@ class Insync_Approve_Model_Id extends Mage_Sales_Model_Order {
             $sql = sprintf("update `sales_flat_order_grid` set `status` = 'pending' where `increment_id` = '%d'", $tempIncrementId);
             $write->query($sql);
             unset($write);
-			
+
+            // check to see if order contains multiple suppliers
             $split = new Insync_Approve_Model_Supplier();
 			// $order = Mage::getModel('sales/order')->load($id);
             $split->Split($id, $order->getData('store_id'), $order->getData('order_currency_code'));
@@ -800,7 +801,7 @@ class Insync_Approve_Model_Id extends Mage_Sales_Model_Order {
 			// Mage::log('store id'.$order->getData('store_id'));
 			// Mage::log(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/default/default/'.Mage::getStoreConfig('design/header/logo_src'));
 			// Mage::log('-------------------------------------------mail send 3---');
-        } else {
+        } else {  // order still requires more approvals
             $currentAppId = $order->getApprover();
             $custId = $order->getCustomerId();
             $currentCustomerDetails = Mage::getModel('customer/customer')->load($currentAppId);
@@ -817,7 +818,7 @@ class Insync_Approve_Model_Id extends Mage_Sales_Model_Order {
 			Mage::app()->setCurrentStore($storee);
             $custEmail = $customer1->getEmail();
             $emailTemplate = Mage::getModel('core/email_template');
-            $test = $emailTemplate->loadDefault('sales_email_order_notification');
+            $test = $emailTemplate->loadDefault('sales_email_order_notification');  // email to notify user of intermediate approval
             $emailTemplateVariables['username'] = $customer1->getFirstname() . ' ' . $customer1->getLastname();
             $emailTemplateVariables['approved'] = $currentCustomerDetails->getFirstname() . ' ' . $currentCustomerDetails->getLastname();
             $emailTemplateVariables['approver'] = $nextCustomerDetails->getFirstname() . ' ' . $nextCustomerDetails->getLastname();
