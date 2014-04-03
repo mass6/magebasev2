@@ -1,0 +1,10 @@
+diff -aurBb 
+--- D:/xampp/htdocs/pplt1/app/design/frontend/base/default/template/checkout/cart.phtml	Wed Jul 27 12:58:40 2011
++++ D:/xampp/htdocs/pplt1/app/design/frontend/base/default/template/checkout/cart_orig.phtml	Mon Feb 21 08:55:46 2011
+@@ -134,6 +134,5 @@
+             </ul>
+             <?php endif; ?>
+         </div>
++		<?php echo $this->getChildHtml('aitproductslists_checkout_form'); ?>
+     </div>
+ </div>

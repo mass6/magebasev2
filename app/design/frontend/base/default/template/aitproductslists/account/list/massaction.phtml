@@ -1,0 +1,105 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/account/list/massaction.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<div class="mass-action a-right">
+    <label for="ppl_action">Actions</label>
+    <select id="ppl_action" name="action">
+        <option id="add_to_cart" value="add_to_cart">Add to Cart</option>
+        <option id="copy" value="copy">Copy</option>
+        <option id="move" value="move">Move</option>
+        <option id="remove" value="remove">Remove</option>
+    </select>
+    <select id="ppl_lists" name="to_list" class="validate-select" style="display: none;">
+        <option value="">Select Existing List</option>
+        <?php
+        if (count($this->getCustomerLists())>0)
+        {
+            foreach ($this->getCustomerLists() as $list)
+            {
+                if ($list->getId() == $this->getList()->getId())
+                    continue;
+                $listName = $list->getName();
+                $listName = strip_tags($listName);
+                //$listName = strip_tags($listName);
+                if (strlen($listName)>25)
+                {
+                    $listName = substr($listName,0,25)."...";
+                }
+                echo "<option discount='".$list->checkDiscount()."' value='".$list->getId()."'>".$listName."</option>";
+            }
+        }
+        ?>
+    </select> 
+    <button type="button" onclick="$('form_action').value='mass_action'; validateMassAction();" name="mass-action" class="mass-action">Submit</button>
+</div>
+
+<script type="text/javascript">
+    
+    function confirmAction(manualConfirm)
+    {
+       <?php if (Mage::getStoreConfig('aitproductslists/customer/reset')):?>    
+        if ($('ppl_action').value!=="add_to_cart" && manualConfirm==1)
+        {
+            var a = confirm("All discount will be removed from select list. Are you sure you want to "+$('ppl_action').value+" product?");
+            if (!a)
+            {
+                return false;
+            }
+        }
+            <?php if ($this->getList()->checkDiscount()): ?>
+               if ($('ppl_action').value=="remove" || $('ppl_action').value=="move")
+                {
+                    var a = confirm("All discount will be removed from select list. Are you sure you want to "+$('ppl_action').value+" product?");
+                    if (!a)
+                    {
+                        return false;
+                    }
+                } 
+            <?php endif; ?>
+        <?php endif; ?>
+        dataForm.submit();
+    }
+    function validateMassAction()
+    {
+        if ($('ppl_lists').visible())
+        {
+            var selectElement = $$('#ppl_lists option').find(function(ele){return !!ele.selected});
+            if($('ppl_lists').value){
+                $('ppl_lists').className = "validate-select validation-passed";
+                confirmAction(selectElement.getAttribute('discount'))
+            }else{
+                $('ppl_lists').className = "validate-select validation-failed";
+            }
+        }
+        else
+        {
+            confirmAction();
+        }
+    }
+    
+    var open_list_array = new Array('copy','move');
+    $('ppl_action').observe('change',function(event){
+          var options = $('ppl_action').select("option");
+          options.each(function(item) {
+             if(item.selected) 
+             {
+                if(open_list_array.indexOf(item.id)>-1)
+                {
+                    $('ppl_lists').show();
+                }
+                else
+                {
+                    $('ppl_lists').hide();
+                }
+             }
+                 
+         })
+    })
+</script>

@@ -1,0 +1,44 @@
+﻿Company,Firma
+"Email Address","Email Adresse"
+Address,Adresse
+"Street Address","Strasse"
+"Street Address ","Strasse"
+City,Stadt
+State/Province,Gebiet/Provinz
+"Please select region, state or province","Bitte waehlen Sie Gebiet, Staat oder Provinz"
+"Zip/Postal Code","Zip/Postleitzahl"
+Country,Land
+Telephone,Telefon
+Fax,Fax
+"Save in address book","Im Adressbuch speichern"
+"Ship to this address","Transportieren zu dieser Adresse"
+"Ship to different address","Transportieren zu verschiedenen Adressen"
+"Loading next step...","Naechster Schritt wird geladen"
+"Select State/Province...","Staat/Provinz waehlen"
+"Billing Address","Bezahlungadresse"
+Change,Veraendern
+"Shipping Address","Transportadresse"
+"Shipping Method","Transportmethode"
+"Payment Method","Bezahlungmethode"
+"Aitoc Configurable Checkout Section","Konfigurierbare Aitoc Sektion fuer die Beendigung der Arbeit"
+"Aitoc Configurable Checkout","Konfigurierbare Aitoc Beendigung der Arbeit"
+"Billing Information","Bezahlunginformation "
+"Show Name Fields","Namenfeld zeigen"
+"Show Company Field","Firmafeld zeigen"
+"Show Address Fields","Adressefeld zeigen"
+"Show City Field","Stadtfeld zeigen"
+"Show Region Field","Gebietfeld zeigen"
+"Show Country Field","Landfeld zeigen"
+"Show Zip/Postal Code Field","Postleitzahlfeld zeigen"
+"Show Phone Field","Telefonnummerfeld zeigen"
+"Show Fax Field","Faxnummerfeld zeigen"
+"Shipping Information","Transportinformation"
+"Enabled Section","Eingeschaltete Sektion"
+"Fill Shipping Information with Billing information if disabled.","Angabe der Transportinformation mit Bezahlunginformation ist ausgeschaltet"
+"step will be disabled if you have only flat rate or free shipping method active (should be enabled for all countries)","Schritt wird ausgeschaltet sein, wenn Sie Einheitssatz oder freie Transportmethode aktiviert haben (soll fuer alle labender eingeschaltet sein)"
+"Payment Information","Bezahlunginformation "
+"step will be disabled only when ""Check/Money order"" is the only active payment method","Schritt wird ausgeschaltet sein, nur wenn ""Pruefen/Geldueberweisung"" als die einzige Bezahlungmethode gewaehlt ist"
+"Invalid data","Ungueltige Daten"
+"Customer Address is not valid.","Kundenadresse ist ungueltig"
+"There is already a customer registered using this email address. Please login using this email address or enter a different email address to register your account.","Es gibt schon ein Kunde mit derselben Email-Adresse. Bitte melden Sie sich an mit dieser Emailadresse oder registrieren Sie Ihren Account mit einer anderen Adresse."
+"Invalid data.","Invalide Daten."

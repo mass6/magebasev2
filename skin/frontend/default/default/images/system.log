@@ -1,0 +1,40 @@
+2014-02-03T12:21:19+00:00 DEBUG (7): 0
+2014-02-03T12:21:19+00:00 DEBUG (7): -------------------------------------------approve start---
+2014-02-03T12:21:19+00:00 DEBUG (7): -------------------------------------------store id in Split---
+2014-02-03T12:21:19+00:00 DEBUG (7): 14
+2014-02-03T12:21:19+00:00 ERR (3): Notice: Undefined variable: testSupplier  in /chroot/home/threesi2/36s-test.net/html/app/code/local/Insync/Approve/Model/Supplier.php on line 35
+2014-02-03T12:21:19+00:00 ERR (3): Notice: Undefined variable: storeid  in /chroot/home/threesi2/36s-test.net/html/app/code/local/Insync/Approve/Helper/Data.php on line 35
+2014-02-03T12:21:19+00:00 ERR (3): Warning: Illegal offset type in isset or empty  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Core/Model/Email/Template.php on line 194
+2014-02-03T12:21:19+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:19+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:19+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:19+00:00 ERR (3): Strict Notice: Declaration of Aitoc_Aitproductslists_Model_Rewrite_SalesObserver::cleanExpiredQuotes() should be compatible with that of Mage_Sales_Model_Observer::cleanExpiredQuotes()  in /chroot/home/threesi2/36s-test.net/html/app/code/local/Aitoc/Aitproductslists/Model/Rewrite/SalesObserver.php on line 13
+2014-02-03T12:21:19+00:00 ERR (3): Notice: Undefined variable: websiteId  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php on line 1992
+2014-02-03T12:21:19+00:00 ERR (3): Notice: Undefined variable: websiteId  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php on line 1995
+2014-02-03T12:21:22+00:00 ERR (3): Notice: Undefined index: discount  in /chroot/home/threesi2/36s-test.net/html/app/code/local/Insync/Sales/Model/Order/Api/V2.php on line 664
+2014-02-03T12:21:22+00:00 ERR (3): Warning: Illegal offset type in isset or empty  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Core/Model/Email/Template.php on line 194
+2014-02-03T12:21:23+00:00 DEBUG (7): mail approve
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------1---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:24+00:00 ERR (3): Notice: Undefined variable: websiteId  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php on line 1992
+2014-02-03T12:21:24+00:00 ERR (3): Notice: Undefined variable: websiteId  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php on line 1995
+2014-02-03T12:21:25+00:00 ERR (3): Notice: Undefined index: discount  in /chroot/home/threesi2/36s-test.net/html/app/code/local/Insync/Sales/Model/Order/Api/V2.php on line 664
+2014-02-03T12:21:25+00:00 ERR (3): Warning: Illegal offset type in isset or empty  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Core/Model/Email/Template.php on line 194
+2014-02-03T12:21:25+00:00 DEBUG (7): -------------------------------------------2---
+2014-02-03T12:21:25+00:00 DEBUG (7): http://monford.36s-test.net/media//email/logo/websites/13/monford-logo.jpg
+2014-02-03T12:21:25+00:00 ERR (3): Warning: Illegal offset type in isset or empty  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Core/Model/Email/Template.php on line 194
+2014-02-03T12:21:27+00:00 DEBUG (7): mail approve
+2014-02-03T12:21:27+00:00 DEBUG (7): -------------------------------------------3---
+2014-02-03T12:21:27+00:00 DEBUG (7): -------------------------------------------supplier id---
+2014-02-03T12:21:28+00:00 ERR (3): Warning: Illegal offset type in isset or empty  in /chroot/home/threesi2/36s-test.net/html/app/code/core/Mage/Core/Model/Email/Template.php on line 194
+2014-02-03T12:21:28+00:00 DEBUG (7): store id14
+2014-02-03T12:21:28+00:00 DEBUG (7): http://monford.36s-test.net/skin/frontend/default/default/images/logo_header_265x60.png
+2014-02-03T12:21:28+00:00 DEBUG (7): -------------------------------------------mail send 3---

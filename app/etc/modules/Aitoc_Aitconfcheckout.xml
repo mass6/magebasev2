@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aitoc_Aitconfcheckout>
+            <active>false</active>
+            <codePool>local</codePool>
+            <self_name>Configurable Checkout</self_name>
+            <priority>900</priority>
+        </Aitoc_Aitconfcheckout>
+    </modules>
+</config>
+<!--
+/**
+ * Product:     Configurable Checkout
+ * Package:     Aitoc_Aitconfcheckout_2.1.11_2.0.3_434995
+ * Purchase ID: cNogWVhB2mHCXupuJxNbglhN7PlDCxQldTSTebqOTK
+ * Generated:   2012-11-20 05:29:30
+ * File path:   app/etc/modules/Aitoc_Aitconfcheckout.xml
+ * Copyright:   (c) 2012 AITOC, Inc.
+ */
+-->

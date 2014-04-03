@@ -1,0 +1,264 @@
+<?php
+$customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+// Mage::log('$customerId----');
+// Mage::log($customerId);
+$collection = Mage::getModel('customer/customer')->getCollection()
+	->addAttributeToSelect('*')
+	->addFieldToFilter('entity_id', $customerId);
+	$contractId = '';
+	$customerAddressId=0;
+	foreach ($collection as $customer) {
+	$data = $customer->toArray();
+	foreach ($data as $key => $value) {
+	if ($key == 'contract_id') {
+	$contractId = $value;
+	}
+	if ($key == 'temp_shipping') {
+	$customerAddressId = $value;
+	}
+	}
+	}
+	$session = Mage::getSingleton('checkout/session');
+		$cart_id = $session->getQuote()->getId();
+		$quote = Mage::getModel('sales/quote')->load($cart_id);
+		// $customerAddressId=$quote->getData('contract_shipping');
+	$contractCode='';
+	$contractShipping='';
+	$contractDetails = Mage::getModel('web/web')->getCollection()->addFieldToFilter('web_id', $contractId);
+		
+		$tempContractShipping = array();
+			foreach ($contractDetails as $each) {
+		$country_list = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
+			foreach($country_list as $country){ 
+							// $temp[]= $country['Please Select'] ;
+							if($country['value'] == $each['country_bill'])
+							$tempBill = $country['label'] ;
+
+				}
+				 if($each['name_bill']!= '')$tempContractBilling[] = $each['name_bill'];
+				 if($each['street_bill']!= '')$tempContractBilling[] = $each['street_bill'];
+				  if($each['street1_bill']!= '')$tempContractBilling[] = $each['street1_bill'];
+				  if($each['city_bill']!= '')$tempContractBilling[] = $each['city_bill'];
+				  if($each['country_bill']!= 0)$tempContractBilling[] = $tempBill;
+				  if($each['state_bill']!= '')$tempContractBilling[] = $each['state_bill'];
+				  if($each['zip_bill']!= '')$tempContractBilling[] = $each['zip_bill'];
+				  
+				  $contractCode = implode('<br/>',$tempContractBilling);
+			  
+			  
+		 if($customerAddressId== 10001) {
+					$country_list = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
+					foreach($country_list as $country){ 
+									// $temp[]= $country['Please Select'] ;
+									if($country['value'] == $each['country_ship1'])
+									$tempShip1 = $country['label'] ;
+
+						}
+				 
+				  if($each['name_ship1']!= '')$tempContractShipping[] = $each['name_ship1'];
+				  if($each['street_ship1']!= '')$tempContractShipping[] = $each['street_ship1'];
+				  if($each['street1_ship1']!= '')$tempContractShipping[] = $each['street1_ship1'];
+				  if($each['city_ship1']!= '')$tempContractShipping[] = $each['city_ship1'];
+				  if($each['country_bill']!= 0)$tempContractShipping[] = $tempShip1;
+				  if($each['state_ship1']!= '')$tempContractShipping[] = $each['state_ship1'];
+				  if($each['zip_ship1']!= '')$tempContractShipping[] = $each['zip_ship1'];
+				  
+				  $contractShipping = implode('<br/>',$tempContractShipping);
+				  }
+				  
+				  	 if($customerAddressId== 10002) {
+					$country_list = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
+					foreach($country_list as $country){ 
+									// $temp[]= $country['Please Select'] ;
+									if($country['value'] == $each['country_ship2'])
+									$tempShip2 = $country['label'] ;
+
+						}
+						
+				  if($each['name_ship2']!= '')$tempContractShipping[] = $each['name_ship2'];		
+				  if($each['street_ship2']!= '')$tempContractShipping[] = $each['street_ship2'];
+				  if($each['street1_ship2']!= '')$tempContractShipping[] = $each['street1_ship2'];
+				  if($each['city_ship2']!= '')$tempContractShipping[] = $each['city_ship2'];
+				  if($each['country_bill2']!= 0)$tempContractShipping[] = $tempShip2;
+				  if($each['state_ship2']!= '')$tempContractShipping[] = $each['state_ship2'];
+				  if($each['zip_ship2']!= '')$tempContractShipping[] = $each['zip_ship2'];
+				  $contractShipping = implode('<br/>',$tempContractShipping);
+				 
+				  }
+				  
+				  	 if($customerAddressId== 10003) {
+					$country_list = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
+					
+					foreach($country_list as $country){ 
+									// $temp[]= $country['Please Select'] ;
+									if($country['value'] == $each['country_ship3'])
+									$tempShip3 = $country['label'] ;
+
+						}
+						
+				  if($each['name_ship3']!= '')$tempContractShipping[] = $each['name_ship3'];
+				  if($each['street_ship3']!= '')$tempContractShipping[] = $each['street_ship3'];
+				  if($each['street1_ship3']!= '')$tempContractShipping[] = $each['street1_ship3'];
+				  if($each['city_ship3']!= '')$tempContractShipping[] = $each['city_ship3'];
+				  if($each['country_bill3']!= 0)$tempContractShipping[] = $tempShip3;
+				  if($each['state_ship3']!= '')$tempContractShipping[] = $each['state_ship3'];
+				  if($each['zip_ship3']!= '')$tempContractShipping[] = $each['zip_ship3'];
+				  Mage::log('dasda');
+				  Mage::log($tempContractShipping);
+				  $contractShipping = implode('<br/>',$tempContractShipping);
+				  }
+				  
+				  	 if($customerAddressId== 10004) {
+					$country_list = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
+					foreach($country_list as $country){ 
+									// $temp[]= $country['Please Select'] ;
+									if($country['value'] == $each['country_ship4'])
+									$tempShip4 = $country['label'] ;
+
+						}
+						
+				  if($each['name_ship4']!= '')$tempContractShipping[] = $each['name_ship4'];
+				  if($each['street_ship4']!= '')$tempContractShiping[] = $each['street_ship4'];
+				  if($each['street1_ship4']!= '')$tempContractShipping[] = $each['street1_ship4'];
+				  if($each['city_ship4']!= '')$tempContractShipping[] = $each['city_ship4'];
+				  if($each['country_bill4']!= 0)$tempContractShipping[] = $tempShip4;
+				  if($each['state_ship4']!= '')$tempContractShipping[] = $each['state_ship4'];
+				  if($each['zip_ship4']!= '')$tempContractShipping[] = $each['zip_ship4'];
+				  $contractShipping = implode('<br/>',$tempContractShipping);
+				
+				  }
+				  
+				    	 if($customerAddressId== 10005) {
+					$country_list = Mage::getResourceModel('directory/country_collection')->loadData()->toOptionArray(false);
+					foreach($country_list as $country){ 
+									// $temp[]= $country['Please Select'] ;
+									if($country['value'] == $each['country_ship5'])
+									$tempShip5 = $country['label'] ;
+
+						}
+				  if($each['name_ship5']!= '')$tempContractShipping[] = $each['name_ship5'];
+				  if($each['street_ship5']!= '')$tempContractShipping[] = $each['street_ship5'];
+				  if($each['street1_ship5']!= '')$tempContractShipping[] = $each['street1_ship5'];
+				  if($each['city_ship5']!= '')$tempContractShipping[] = $each['city_ship5'];
+				  if($each['country_bill5']!= 0)$tempContractShipping[] = $tempShip5;
+				  if($each['state_ship5']!= '')$tempContractShipping[] = $each['state_ship5'];
+				  if($each['zip_ship5']!= '')$tempContractShipping[] = $each['zip_ship5'];
+				  $contractShipping = implode('<br/>',$tempContractShipping);
+
+				  }
+				  }
+	
+
+
+	// $contractDetails = Mage::getModel('web/web')->getCollection()->addFieldToFilter('web_id', $temId);
+	// $contractCode = '';
+			// $contractCode1 = array();
+			// // $contractCode2 = '';
+			
+			// foreach ($contractDetails as $each) {
+				// // Mage::log('$each====');
+				// // Mage::log($each);
+				
+			  // $contractCode = $each['contract_billing'];
+			 
+			// }
+		// $session = Mage::getSingleton('checkout/session');
+		// $cart_id = $session->getQuote()->getId();
+		// $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+		// $sql = sprintf("SELECT `contract_shipping` FROM `sales_flat_quote_address` where `quote_id` = '%d' and `address_type` = 'shipping'", $cart_id);
+		
+		// $entityid = $read->fetchAll($sql);
+		
+		// $customerAddressId = '';
+		// foreach ($entityid as $key) {
+		// foreach ($key as $key1 => $value) {
+		// $customerAddressId = $value;
+		// }
+		// }
+		// Mage::log('$customerAddressId========');
+		// Mage::log($customerAddressId);
+				// $contractShipping = '';
+				// foreach ($contractDetails as $each) {
+				  // if($customerAddressId== 100) $contractShipping = $each['contract_shipping1'];
+				  // if($customerAddressId== 101) $contractShipping = $each['contract_shipping2'];
+				  // if($customerAddressId== 102) $contractShipping = $each['contract_shipping3'];
+				  // if($customerAddressId== 103) $contractShipping = $each['contract_shipping4'];
+				  // if($customerAddressId== 104) $contractShipping = $each['contract_shipping5'];
+				// }
+		// unset($contractDetails);
+
+// $checkoutSessionQuote1 = Mage::getSingleton('checkout/session')->getQuote();
+		// Mage::log('checkout session');
+		// Mage::log($checkoutSessionQuote1);
+
+
+
+
+?>
+
+
+
+
+
+<div class="block block-progress opc-block-progress">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Your Checkout Progress') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <dl>
+        <?php if ($this->getCheckout()->getStepData('billing', 'is_show')): ?>
+        <?php if ($this->isStepComplete('billing')): ?>
+            <dt class="complete">
+                <?php echo $this->__('Billing Address') ?> <?php //echo $this->__('Change') ?></a>
+            </dt>
+			<?php if($contractCode=='') {?>
+            <dd class="complete">
+               <address><?php echo $this->getBilling()->format('html') ?></address>
+                
+            </dd>
+			<?php }else { ?>
+			<dd class="complete">
+              
+                <address><?php echo $contractCode; ?></address>
+            </dd>
+			<?php } ?>
+        <?php else: ?>
+            <dt>
+                <?php echo $this->__('Billing Address') ?>
+				
+            </dt>
+        <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($this->getCheckout()->getStepData('shipping', 'is_show')): ?>
+        <?php if ($this->isStepComplete('shipping')): ?>
+            <dt class="complete">
+                <?php echo $this->__('Shipping Address') ?> <span class="separator">|</span>
+                <a href="#payment" onclick="checkout.gotoSection('shipping');return false;"><?php //echo $this->__('Change') ?></a>
+            </dt>
+			
+				<?php if($contractShipping=='') {?>
+            <dd class="complete">
+               <address><?php echo $this->getShipping()->format('html') ?></address></address>
+                
+            </dd>
+			<?php }else { ?>
+			<dd class="complete">
+              
+                <address><?php echo $contractShipping; ?></address>
+            </dd>
+			<?php } ?>
+			
+			
+			
+           
+        <?php else: ?>
+            <dt>
+                <?php echo $this->__('Shipping Address') ?>
+            </dt>
+        <?php endif; ?>
+        <?php endif; ?>
+
+        </dl>
+    </div>
+</div>

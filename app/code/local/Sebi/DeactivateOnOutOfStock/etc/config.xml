@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sebi_DeactivateOnOutOfStock>
+            <version>0.1.0</version>
+        </Sebi_DeactivateOnOutOfStock>
+    </modules>
+
+    <frontend>
+        <events>
+            <sales_order_save_after>
+                <observers>
+                    <deactivateonoutofstock>
+                        <type>singleton</type>
+                        <class>Sebi_DeactivateOnOutOfStock_Model_Observer</class>
+                        <method>salesOrderSaveAfter</method>
+                    </deactivateonoutofstock>
+                </observers>
+            </sales_order_save_after>
+        </events>
+        <routers>
+            <Sebi_DeactivateOnOutOfStock>
+                <use>standard</use>
+                <args>
+                    <module>Sebi_DeactivateOnOutOfStock</module>
+                    <frontName>DeactivateOnOutOfStock</frontName>
+                </args>
+            </Sebi_DeactivateOnOutOfStock>
+        </routers>
+    </frontend>
+</config>

@@ -1,0 +1,47 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/adminhtml/default/default/template/aitproductslists/list/products.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<script type="text/javascript">
+    order = new AdminOrder();
+    order.productConfigureSubmit = function(listType, area, fieldsPrepare, itemsFilter) {
+     // prepare loading areas and build url
+        area = ['search','items'];
+        area = this.prepareArea(area);
+        this.loadingAreas = area;
+        var url = this.loadBaseUrl + 'block/' + area + '?isAjax=true';
+        // prepare additional fields
+        fieldsPrepare = this.prepareParams(fieldsPrepare);
+        fieldsPrepare.reset_shipping = 1;
+        fieldsPrepare.json = 1;
+        // create fields
+        var fields = [];
+        for (var name in fieldsPrepare) {
+        fields.push(new Element('input', {type: 'hidden', name: name, value: fieldsPrepare[name]}));
+        }
+        productConfigure.addFields(fields);
+        // filter items
+        if (itemsFilter) {
+        productConfigure.addItemsFilter(listType, itemsFilter);
+        }
+        // prepare and do submit
+        productConfigure.addListType(listType, {urlSubmit: url});
+        productConfigure.setOnLoadIFrameCallback(listType, function(response){
+        this.loadAreaResponseHandler(response);
+        }.bind(this));
+        productConfigure.submit(listType);
+        // clean
+        this.productConfigureAddFields = {};
+    }
+    order.setLoadBaseUrl('<?php echo $this->getLoadBlockUrl() ?>');
+</script>
+<div id="order-message"><?php echo $this->getChildHtml('message') ?></div>
+<div id="order-search" style="display:none" class="order-search-items"><?php echo $this->getChildHtml('search') ?></div>
+<div id="order-items"><?php echo $this->getChildHtml('items') ?></div>
+<div id="order-billing_method"></div>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sebi_DeactivateOnOutOfStock>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Sebi_DeactivateOnOutOfStock>
+    </modules>
+</config>

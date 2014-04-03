@@ -1,0 +1,156 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/** 
+ * Edit customer address template
+ *
+ * @see Mage_Customer_Block_Address_Edit
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php
+Mage::log('enter');
+$_orders = $this->getOrders();
+$customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+$contractCollection = Mage::getModel('web/web')->getCollection();
+$read = Mage::getSingleton('core/resource')->getConnection('core_read');
+    $sql ="SELECT `web_id`,`name` FROM `web` WHERE  `user1` = ".$customerId." OR  `user2` = ".$customerId." OR `user3` = ".$customerId." OR `user4` = ".$customerId." OR `user5` = ".$customerId." OR `user6` = ".$customerId." OR  `user7` = ".$customerId." OR `user8` = ".$customerId." OR  `user9` = ".$customerId." OR  `user10` = ".$customerId." OR  `user11` = ".$customerId." OR `user12` = ".$customerId." OR `user13` = ".$customerId." OR `user14` = ".$customerId." OR `user15` = ".$customerId." OR `user16` = ".$customerId." OR `user17` = ".$customerId." OR `user18` = ".$customerId." OR `user19` = ".$customerId." OR  `user20` = ".$customerId;
+    $contract = $read->fetchAll($sql);
+	
+	$tempContractName = array();
+	$tempContractId=array();
+    foreach ($contract as $key) {
+		foreach ($key as $key1 => $value) {
+						if($key1=='web_id')
+						{
+                       $tempContractId[] = $value;
+					   }
+					   if($key1=='name'){
+					   $tempContractName[]=$value;
+					   }
+                             
+                            }
+                   }
+
+$collection = Mage::getModel('customer/customer')->getCollection()
+		->addAttributeToSelect('*')
+		->addFieldToFilter('entity_id', $customerId);
+$temId = '';
+$customerCat = '';
+foreach ($collection as $customer) {
+	$data = $customer->toArray();
+	foreach ($data as $key => $value) {
+		if ($key == 'cust_category') {
+			$customerCat = trim(strtoupper(($customer->getResource()->getAttribute($key)->getFrontend()->getValue($customer))));
+		}
+		if ($key == 'contract_id') {
+			$temId = $value;
+		}
+	}
+}
+unset($collection);
+$contractDetails = Mage::getModel('web/web')->getCollection()->addFieldToFilter('web_id', $temId);
+$contractCode = '';
+foreach ($contractDetails as $each) {
+	$contractCode = $each['name'];
+}
+Mage::log('custromer cat');
+Mage::log($customerCat);
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Contract') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if ($customerCat != 'APPROVER') { ?>
+	<p>
+	<div>
+		<?php if ($contractCode != '') { ?>
+			<p>
+				Your Current Contract : <b><?php echo $contractCode; ?></b>
+			</p>
+		<?php } else { ?>
+			<p>
+				<b>You have not selected any Contract. Please choose a contract.</b>
+			</p>
+		<?php } ?>
+		<label for="street_1" class="required"><?php echo $this->__('My Contract List') ?></label></br>
+	    <select name="country" id="country">
+		
+	        <option value="">-- Please Select --</option>
+			<?php for($i=0;$i<count($tempContractId);$i++): ?>
+				
+				<option value="<?php echo $tempContractId[$i] ?>">
+					<?php echo $tempContractName[$i] ?>
+				</option>
+				
+				
+				
+				
+			<?php endfor; ?>
+	    </select>
+		<button onclick="redirect()" class="button"  type="button">
+		 <span>
+                    <span>SELECT </span>
+                </span>
+		</button>
+	</div>
+	</p>
+<?php } else { ?>
+	<p>
+		<b><?php echo 'You Dont have any contracts Assigned to you'; ?></b>
+	</p>
+<?php } ?>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+</script>
+
+<script>
+	function redirect() {
+	
+
+        
+			var x=document.getElementById('country').value;
+            window.location='<?php echo $this->getBaseUrl(); ?>sales/order/contract/id='+x;
+			document.getElementById('country').selectedIndex = x;
+       
+        
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

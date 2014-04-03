@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <rule_adminhtml_rule_index>
+        <reference name="content">
+            <block type="rule/adminhtml_rule" name="rule" />
+        </reference>
+		 <reference name="content1">
+            <block type="rule/adminhtml_rule" name="rule" />
+        </reference>
+		<reference name="content2">
+            <block type="rule/adminhtml_rule" name="rule" />
+        </reference>
+    </rule_adminhtml_rule_index>
+</layout>

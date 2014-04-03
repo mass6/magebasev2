@@ -1,0 +1,1212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+    name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="sboeconnectCatalogProductRequestAttributes">
+				<all>
+					<element name="attributes" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="additional_attributes" type="typens:ArrayOfString" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="sboeconnectCatalogProductCreateEntity">
+				<all>
+					<element name="name" type="xsd:string" minOccurs="0" />
+					<element name="description" type="xsd:string" minOccurs="0" />
+					<element name="short_description" type="xsd:string" minOccurs="0" />
+					<element name="weight" type="xsd:string" minOccurs="0" />
+					<element name="status" type="xsd:string" minOccurs="0" />
+					<element name="url_key" type="xsd:string" minOccurs="0" />
+					<element name="url_path" type="xsd:string" minOccurs="0" />
+					<element name="visibility" type="xsd:string" minOccurs="0" />
+					<element name="category_ids" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="website_ids" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="has_options" type="xsd:string" minOccurs="0" />
+					<element name="gift_message_available" type="xsd:string" minOccurs="0" />
+					<element name="price" type="xsd:string" minOccurs="0" />
+					<element name="uom" type="xsd:string" minOccurs="0" />
+					<element name="special_price" type="xsd:string" minOccurs="0" />
+					<element name="special_from_date" type="xsd:string" minOccurs="0" />
+					<element name="special_to_date" type="xsd:string" minOccurs="0" />
+					<element name="tax_class_id" type="xsd:string" minOccurs="0" />
+					<element name="tier_price" type="typens:sboeconnectCatalogProductTierPriceEntityArray" minOccurs="0" />
+					<element name="meta_title" type="xsd:string" minOccurs="0" />
+					<element name="meta_keyword" type="xsd:string" minOccurs="0" />
+					<element name="meta_description" type="xsd:string" minOccurs="0" />
+					<element name="custom_design" type="xsd:string" minOccurs="0" />
+					<element name="custom_layout_update" type="xsd:string" minOccurs="0" />
+					<element name="options_container" type="xsd:string" minOccurs="0" />
+					<element name="additional_attributes" type="typens:associativeArray" minOccurs="0" />
+					<element name="sku_type" type="xsd:string" minOccurs="0" />
+					<element name="weight_type" type="xsd:string" minOccurs="0" />
+					<element name="price_type" type="xsd:string" minOccurs="0" />
+					<element name="priceview_type" type="xsd:string" minOccurs="0" />
+					<element name="shipment_type" type="xsd:string" minOccurs="0" />
+					<element name="configurable_data" type="xsd:string" minOccurs="0" />
+					<element name="grouped_data" type="xsd:string" minOccurs="0" />
+					<element name="bundle_data" type="typens:sboeconnectCatalogProductBundleOptionEntityArray" />
+				</all>
+			</complexType>
+
+			<complexType name="sboeconnectCatalogProductBundleOptionEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:sboeconnectCatalogProductBundleOptionEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="sboeconnectCatalogProductBundleOptionEntity">
+				<all>
+					<element name="title" type="xsd:int" minOccurs="0" />
+					<element name="option_id" type="xsd:string" minOccurs="0" />
+					<element name="delete" type="xsd:string" minOccurs="0" />
+					<element name="type" type="xsd:string" minOccurs="0" />
+					<element name="required" type="xsd:string" minOccurs="0" />
+					<element name="position" type="xsd:string" minOccurs="0" />
+					<element name="bundle_selections" type="typens:sboeconnectCatalogProductBundleSelectionEntityArray" />
+				</all>
+			</complexType>
+			<complexType name="sboeconnectCatalogProductBundleSelectionEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:sboeconnectCatalogProductBundleSelectionEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="sboeconnectCatalogProductBundleSelectionEntity">
+				<all>
+					<element name="selection_id" type="xsd:int" minOccurs="0" />
+					<element name="option_id" type="xsd:string" minOccurs="0" />
+					<element name="product_id" type="xsd:string" minOccurs="0" />
+					<element name="delete" type="xsd:string" minOccurs="0" />
+					<element name="selection_price_value" type="xsd:string" minOccurs="0" />
+					<element name="selection_price_type" type="xsd:string" minOccurs="0" />
+					<element name="selection_qty" type="xsd:string" minOccurs="0" />
+					<element name="selection_can_change_qty" type="xsd:string" minOccurs="0" />
+					<element name="position" type="xsd:string" minOccurs="0" />
+					<element name="is_default" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="sboeconnectCatalogProductAttributeSetEntity">
+				<all>
+					<element name="set_id" type="xsd:int" minOccurs="0" />
+					<element name="name" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="sboeconnectCatalogProductAttributeSetEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:sboeconnectCatalogProductAttributeSetEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="sboeconnectCatalogProductTypeEntity">
+				<all>
+					<element name="type" type="xsd:string" minOccurs="0" />
+					<element name="label" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="sboeconnectCatalogProductTypeEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:sboeconnectCatalogProductTypeEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="sboeconnectCatalogProductTierPriceEntity">
+				<all>
+					<element name="customer_group_id" type="xsd:string" minOccurs="0" />
+					<element name="website" type="xsd:string" minOccurs="0" />
+					<element name="qty" type="xsd:int" minOccurs="0" />
+					<element name="price" type="xsd:double" minOccurs="0" />
+					<element name="currencycode" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="sboeconnectCatalogProductTierPriceEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:sboeconnectCatalogProductTierPriceEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="ArrayOfCatalogCategoryEntities">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogCategoryEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="catalogCategoryEntity">
+				<all>
+					<element name="category_id" type="xsd:int" />
+					<element name="parent_id" type="xsd:int" />
+					<element name="name" type="xsd:string" />
+					<element name="is_active" type="xsd:int" />
+					<element name="position" type="xsd:int" />
+					<element name="level" type="xsd:int" />
+					<element name="children" type="typens:ArrayOfCatalogCategoryEntities" />
+				</all>
+			</complexType>
+			<complexType name="catalogCategoryEntityNoChildren">
+				<all>
+					<element name="category_id" type="xsd:int" />
+					<element name="parent_id" type="xsd:int" />
+					<element name="name" type="xsd:string" />
+					<element name="is_active" type="xsd:int" />
+					<element name="position" type="xsd:int" />
+					<element name="level" type="xsd:int" />
+				</all>
+			</complexType>
+			<complexType name="ArrayOfCatalogCategoryEntitiesNoChildren">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogCategoryEntityNoChildren[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="catalogCategoryTree">
+				<all>
+					<element name="category_id" type="xsd:int" />
+					<element name="parent_id" type="xsd:int" />
+					<element name="name" type="xsd:string" />
+					<element name="position" type="xsd:int" />
+					<element name="level" type="xsd:int" />
+					<element name="children" type="typens:ArrayOfCatalogCategoryEntities" />
+				</all>
+			</complexType>
+			<complexType name="catalogCategoryEntityCreate">
+				<all>
+					<element name="name" type="xsd:string" minOccurs="0" />
+					<element name="is_active" type="xsd:int" minOccurs="0" />
+					<element name="position" type="xsd:int" minOccurs="0" />
+					<element name="available_sort_by" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="custom_design" type="xsd:string" minOccurs="0" />
+					<element name="custom_design_apply" type="xsd:int" minOccurs="0" />
+					<element name="custom_design_from" type="xsd:string" minOccurs="0" />
+					<element name="custom_design_to" type="xsd:string" minOccurs="0" />
+					<element name="custom_layout_update" type="xsd:string" minOccurs="0" />
+					<element name="default_sort_by" type="xsd:string" minOccurs="0" />
+					<element name="description" type="xsd:string" minOccurs="0" />
+					<element name="display_mode" type="xsd:string" minOccurs="0" />
+					<element name="is_anchor" type="xsd:int" minOccurs="0" />
+					<element name="landing_page" type="xsd:int" minOccurs="0" />
+					<element name="meta_description" type="xsd:string" minOccurs="0" />
+					<element name="meta_keywords" type="xsd:string" minOccurs="0" />
+					<element name="meta_title" type="xsd:string" minOccurs="0" />
+					<element name="page_layout" type="xsd:string" minOccurs="0" />
+					<element name="url_key" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="catalogCategoryInfo">
+				<all>
+					<element name="category_id" type="xsd:string" />
+					<element name="is_active" type="xsd:int" />
+					<element name="position" type="xsd:string" />
+					<element name="level" type="xsd:string" />
+					<element name="parent_id" type="xsd:string" />
+					<element name="all_children" type="xsd:string" />
+					<element name="children" type="xsd:string" />
+					<element name="created_at" type="xsd:string" minOccurs="0" />
+					<element name="updated_at" type="xsd:string" minOccurs="0" />
+					<element name="name" type="xsd:string" minOccurs="0" />
+					<element name="url_key" type="xsd:string" minOccurs="0" />
+					<element name="description" type="xsd:string" minOccurs="0" />
+					<element name="meta_title" type="xsd:string" minOccurs="0" />
+					<element name="meta_keywords" type="xsd:string" minOccurs="0" />
+					<element name="meta_description" type="xsd:string" minOccurs="0" />
+					<element name="path" type="xsd:string" minOccurs="0" />
+					<element name="url_path" type="xsd:string" minOccurs="0" />
+					<element name="children_count" type="xsd:int" minOccurs="0" />
+					<element name="display_mode" type="xsd:string" minOccurs="0" />
+					<element name="is_anchor" type="xsd:int" minOccurs="0" />
+					<element name="available_sort_by" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="custom_design" type="xsd:string" minOccurs="0" />
+					<element name="custom_design_apply" type="xsd:string" minOccurs="0" />
+					<element name="custom_design_from" type="xsd:string" minOccurs="0" />
+					<element name="custom_design_to" type="xsd:string" minOccurs="0" />
+					<element name="page_layout" type="xsd:string" minOccurs="0" />
+					<element name="custom_layout_update" type="xsd:string" minOccurs="0" />
+					<element name="default_sort_by" type="xsd:string" minOccurs="0" />
+					<element name="landing_page" type="xsd:int" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="catalogAssignedProduct">
+				<all>
+					<element name="product_id" type="xsd:int" />
+					<element name="type" type="xsd:string" />
+					<element name="set" type="xsd:int" />
+					<element name="sku" type="xsd:string" />
+					<element name="position" type="xsd:int" />
+				</all>
+			</complexType>
+			<complexType name="catalogAssignedProductArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogAssignedProduct[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="catalogAttributeEntity">
+				<all>
+					<element name="attribute_id" type="xsd:int" minOccurs="0" />
+					<element name="code" type="xsd:string" minOccurs="0" />
+					<element name="type" type="xsd:string" minOccurs="0" />
+					<element name="required" type="xsd:string" minOccurs="0" />
+					<element name="scope" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="catalogAttributeEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogAttributeEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="catalogAttributeOptionEntity">
+				<all>
+					<element name="label" type="xsd:string" />
+					<element name="value" type="xsd:string" />
+				</all>
+			</complexType>
+			<complexType name="catalogAttributeOptionEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogAttributeOptionEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllEntity">
+				<all>
+					<element name="productId" type="xsd:string" minOccurs="0" />
+					<element name="attributeSetId" type="xsd:string" minOccurs="0" />
+					<element name="attributeSetName" type="xsd:string" minOccurs="0" />
+					<element name="productType" type="xsd:string" minOccurs="0" />
+					<element name="websiteId" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="productWebsiteCode" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="productStoreIds" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="productStoreCode" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="productTaxClass" type="xsd:string" minOccurs="0" />
+					<element name="sku" type="xsd:string" minOccurs="0" />
+					<element name="productName" type="xsd:string" minOccurs="0" />
+					<element name="productDescription" type="xsd:string" minOccurs="0" />
+					<element name="productShortDescription" type="xsd:string" minOccurs="0" />
+					<element name="productDetailByStore" type="typens:productDetailByStoreEntityArray" minOccurs="0" />
+					<element name="productPrice" type="typens:productAllPriceEntityArray" minOccurs="0" />
+					<element name="productStatus" type="xsd:string" minOccurs="0" />
+					<element name="productStatusName" type="xsd:string" minOccurs="0" />
+					<element name="productVisibilityId" type="xsd:string" minOccurs="0" />
+					<element name="productVisibility" type="xsd:string" minOccurs="0" />
+					<element name="categories" type="typens:productAllCategoriesEntityArray" minOccurs="0" />
+					<element name="attribute" type="typens:productAllAttributeEntityArray" minOccurs="0" />
+					<element name="options" type="typens:productAllOptionsEntityArray" minOccurs="0" />
+					<element name="configurableattributes" type="typens:productAllConfigAttributeEntityArray" minOccurs="0" />
+					<element name="associatedproduct" type="typens:productAllAssociatedEntityArray" minOccurs="0" />
+					<element name="groupedproduct" type="typens:productAllGroupEntityArray" minOccurs="0" />
+					<element name="skutype" type="xsd:string" minOccurs="0" />
+					<element name="skutypename" type="xsd:string" minOccurs="0" />
+					<element name="weighttype" type="xsd:string" minOccurs="0" />
+					<element name="weighttypename" type="xsd:string" minOccurs="0" />
+					<element name="pricetype" type="xsd:string" minOccurs="0" />
+					<element name="pricetypename" type="xsd:string" minOccurs="0" />
+					<element name="priceview" type="xsd:string" minOccurs="0" />
+					<element name="priceviewname" type="xsd:string" minOccurs="0" />
+					<element name="shipmenttype" type="xsd:string" minOccurs="0" />
+					<element name="shipmenttypename" type="xsd:string" minOccurs="0" />
+					<element name="bundleoptions" type="typens:productAllBundleEntityArray" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="productAllPriceEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllPriceEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllPriceEntity">
+				<all>
+					<element name="websiteId" type="xsd:string" minOccurs="0" />
+					<element name="price" type="xsd:string" minOccurs="0" />
+					<element name="baseCurrency" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="productAllCategoriesEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllCategoriesEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllCategoriesEntity">
+				<all>
+					<element name="categoryId" type="xsd:string" minOccurs="0" />
+					<element name="categoryName" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="productAllAttributeEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllAttributeEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllAttributeEntity">
+				<all>
+					<element name="attributeid" type="xsd:string" minOccurs="0" />
+					<element name="code" type="xsd:string" minOccurs="0" />
+					<element name="attributename" type="xsd:string" minOccurs="0" />
+					<element name="attributevalueid" type="xsd:string" minOccurs="0" />
+					<element name="attributevalue" type="xsd:string" minOccurs="0" />
+					<element name="type" type="xsd:string" minOccurs="0" />
+					<element name="attributevalueallstore" type="typens:productAllAttributeValueEntityArray" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="productDetailByStoreEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productDetailByStoreEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productDetailByStoreEntity">
+				<all>
+					<element name="storeid" type="xsd:string" minOccurs="0" />
+					<element name="name" type="xsd:string" minOccurs="0" />
+					<element name="description" type="xsd:string" minOccurs="0" />
+					<element name="short_description" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+
+
+			<complexType name="productAllAttributeValueEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllAttributeValueEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllAttributeValueEntity">
+				<all>
+					<element name="storeid" type="xsd:string" minOccurs="0" />
+					<element name="value" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="productAllOptionsEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllOptionsEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="productAllOptionsEntity">
+				<all>
+					<element name="optionid" type="xsd:string" minOccurs="0" />
+					<element name="optiontype" type="xsd:string" minOccurs="0" />
+					<element name="optionisrequire" type="xsd:string" minOccurs="0" />
+					<element name="optiontitle" type="xsd:string" minOccurs="0" />
+					<element name="optionvalue" type="typens:productAllOptionsOptionvaluesEntityArray" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="productAllOptionsOptionvaluesEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllOptionsOptionvaluesEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllOptionsOptionvaluesEntity">
+				<all>
+					<element name="optionvalueid" type="xsd:string" minOccurs="0" />
+					<element name="optionvaluesku" type="xsd:string" minOccurs="0" />
+					<element name="optionvaluetitle" type="xsd:string" minOccurs="0" />
+					<element name="optionvalueprice" type="xsd:string" minOccurs="0" />
+					<element name="optionvaluepricetype" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="productAllConfigAttributeEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllConfigAttributeEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllConfigAttributeEntity">
+				<all>
+					<element name="configurableattributeid" type="xsd:string" minOccurs="0" />
+					<element name="configurableattributecode" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="productAllAssociatedEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllAssociatedEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllAssociatedEntity">
+				<all>
+					<element name="associatedproductid" type="xsd:string" minOccurs="0" />
+					<element name="associatedproductsku" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="productAllGroupEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllGroupEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllGroupEntity">
+				<all>
+					<element name="groupedproductid" type="xsd:string" minOccurs="0" />
+					<element name="groupedproductsku" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="productAllBundleEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllBundleEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="productAllBundleEntity">
+				<all>
+					<element name="defaulttitle" type="xsd:string" minOccurs="0" />
+					<element name="type" type="xsd:string" minOccurs="0" />
+					<element name="required" type="xsd:string" minOccurs="0" />
+					<element name="bundleselections" type="typens:ArrayOfBundleSelection" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="ArrayOfBundleSelection">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:ArrayOfBundleSelectionEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="ArrayOfBundleSelectionEntity">
+				<all>
+					<element name="sku" type="xsd:string" minOccurs="0" />
+					<element name="selectionqty" type="xsd:string" minOccurs="0" />
+					<element name="usercanchangeqty" type="xsd:string" minOccurs="0" />
+					<element name="defaultselection" type="xsd:string" minOccurs="0" />
+					<element name="selectionpricetype" type="xsd:string" minOccurs="0" />
+					<element name="selectionpricevalue" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+
+			<complexType name="productAllSyncEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:productAllSyncEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			
+			
+			<!--  -->
+		</schema>
+	</types>
+
+	<message name="sboeconnectCatalogProductCreateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="type" type="xsd:string" />
+		<part name="set" type="xsd:string" />
+		<part name="sku" type="xsd:string" />
+		<part name="productData" type="typens:sboeconnectCatalogProductCreateEntity" />
+		<part name="storeView" type="xsd:string"/>
+	</message>
+	<message name="sboeconnectCatalogProductCreateResponse">
+		<part name="result" type="xsd:int" />
+	</message>
+
+	<message name="sboeconnectCatalogProductUpdateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="product" type="xsd:string" />
+		<part name="productData" type="typens:sboeconnectCatalogProductCreateEntity" />
+		<part name="storeView" type="xsd:string" />
+		<part name="productIdentifierType" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductUpdateResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+
+	<message name="sboeconnectCatalogProductSetspecialpriceRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="product" type="xsd:string" />
+		<part name="specialPrice" type="xsd:string" />
+		<part name="fromDate" type="xsd:string" />
+		<part name="toDate" type="xsd:string" />
+		<part name="storeView" type="xsd:string" />
+		<part name="productIdentifierType" type="xsd:string" />
+		<part name="currencycode" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductSetspecialpriceResponse">
+		<part name="result" type="xsd:int" />
+	</message>
+
+	<message name="sboeconnectCatalogProductAttributeListRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="setId" type="xsd:int" />
+	</message>
+	<message name="sboeconnectCatalogProductAttributeListResponse">
+		<part name="result" type="typens:catalogAttributeEntityArray" />
+	</message>
+
+	<message name="sboeconnectCatalogProductAttributeOptionsRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="attributeId" type="xsd:string" />
+		<part name="storeView" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductAttributeOptionsResponse">
+		<part name="result" type="typens:catalogAttributeOptionEntityArray" />
+	</message>
+
+	<message name="sboeconnectCatalogProductAttributeSetListRequest">
+		<part name="sessionId" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductAttributeSetListResponse">
+		<part name="result" type="typens:sboeconnectCatalogProductAttributeSetEntityArray" />
+	</message>
+
+	<message name="sboeconnectCatalogProductTypeListRequest">
+		<part name="sessionId" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductTypeListResponse">
+		<part name="result" type="typens:sboeconnectCatalogProductTypeEntityArray" />
+	</message>
+
+	<message name="sboeconnectCatalogProductUpdateTierPriceRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="product" type="xsd:string" />
+		<part name="tier_price" type="typens:sboeconnectCatalogProductTierPriceEntityArray" />
+		<part name="productIdentifierType" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductUpdateTierPriceResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+
+	<message name="sboeconnectCatalogProductInsertTierPriceRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="product" type="xsd:string" />
+		<part name="tier_price" type="typens:sboeconnectCatalogProductTierPriceEntityArray" />
+		<part name="productIdentifierType" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductInsertTierPriceResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+
+	<message name="catalogCategoryCurrentStoreRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="storeView" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryCurrentStoreResponse">
+		<part name="storeView" type="xsd:int" />
+	</message>
+	<message name="catalogCategoryTreeRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="parentId" type="xsd:string" />
+		<part name="storeView" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryTreeResponse">
+		<part name="tree" type="typens:catalogCategoryTree" />
+	</message>
+	<message name="catalogCategoryLevelRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="website" type="xsd:string" />
+		<part name="storeView" type="xsd:string" />
+		<part name="parentCategory" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryLevelResponse">
+		<part name="tree" type="typens:ArrayOfCatalogCategoryEntitiesNoChildren" />
+	</message>
+	<message name="catalogCategoryInfoRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="categoryId" type="xsd:int" />
+		<part name="storeView" type="xsd:string" />
+		<part name="attributes" type="typens:ArrayOfString" />
+	</message>
+	<message name="catalogCategoryInfoResponse">
+		<part name="info" type="typens:catalogCategoryInfo" />
+	</message>
+	<message name="catalogCategoryCreateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="parentId" type="xsd:int" />
+		<part name="categoryData" type="typens:catalogCategoryEntityCreate" />
+		<part name="storeView" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryCreateResponse">
+		<part name="id" type="xsd:int" />
+	</message>
+	<message name="catalogCategoryUpdateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="categoryId" type="xsd:int" />
+		<part name="categoryData" type="typens:catalogCategoryEntityCreate" />
+		<part name="storeView" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryUpdateResponse">
+		<part name="id" type="xsd:boolean" />
+	</message>
+	<message name="catalogCategoryMoveRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="categoryId" type="xsd:int" />
+		<part name="parentId" type="xsd:int" />
+		<part name="afterId" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryMoveResponse">
+		<part name="id" type="xsd:boolean" />
+	</message>
+	<message name="catalogCategoryDeleteRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="categoryId" type="xsd:int" />
+	</message>
+	<message name="catalogCategoryDeleteResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+	<message name="catalogCategoryAssignedProductsRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="categoryId" type="xsd:int" />
+	</message>
+	<message name="catalogCategoryAssignedProductsResponse">
+		<part name="result" type="typens:catalogAssignedProductArray" />
+	</message>
+	<message name="catalogCategoryAssignProductRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="categoryId" type="xsd:int" />
+		<part name="product" type="xsd:string" />
+		<part name="position" type="xsd:string" />
+		<part name="productIdentifierType" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryAssignProductResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+	<message name="catalogCategoryUpdateProductRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="categoryId" type="xsd:int" />
+		<part name="product" type="xsd:string" />
+		<part name="position" type="xsd:string" />
+		<part name="productIdentifierType" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryUpdateProductResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+	<message name="catalogCategoryRemoveProductRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="categoryId" type="xsd:int" />
+		<part name="product" type="xsd:string" />
+		<part name="productIdentifierType" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryRemoveProductResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+	<message name="catalogCategoryAttributeCurrentStoreRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="storeView" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryAttributeCurrentStoreResponse">
+		<part name="storeView" type="xsd:int" />
+	</message>
+	<message name="catalogCategoryAttributeListRequest">
+		<part name="sessionId" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryAttributeListResponse">
+		<part name="result" type="typens:catalogAttributeEntityArray" />
+	</message>
+	<message name="catalogCategoryAttributeOptionsRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="attributeId" type="xsd:string" />
+		<part name="storeView" type="xsd:string" />
+	</message>
+	<message name="catalogCategoryAttributeOptionsResponse">
+		<part name="result" type="typens:catalogAttributeOptionEntityArray" />
+	</message>
+
+	<message name="sboeconnectCatalogProductListRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="prodtype" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductListResponse">
+		<part name="products" type="typens:productAllEntityArray" />
+	</message>
+
+	<message name="sboeconnectCatalogProductSyncRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="productId" type="xsd:string" />
+		<part name="syncFlag" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductSyncResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+	
+	<message name="sboeconnectCatalogProductTierPriceInfoRequest">
+		<part name="sessionId" type="xsd:string"/>
+		<part name="product" type="xsd:string"/>
+		<part name="productIdentifierType" type="xsd:string"/>
+	</message>
+	<message name="sboeconnectCatalogProductTierPriceInfoResponse">
+		<part name="result" type="typens:sboeconnectCatalogProductTierPriceEntityArray"/>
+	</message>
+	
+	<message name="sboeconnectCatalogProductMediaRemoveRequest">
+		<part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="file" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
+	</message>
+	<message name="sboeconnectCatalogProductMediaRemoveResponse">
+		<part name="result" type="xsd:int" />
+	</message>
+	<message name="sboeconnectCatalogProductMediaCreateRequest">
+		<part name="sessionId" type="xsd:string"/>
+		<part name="product" type="xsd:string"/>
+		<part name="data" type="typens:catalogProductAttributeMediaCreateEntity"/>
+		<part name="storeView" type="xsd:string"/>
+		<part name="productIdentifierType" type="xsd:string"/>
+	</message>
+	<message name="sboeconnectCatalogProductMediaCreateResponse">
+		<part name="result" type="xsd:string"/>
+	</message>
+	
+	<portType name="{{var wsdl.handler}}PortType">
+		<operation name="catalogCategoryCurrentStore">
+			<documentation>Set / Get current store view</documentation>
+			<input message="typens:catalogCategoryCurrentStoreRequest" />
+			<output message="typens:catalogCategoryCurrentStoreResponse" />
+		</operation>
+		<operation name="catalogCategoryTree">
+			<documentation>Retrieve hierarchical tree of categories.</documentation>
+			<input message="typens:catalogCategoryTreeRequest" />
+			<output message="typens:catalogCategoryTreeResponse" />
+		</operation>
+		<operation name="catalogCategoryLevel">
+			<documentation>Retrieve hierarchical tree of categories.</documentation>
+			<input message="typens:catalogCategoryLevelRequest" />
+			<output message="typens:catalogCategoryLevelResponse" />
+		</operation>
+		<operation name="catalogCategoryInfo">
+			<documentation>Retrieve hierarchical tree of categories.</documentation>
+			<input message="typens:catalogCategoryInfoRequest" />
+			<output message="typens:catalogCategoryInfoResponse" />
+		</operation>
+		<operation name="catalogCategoryCreate">
+			<documentation>Create new category and return its id.</documentation>
+			<input message="typens:catalogCategoryCreateRequest" />
+			<output message="typens:catalogCategoryCreateResponse" />
+		</operation>
+		<operation name="catalogCategoryUpdate">
+			<documentation>Update category</documentation>
+			<input message="typens:catalogCategoryUpdateRequest" />
+			<output message="typens:catalogCategoryUpdateResponse" />
+		</operation>
+		<operation name="catalogCategoryMove">
+			<documentation>Move category in tree</documentation>
+			<input message="typens:catalogCategoryMoveRequest" />
+			<output message="typens:catalogCategoryMoveResponse" />
+		</operation>
+		<operation name="catalogCategoryDelete">
+			<documentation>Delete category</documentation>
+			<input message="typens:catalogCategoryDeleteRequest" />
+			<output message="typens:catalogCategoryDeleteResponse" />
+		</operation>
+		<operation name="catalogCategoryAssignedProducts">
+			<documentation>Retrieve list of assigned products</documentation>
+			<input message="typens:catalogCategoryAssignedProductsRequest" />
+			<output message="typens:catalogCategoryAssignedProductsResponse" />
+		</operation>
+		<operation name="catalogCategoryAssignProduct">
+			<documentation>Assign product to category</documentation>
+			<input message="typens:catalogCategoryAssignProductRequest" />
+			<output message="typens:catalogCategoryAssignProductResponse" />
+		</operation>
+		<operation name="catalogCategoryUpdateProduct">
+			<documentation>Update assigned product</documentation>
+			<input message="typens:catalogCategoryUpdateProductRequest" />
+			<output message="typens:catalogCategoryUpdateProductResponse" />
+		</operation>
+		<operation name="catalogCategoryRemoveProduct">
+			<documentation>Remove product assignment from category</documentation>
+			<input message="typens:catalogCategoryRemoveProductRequest" />
+			<output message="typens:catalogCategoryRemoveProductResponse" />
+		</operation>
+		<operation name="catalogCategoryAttributeCurrentStore">
+			<documentation>Set/Get current store view</documentation>
+			<input message="typens:catalogCategoryAttributeCurrentStoreRequest" />
+			<output message="typens:catalogCategoryAttributeCurrentStoreResponse" />
+		</operation>
+		<operation name="catalogCategoryAttributeList">
+			<documentation>Retrieve Category Attributes</documentation>
+			<input message="typens:catalogCategoryAttributeListRequest" />
+			<output message="typens:catalogCategoryAttributeListResponse" />
+		</operation>
+
+		<operation name="catalogCategoryAttributeOptions">
+			<documentation>Retrieve Attribute Options</documentation>
+			<input message="typens:catalogCategoryAttributeOptionsRequest" />
+			<output message="typens:catalogCategoryAttributeOptionsResponse" />
+		</operation>
+
+		<operation name="sboeconnectCatalogProductList">
+			<documentation>Get List of All Products</documentation>
+			<input message="typens:sboeconnectCatalogProductListRequest" />
+			<output message="typens:sboeconnectCatalogProductListResponse"/>
+		</operation>
+
+		<operation name="sboeconnectCatalogProductSync">
+			<documentation>Mark Products as Synchronized or not</documentation>
+			<input message="typens:sboeconnectCatalogProductSyncRequest" />
+			<output message="typens:sboeconnectCatalogProductSyncResponse"/>
+		</operation>
+
+		<operation name="sboeconnectCatalogProductCreate">
+			<documentation>Create new product and return product id</documentation>
+			<input message="typens:sboeconnectCatalogProductCreateRequest" />
+			<output message="typens:sboeconnectCatalogProductCreateResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductUpdate">
+			<documentation>Update product</documentation>
+			<input message="typens:sboeconnectCatalogProductUpdateRequest" />
+			<output message="typens:sboeconnectCatalogProductUpdateResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductSetspecialprice">
+			<documentation>Update product special price</documentation>
+			<input message="typens:sboeconnectCatalogProductSetspecialpriceRequest" />
+			<output message="typens:sboeconnectCatalogProductSetspecialpriceResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductAttributeList">
+			<documentation>Retrieve attribute list</documentation>
+			<input message="typens:sboeconnectCatalogProductAttributeListRequest" />
+			<output message="typens:sboeconnectCatalogProductAttributeListResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductAttributeOptions">
+			<documentation>Retrieve attribute options</documentation>
+			<input message="typens:sboeconnectCatalogProductAttributeOptionsRequest" />
+			<output message="typens:sboeconnectCatalogProductAttributeOptionsResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductAttributeSetList">
+			<documentation>Retrieve product attribute sets</documentation>
+			<input message="typens:sboeconnectCatalogProductAttributeSetListRequest" />
+			<output message="typens:sboeconnectCatalogProductAttributeSetListResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductTypeList">
+			<documentation>Retrieve product types</documentation>
+			<input message="typens:sboeconnectCatalogProductTypeListRequest" />
+			<output message="typens:sboeconnectCatalogProductTypeListResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductUpdateTierPrice">
+			<documentation>Update product tier prices</documentation>
+			<input message="typens:sboeconnectCatalogProductUpdateTierPriceRequest" />
+			<output message="typens:sboeconnectCatalogProductUpdateTierPriceResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductInsertTierPrice">
+			<documentation>Update product tier prices</documentation>
+			<input message="typens:sboeconnectCatalogProductInsertTierPriceRequest" />
+			<output message="typens:sboeconnectCatalogProductInsertTierPriceResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductMediaRemove">
+			<documentation>Update product tier prices</documentation>
+			<input message="typens:sboeconnectCatalogProductMediaRemoveRequest" />
+			<output message="typens:sboeconnectCatalogProductMediaRemoveResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductMediaCreate">
+			<documentation>Update product tier prices</documentation>
+			<input message="typens:sboeconnectCatalogProductMediaCreateRequest" />
+			<output message="typens:sboeconnectCatalogProductMediaCreateResponse" />
+		</operation>
+		<operation name="sboeconnectCatalogProductTierPriceInfo">
+			<documentation>Update product tier prices</documentation>
+			<input message="typens:sboeconnectCatalogProductTierPriceInfoRequest" />
+			<output message="typens:sboeconnectCatalogProductTierPriceInfoResponse" />
+		</operation>
+	</portType>
+	<binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="catalogCategoryCurrentStore">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryTree">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryLevel">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryInfo">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryCreate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryUpdate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryMove">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryDelete">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryAssignedProducts">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryAssignProduct">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryUpdateProduct">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryRemoveProduct">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductSync">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductUpdateTierPrice">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductInsertTierPrice">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductMediaRemove">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductMediaCreate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductCreate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductUpdate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductSetspecialprice">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductAttributeList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductAttributeOptions">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductAttributeSetList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductTypeList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryAttributeCurrentStore">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryAttributeList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="catalogCategoryAttributeOptions">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCatalogProductTierPriceInfo">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="{{var wsdl.name}}Service">
+		<port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+			<soap:address location="{{var wsdl.url}}" />
+		</port>
+	</service>
+</definitions>

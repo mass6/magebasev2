@@ -1,0 +1,55 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/adminhtml/default/default/template/aitproductslists/sidebar.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<div class="create-order-sidebar-block" id="sidebar_data_<?php echo $this->getDataId() ?>">
+    <div class="head">
+        <h5><?php echo $this->__("Customer's Products Lists") ?> <span class="normal">(<?php echo $this->getItemCount() ?>)</span></h5>
+        <a href="#" title="<?php echo Mage::helper('aitproductslists')->__('Refresh') ?>" onclick="order.loadArea('sidebar_aitproductslists_sidebar', 'sidebar_data_aitproductslists_sidebar');return false;">
+            <img src="<?php echo $this->getSkinUrl('images/fam_refresh.gif') ?>" alt="<?php echo Mage::helper('aitproductslists')->__('Refresh') ?>" width="16" height="16"/>
+        </a>
+    </div>
+    <div class="content">
+        <div class="auto-scroll">
+        <?php if($this->getItemCount()): ?>
+        <table style="width:100%; BORDER-COLLAPSE: collapse;">
+            <col/>
+            <col width="40" />
+            <col width="16" />
+            <tr>
+                <th><?php echo Mage::helper('aitproductslists')->__('List Title') ?></th>
+                <th><?php echo Mage::helper('aitproductslists')->__('Subtotal') ?></th>
+                <th class="a-center"><img src="<?php echo $this->getSkinUrl('images/fam_package_go.gif') ?>" alt="<?php echo Mage::helper('aitproductslists')->__('Add To Order') ?>" title="<?php echo Mage::helper('aitproductslists')->__('Add To Order') ?>" width="16" height="16"/></th>
+            </tr>
+            <?php foreach ($this->getItemCollection() as $_item): ?>
+            <?php $discount = $this->getListDiscount($_item->getId()); ?>
+            <tr>
+                <td id="item-<?php echo $_item->getId()?>" onclick="loadListItems(<?php echo $_item->getId() ?>,'<?php echo $this->getUrl("/aitppl_sidebar/loadItems/",array('_secure'=>true)) ?>');" class="item-hover"><?php echo $this->htmlEscape($_item->getName()) ?></td>
+                <td><?php echo $this->convertPrice($_item->getSubtotal()); ?>
+                </td>
+                <td>
+                    <input type="checkbox" name="sidebar[<?php echo $this->getSidebarStorageAction() ?>][<?php echo $this->getIdentifierId($_item) ?>]" value="1" title="<?php echo Mage::helper('aitproductslists')->__('Add To Order') ?>"/>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php else: ?>
+            <p class="center"><?php echo Mage::helper('aitproductslists')->__('No items') ?></p>
+        <?php endif ?>
+        </div>
+    </div>
+</div>
+
+<style>
+    .item-hover:hover, .active
+    {
+        background-color: #AAA;
+        cursor: pointer;
+    }
+</style>

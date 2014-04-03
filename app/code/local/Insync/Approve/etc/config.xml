@@ -1,0 +1,30 @@
+<config>
+    <modules>
+        <Insync_Approve>
+            <version>1.0.0</version>
+        </Insync_Approve>
+    </modules>
+ 
+    <global>
+        <models>
+            <insync_approve>
+                <class>Insync_Approve</class>
+            </insync_approve>
+        </models>
+        <helpers>
+            <insync_approve>
+                <class>Insync_Approve_Helper</class>
+            </insync_approve>
+        </helpers>
+    </global>
+	<stores>
+       <admin>
+           <dev>
+               <debug>
+                   <template_hints>0</template_hints>
+                   <template_hints_blocks>0</template_hints_blocks>
+               </debug>
+           </dev>
+       </admin>
+   </stores>
+</config>

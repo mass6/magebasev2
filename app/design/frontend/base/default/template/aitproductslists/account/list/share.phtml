@@ -1,0 +1,51 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/account/list/share.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php
+$text =$this->getList()->getName();
+
+$text = str_replace('"',"''",$text);
+$text = str_replace('&',"and",$text);
+$text = Mage::helper('core')->urlEscape($text);
+
+$text = $this->__("Invite to my Products list - %s",$text);
+
+?><div class="box-account box-info">
+    <div class="col-set">
+        <div class="box-head title-buttons">
+            <h2 style="color:#E76200;"><?php echo $this->__('PRODUCT LIST SHARE') ?>
+                <?php if(Mage::getStoreConfigFlag('aitproductslists/share/twitter')) :?>
+                    <a rel="nofollow" target="_blank" href="http://twitter.com/intent/tweet?url=<?php echo $this->getPublicKey()?>"><img src="<?php echo $this->getSkinUrl('images/aitproductslists/twitter.png'); ?>" alt="Follow Twitter" width="24" height="24"></a>
+                <?php endif;?>
+                <?php if(Mage::getStoreConfigFlag('aitproductslists/share/facebook')) :?>
+                    <a rel="nofollow" target="_blank"  href="http://www.facebook.com/sharer.php?u=<?php echo $this->getPublicKey()?>&t=<?php echo $text; ?>" title="Add to Facebook"><img src="<?php echo $this->getSkinUrl('images/aitproductslists/facebook.png'); ?>" alt="Add to Facebook" width="24" height="24"></a>
+                <?php endif;?>
+                <?php if(Mage::getStoreConfigFlag('aitproductslists/share/email')) :?>
+                    <a rel="nofollow" target="_blank"  href="mailto:?subject=<?php echo $text; ?>&body=<?php echo $this->getEmailTemplate()?>" title="Send Email"><img src="<?php echo $this->getSkinUrl('images/aitproductslists/email.png'); ?>" alt="Send Email" width="24" height="24"></a>
+                <?php endif;?>
+            </h2>
+            <a href="#" onclick="window.open('<?php echo $this->getPreviewUrl() ?>','Preview')">Preview</a>
+        </div>
+        <div class="col-set">
+            <div class="box">
+                <table>
+                    <tr>
+                        <td width="30%">Direct link</td>
+                        <td>
+                            <input style="width: 550px;" type="text" name="share_link" value="<?php echo $this->getPublicKey() ?>" />
+                            <br/>
+                            <small>* For usage with messengers.</small>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

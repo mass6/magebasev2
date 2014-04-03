@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Dmx_AttributeIcons>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Dmx_AttributeIcons>
+	</modules>
+</config>

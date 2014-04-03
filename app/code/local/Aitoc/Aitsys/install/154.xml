@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<install><product id="154" key="Aitoc_Aitproductslists" version="1.0.4" license_id="15171" link_id="520324"><![CDATA[Recurring Purchase Assistant]]></product><serial>kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI</serial><checkid>d1e336f39fefa4a07a3686f8071c27fd</checkid><store_url><![CDATA[http://www.aitoc.com/en/]]></store_url><service><![CDATA[https://www.aitoc.com/api/xmlrpc/]]></service><constraint><product label="Number of products within one Magento installation ">1000</product></constraint></install>

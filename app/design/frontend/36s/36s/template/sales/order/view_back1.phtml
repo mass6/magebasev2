@@ -1,0 +1,1052 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="order-items order-details">
+    <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('items', $this->getOrder())) { ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            function giftMessageToogle(giftMessageIdentifier)
+            {
+                var link = $('order-item-gift-message-link-' + giftMessageIdentifier);
+                var container = $('order-item-gift-message-' + giftMessageIdentifier);
+                var row = $('order-item-row-' + giftMessageIdentifier);
+                if (link.expanded) {
+                    link.expanded = false;
+                    link.removeClassName('expanded');
+                    if (container.hasClassName('last')) {
+                        row.addClassName('last');
+                    }
+                    container.hide();
+                } else {
+                    link.expanded = true;
+                    link.addClassName('expanded');
+                    if (container.hasClassName('last')) {
+                        row.removeClassName('last');
+                    }
+                    container.show();
+                }
+
+                return false;
+            }
+            //]]>
+        </script>
+    <?php } ?>
+    <?php
+	$approveroptionid = Mage::helper('insync_approve')->getCustomerCategoryOptionId('Approver');
+	Mage::log('app id -'.$approveroptionid);
+	
+    $_order = $this->getOrder();
+    $check = 1;
+    $x = 1;
+    $lo = '';
+    $overideAuthority = 0;
+    $orderid = $_order->getId();
+    $l1 = $_order->getL1();
+    $l2 = $_order->getL2();
+    $l3 = $_order->getL3();
+    $l4 = $_order->getL4();
+    $l5 = $_order->getL5();
+    Mage::log('-------------------------------------------1--- ORDER LEVEL');
+    Mage::log($l1);
+    Mage::log($l2);
+    Mage::log($l3);
+    Mage::log($l4);
+    Mage::log($l5);
+    Mage::log('-------------------------------------------1--- ORDER LEVEL');
+    $override = $_order->getOverride();
+    $BaseGrandTotal = $_order->getBaseGrandTotal();
+
+
+    $last = 0;
+    $lastMessage = 'No further approvals required.';
+    // $appLev1=$_order->getApproversLevel1();
+    // $level1app=explode(',',$appLev1);
+    $contractId = $_order->getContractId();
+    $contractDetails = Mage::getModel('web/web')->getCollection()->addFieldToFilter('web_id', $contractId);
+    $userId = array();
+    foreach ($contractDetails as $each) {
+        //user id
+
+        if ($each['user1'] != '0')
+            $userId[] = $each['user1'];
+        if ($each['user2'] != '0')
+            $userId[] = $each['user2'];
+        if ($each['user3'] != '0')
+            $userId[] = $each['user3'];
+        if ($each['user4'] != '0')
+            $userId[] = $each['user4'];
+        if ($each['user5'] != '0')
+            $userId[] = $each['user5'];
+        if ($each['user6'] != '0')
+            $userId[] = $each['user6'];
+        if ($each['user7'] != '0')
+            $userId[] = $each['user7'];
+        if ($each['user8'] != '0')
+            $userId[] = $each['user8'];
+        if ($each['user9'] != '0')
+            $userId[] = $each['user9'];
+        if ($each['user10'] != '0')
+            $userId[] = $each['user10'];
+        if ($each['user11'] != '0')
+            $userId[] = $each['user11'];
+        if ($each['user12'] != '0')
+            $userId[] = $each['user12'];
+        if ($each['user13'] != '0')
+            $userId[] = $each['user13'];
+        if ($each['user14'] != '0')
+            $userId[] = $each['user14'];
+        if ($each['user15'] != '0')
+            $userId[] = $each['user15'];
+        if ($each['user16'] != '0')
+            $userId[] = $each['user16'];
+        if ($each['user17'] != '0')
+            $userId[] = $each['user17'];
+        if ($each['user18'] != '0')
+            $userId[] = $each['user18'];
+        if ($each['user19'] != '0')
+            $userId[] = $each['user19'];
+        if ($each['user20'] != '0')
+            $userId[] = $each['user20'];
+    }
+    $tempContractBilling1 = array();
+    $contractCode21 = '';
+    $name = '';
+    // $order21 = Mage::getModel("sales/order")->load($orderid); //load order by order id
+    $billing_address = $_order->getBillingAddress();
+    $name = $billing_address->getFirstname() . ' ' . $billing_address->getLastname();
+    $tempContractBilling1[] = $name;
+    $tempContractBilling1[] = $billing_address->getStreet();
+    // $tempContractBilling[] = $each['street1_bill'];
+    $tempContractBilling1[] = $billing_address->getCity();
+    $tempContractBilling1[] = $billing_address->getCountryId();
+    $tempContractBilling1[] = $billing_address->getRegion();
+    $tempContractBilling1[] = $billing_address->getPostcode();
+    $contractCode21 = implode('<br/>', $tempContractBilling1);
+
+    $customerId = Mage::getModel('customer/session')->getCustomer()->getId();
+    $customerData = Mage::getModel('customer/customer')->load($customerId)->getData();
+//    Mage::log('custiomer');
+//    Mage::log($customerData['cust_category']);
+    $customerCategory = $customerData['cust_category'];
+    unset($customerData);
+    $message = 'You are the last available approver.';
+    $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'cust_category');
+    $options1 = array();
+    $options2 = array();
+    if ($attribute->usesSource()) {
+        foreach ($attribute->getSource()->getAllOptions() as $optionValue) {
+            foreach ($optionValue as $key => $value) {
+                if ($key == 'label')
+                    $options1[] = $value;
+                if ($key == 'value')
+                    $options2[] = $value;
+            }
+        }
+    }
+    $appId = '';
+    for ($i = 0; $i < count($options1); $i++) {
+        if ($options1[$i] == 'Approver')
+            $appId = $options2[$i];
+    }
+    unset($attribute);
+
+
+
+
+
+    $custId = '';
+    $level = '';
+    $lo = '';
+    $oal = 0;
+
+    $collection = Mage::getModel('customer/customer')->getCollection()
+            ->addAttributeToSelect('*')
+            ->addFieldToFilter('entity_id', $customerId)
+            ->addFieldToFilter('cust_category', $appId);
+
+
+    foreach ($collection as $customer) {
+        $level = $customer->getApprovalLevel();
+        // $custId1[] = $customer->getId();
+        // $custName[] = $customer->getFirstName(). ' ' . $customer->getLastName();
+        $custId = $customer->getId();
+        $lo = $customer->getLo();
+        $oal = $customer->getOav();
+    }
+
+    $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'approval_level');
+    $options3 = array();
+    $options4 = array();
+    if ($attribute->usesSource()) {
+        foreach ($attribute->getSource()->getAllOptions() as $optionValue) {
+            foreach ($optionValue as $key => $value) {
+                if ($key == 'label')
+                    $options3[] = $value;
+                if ($key == 'value')
+                    $options4[] = $value;
+            }
+        }
+    }
+    $applevel1 = '';
+    $applevel2 = '';
+    $applevel3 = '';
+    $applevel4 = '';
+    $applevel5 = '';
+    for ($i = 0; $i < count($options3); $i++) {
+
+        if ($options3[$i] == 1) {
+            $applevel1 = $options4[$i];
+        } else if ($options3[$i] == 2) {
+
+            $applevel2 = $options4[$i];
+        } else if ($options3[$i] == 3) {
+            $applevel3 = $options4[$i];
+        } else if ($options3[$i] == 4) {
+            $applevel4 = $options4[$i];
+        } else if ($options3[$i] == 5) {
+            $applevel5 = $options4[$i];
+        }
+    }
+    unset($attribute);
+
+    $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'active_approver');
+    $options5 = array();
+    $options6 = array();
+    if ($attribute->usesSource()) {
+        foreach ($attribute->getSource()->getAllOptions() as $optionValue) {
+            foreach ($optionValue as $key => $value) {
+                if ($key == 'label')
+                    $options5[] = $value;
+                if ($key == 'value')
+                    $options6[] = $value;
+            }
+        }
+    }
+    $appA = '';
+
+    for ($i = 0; $i < count($options5); $i++) {
+        if ($options5[$i] == 'Yes') {
+            $appA = $options6[$i];
+        }
+    }
+    unset($attribute);
+    $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'lo');
+    $options7 = array();
+    $options8 = array();
+    if ($attribute->usesSource()) {
+        foreach ($attribute->getSource()->getAllOptions() as $optionValue) {
+            foreach ($optionValue as $key => $value) {
+                if ($key == 'label')
+                    $options7[] = $value;
+                if ($key == 'value')
+                    $options8[] = $value;
+            }
+        }
+    }
+    $isLO = '';
+
+    for ($i = 0; $i < count($options7); $i++) {
+        if ($options7[$i] == 'Yes') {
+            $isLO = $options8[$i];
+        }
+    }
+    if ($customerCategory == $appId) {
+        if ($override == 0) {
+            if ($isLO == $lo) {
+                if ($BaseGrandTotal <= $oal) {
+                    $overideAuthority = 1;
+                }
+            }
+        }
+    }
+//    Mage::log('overe');
+//    Mage::log($overideAuthority);
+    $custId1 = array();
+    $custId1[0] = 0;
+    $custName = array();
+    $custName[0] = '---select---';
+    $cusId = array();
+    $cusId[0] = 0;
+    $cusName = array();
+    $cusName[0] = '---select---';
+
+    if ($applevel1 == $level) {
+        Mage::log('-------------------------------------------applevel 1---');
+        if ($l1 == 0) {
+            if ($l2 != 0) {
+                foreach ($userId as $key => $value) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $value)
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel2);
+                    foreach ($collection as $customer) {
+                        $custId1[] = $customer->getId();
+                        $custName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+                $level1appr = $_order->getApproversLevel1();
+                $tempLevel = explode(',', $level1appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel1);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+                if ($l2 != 0 && count($custId1) == 1) {
+                    $message = 'Cannot proceed with approval process: Additional approvers are required, but are either inactive or not configured.';
+                    $x = 0;
+                }
+            } else if ($l2 == 0) {
+                $check = 0;
+                $level1appr = $_order->getApproversLevel1();
+                $tempLevel = explode(',', $level1appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel1);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            } else {
+                $level1appr = $_order->getApproversLevel1();
+                $tempLevel = explode(',', $level1appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel1);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            }
+        } else {
+            $level1appr = $_order->getApproversLevel1();
+            $tempLevel = explode(',', $level1appr);
+            for ($i = 0; $i < count($tempLevel); $i++) {
+                $collection = Mage::getModel('customer/customer')->getCollection()
+                        ->addAttributeToSelect('*')
+                        ->addFieldToFilter('entity_id', $tempLevel[$i])
+                        ->addFieldToFilter('cust_category', $appId)
+                        ->addFieldToFilter('active_approver', $appA)
+                        ->addFieldToFilter('approval_level', $applevel1);
+                foreach ($collection as $customer) {
+                    $cusId[] = $customer->getId();
+                    $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                }
+            }
+            if ($overideAuthority == 1) {
+                foreach ($userId as $key => $value) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $value)
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel2);
+                    foreach ($collection as $customer) {
+                        $custId1[] = $customer->getId();
+                        $custName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            }
+            if ($l1 != 0 && count($cusId) == 1) {
+                $message = 'Cannot proceed with approval process: Additional approvers are required at your same level, but are either inactive or not configured.';
+                $x = 0;
+            }
+            if ($l2 != 0 && count($cusId) == 1) {
+                $message = 'Cannot proceed with approval process: Additional approvers are required at your same level, but are either inactive or not configured.';
+                $x = 0;
+            }
+        }
+    } else if ($applevel2 == $level) {
+        Mage::log('-------------------------------------------applevel 2---');
+        if ($l2 == 0) {
+            if ($l3 != 0) {
+                foreach ($userId as $key => $value) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $value)
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel3);
+                    foreach ($collection as $customer) {
+                        $custId1[] = $customer->getId();
+                        $custName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+                $level2appr = $_order->getApproversLevel2();
+                $tempLevel = explode(',', $level2appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel2);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+                if ($l3 != 0 && count($custId1) == 1) {
+                    $message = 'Cannot proceed with approval process: Additional approvers are required, but are either inactive or not configured.';
+                    $x = 0;
+                }
+            } else if ($l3 == 0) {
+                Mage::log('-------------------------------------------level 3 is zero---');
+                $check = 0;
+                $level2appr = $_order->getApproversLevel2();
+                $tempLevel = explode(',', $level2appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel2);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            } else {
+
+                $level2appr = $_order->getApproversLevel2();
+                $tempLevel = explode(',', $level2appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel2);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            }
+        } else {
+            Mage::log('-------------------------------------------else of level 2---');
+            $level2appr = $_order->getApproversLevel2();
+            $tempLevel = explode(',', $level2appr);
+            for ($i = 0; $i < count($tempLevel); $i++) {
+                $collection = Mage::getModel('customer/customer')->getCollection()
+                        ->addAttributeToSelect('*')
+                        ->addFieldToFilter('entity_id', $tempLevel[$i])
+                        ->addFieldToFilter('cust_category', $appId)
+                        ->addFieldToFilter('active_approver', $appA)
+                        ->addFieldToFilter('approval_level', $applevel2);
+                foreach ($collection as $customer) {
+                    $cusId[] = $customer->getId();
+                    $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                }
+            }
+			
+			
+			
+            if ($l2 != 0 && count($cusId) == 1) {
+                $message = 'Cannot proceed with approval process: Additional approvers are required at your same level, but are either inactive or not configured.';
+                $x = 0;
+            }
+            if ($l3 != 0 && count($cusId) == 1) {
+                $message = 'Cannot proceed with approval process: Additional approvers are required at your same level, but are either inactive or not configured.';
+                $x = 0;
+            }
+        }
+    } else if ($applevel3 == $level) {
+        Mage::log('---------------$applevel3 == $level-------------------------------');
+        Mage::log($l3 . '-----------' . $l4);
+        if ($l3 == 0) {
+            if ($l4 != 0) {
+                foreach ($userId as $key => $value) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $value)
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel4);
+                    foreach ($collection as $customer) {
+                        $custId1[] = $customer->getId();
+                        $custName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+                $level3appr = $_order->getApproversLevel3();
+                $tempLevel = explode(',', $level3appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel3);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+                if ($l4 != 0 && count($custId1) == 1) {
+                    $message = 'Cannot proceed with approval process: Additional approvers are required, but are either inactive or not configured.';
+                    $x = 0;
+                }
+            } else if ($l4 == 0) {
+                $check = 0;
+                $level3appr = $_order->getApproversLevel3();
+                $tempLevel = explode(',', $level3appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel3);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            } else {
+                $level3appr = $_order->getApproversLevel3();
+                $tempLevel = explode(',', $level3appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel3);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            }
+        } else {
+
+            $level3appr = $_order->getApproversLevel3();
+            $tempLevel = explode(',', $level3appr);
+            for ($i = 0; $i < count($tempLevel); $i++) {
+                $collection = Mage::getModel('customer/customer')->getCollection()
+                        ->addAttributeToSelect('*')
+                        ->addFieldToFilter('entity_id', $tempLevel[$i])
+                        ->addFieldToFilter('cust_category', $appId)
+                        ->addFieldToFilter('active_approver', $appA)
+                        ->addFieldToFilter('approval_level', $applevel3);
+                foreach ($collection as $customer) {
+                    $cusId[] = $customer->getId();
+                    $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                }
+            }
+            if ($l4 != 0 && count($cusId) == 1) {
+                $message = 'Cannot proceed with approval process: Additional approvers are required at your same level, but are either inactive or not configured.';
+                $x = 0;
+            }
+            if ($l3 != 0 && count($cusId) == 1) {
+                $message = 'Cannot proceed with approval process: Additional approvers are required at your same level, but are either inactive or not configured.';
+                $x = 0;
+            }
+        }
+    } else if ($applevel4 == $level) {
+        Mage::log('-------------------------------------------applevel 4---');
+        if ($l4 == 0) {
+            if ($l5 != 0) {
+                foreach ($userId as $key => $value) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $value)
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel5);
+                    foreach ($collection as $customer) {
+                        $custId1[] = $customer->getId();
+                        $custName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+                $level4appr = $_order->getApproversLevel4();
+                $tempLevel = explode(',', $level4appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel4);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+                if ($l5 != 0 && count($custId1) == 1) {
+                    $message = 'Cannot proceed with approval Process: Additional approvers are required, but are either inactive or not configured.';
+                    $x = 0;
+                }
+            } else if ($l5 == 0) {
+                $check = 0;
+                $level1appr = $_order->getApproversLevel5();
+                $tempLevel = explode(',', $level5appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel5);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            } else {
+                $level4appr = $_order->getApproversLevel4();
+                $tempLevel = explode(',', $level4appr);
+                for ($i = 0; $i < count($tempLevel); $i++) {
+                    $collection = Mage::getModel('customer/customer')->getCollection()
+                            ->addAttributeToSelect('*')
+                            ->addFieldToFilter('entity_id', $tempLevel[$i])
+                            ->addFieldToFilter('cust_category', $appId)
+                            ->addFieldToFilter('active_approver', $appA)
+                            ->addFieldToFilter('approval_level', $applevel4);
+                    foreach ($collection as $customer) {
+                        $cusId[] = $customer->getId();
+                        $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                    }
+                }
+            }
+        } else {
+            $level4appr = $_order->getApproversLevel4();
+            $tempLevel = explode(',', $level4appr);
+            for ($i = 0; $i < count($tempLevel); $i++) {
+                $collection = Mage::getModel('customer/customer')->getCollection()
+                        ->addAttributeToSelect('*')
+                        ->addFieldToFilter('entity_id', $tempLevel[$i])
+                        ->addFieldToFilter('cust_category', $appId)
+                        ->addFieldToFilter('active_approver', $appA)
+                        ->addFieldToFilter('approval_level', $applevel4);
+                foreach ($collection as $customer) {
+                    $cusId[] = $customer->getId();
+                    $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                }
+            }
+            if ($l5 != 0 && count($cusId) == 1) {
+                $message = 'Cannot proceed with approval process: Additional approvers are required at your same level, but are either inactive or not configured.';
+                $x = 0;
+            }
+            if ($l4 != 0 && count($cusId) == 1) {
+                $message = 'Cannot proceed with approval process: Additional approvers are required at your same level, but are either inactive or not configured.';
+                $x = 0;
+            }
+        }
+    } else {
+        Mage::log('-------------------------------------------applevel last---');
+        if ($l5 == 0) {
+            $check = 0;
+            $level5appr = $_order->getApproversLevel5();
+            $tempLevel = explode(',', $level5appr);
+            for ($i = 0; $i < count($tempLevel); $i++) {
+                $collection = Mage::getModel('customer/customer')->getCollection()
+                        ->addAttributeToSelect('*')
+                        ->addFieldToFilter('entity_id', $tempLevel[$i])
+                        ->addFieldToFilter('cust_category', $appId)
+                        ->addFieldToFilter('active_approver', $appA)
+                        ->addFieldToFilter('approval_level', $applevel5);
+                $q = $collection->getSelectSql(true);
+                foreach ($collection as $customer) {
+                    $cusId[] = $customer->getId();
+                    $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                }
+            }
+        } else {
+            $level5appr = $_order->getApproversLevel5();
+            $tempLevel = explode(',', $level5appr);
+            for ($i = 0; $i < count($tempLevel); $i++) {
+                $collection = Mage::getModel('customer/customer')->getCollection()
+                        ->addAttributeToSelect('*')
+                        ->addFieldToFilter('entity_id', $tempLevel[$i])
+                        ->addFieldToFilter('cust_category', $appId)
+                        ->addFieldToFilter('active_approver', $appA)
+                        ->addFieldToFilter('approval_level', $applevel5);
+                foreach ($collection as $customer) {
+                    $cusId[] = $customer->getId();
+                    $cusName[] = $customer->getData('firstname') . ' ' . $customer->getData('lastname');
+                }
+            }
+        }
+    }
+    Mage::log('-------------------------------------------level job done---');
+    $current = count($cusId);
+    $next = count($custId1);
+    // Mage::log('nextttt');
+    // Mage::log($next);
+    $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+    $sql = "SELECT `comment` FROM  `sales_flat_order_status_history` WHERE  `parent_id` = " . $orderid . "";
+    $orderhistory = $read->fetchAll($sql);
+
+    $tempComment = array();
+    foreach ($orderhistory as $row) {
+        foreach ($row as $key1 => $value) {
+            if ($key1 == 'comment') {
+                $tempComment[] = $value;
+            }
+        }
+    }
+    $sql = "SELECT MAX(`entity_id`) FROM  `sales_flat_order_status_history` WHERE  `parent_id` = " . $orderid . "";
+    $orderhistory = $read->fetchAll($sql);
+    $tempentityid = '';
+    foreach ($orderhistory as $row) {
+        foreach ($row as $key1 => $value) {
+            $tempentityid = $value;
+        }
+    }
+    $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+    $sql = "SELECT `customer_id` FROM  `sales_flat_order_status_history` WHERE  `entity_id` = " . $tempentityid . "";
+    $orderhistory = $read->fetchAll($sql);
+    $tempCustId = '';
+
+    foreach ($orderhistory as $row) {
+        foreach ($row as $key1 => $value) {
+            if ($key1 == 'customer_id') {
+                $tempCustId = $value;
+            }
+        }
+    }
+    ?>
+
+    <h2 class="table-caption"><?php echo $this->__('Items Ordered') ?>
+        <?php if ($_order->getTracksCollection()->count()) { ?>
+            <span class="separator">|</span> <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>', 'trackorder', 'top=0,left=0,width=800,height=600,resizable=yes,scrollbars=yes');
+                    return false;" title="<?php echo $this->__('Track your order') ?>"><?php echo $this->__('Track your order') ?></a>
+                                            <?php } ?>
+    </h2>
+
+    <?php echo $this->getChildHtml('order_items') ?>
+
+    <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('order', $_order) && $_order->getGiftMessageId()) { ?>
+        <div class="order-additional order-gift-message">
+            <h2 class="sub-title"><?php echo $this->__('Gift Message for This Order') ?></h2>
+            <?php $_giftMessage = $this->helper('giftmessage/message')->getGiftMessageForEntity($_order); ?>
+            <dl class="gift-message">
+                <dt><strong><?php echo $this->__('From:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?></dt>
+                <dt><strong><?php echo $this->__('To:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?></dt>
+                <dd><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_order) ?></dd>
+            </dl>
+        </div>
+    <?php } ?>
+    <?php $_history = $this->getOrder()->getAllStatusHistory() ?>
+    <?php if (count($_history)) { ?>
+        <div class="order-info-box">
+            <h2 class="sub-title"><?php echo $this->__('About Your Order') ?></h2>
+            <dl class="order-about">
+                <?php foreach ($_history as $_historyItem): ?>
+                    <dt><?php echo $this->formatDate($_historyItem->getCreatedAtStoreDate(), 'medium', true) ?> <span>|</span><span class="separator" id="comment"><?php echo $this->escapeHtml($_historyItem->getComment()) ?></span></dt>
+                    <!--dd><?php echo $this->escapeHtml($_historyItem->getComment()) ?></dd-->
+                <?php endforeach; ?>
+            </dl>
+
+            <?php if ($customerId == $custId) { ?>
+                <dl class="order-about">
+                    <form method="GET" action="<?php echo $this->getSubmitUrl($_order) ?>">
+                        <label class="normal" for="history_comment"><?php echo Mage::helper('sales')->__('Comment') ?></label>
+                        <textarea name="history" rows="3" cols="5" style="height:45px; width:472px;" id="history_comment"></textarea>
+                        <div class="f-right">
+                            <button type="submit" title="<?php echo $this->__('Add Comment') ?>" class="button" onclick="<?php echo $this->getSubmitUrl($_order) ?>">
+                                <span>
+                                    <span><?php echo $this->__('Add Comment') ?></span>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </dl>
+                </br>
+                <!-------------- testing --------------->	
+				<?php Mage::log('Next -'.$next);  ?>
+				<?php Mage::log('Current -'.$current);  ?>
+				<?php Mage::log('check -'.$check);  ?>
+				<?php Mage::log('overideAuthority -'.$overideAuthority);  ?>
+                <?php if ($overideAuthority == 0) { ?>
+                    <dl class="order-about">
+                        <form method="GET" action="<?php echo $this->getNextApproverUrl($_order) ?>">
+                            <div align="left">
+                                <?php if (intval($next) > 1) { ?>
+                                    <label class="normal"><?php echo Mage::helper('sales')->__('Next Required Approver') ?></label>
+                                    <select name="approverdropdown" id="next">
+                                        <?php for ($i = 0; $i < count($custId1); $i++) { ?>
+                                            <option value="<?php echo $custId1[$i]; ?>"><?php echo $custName[$i]; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <?php
+                                }
+                                if (intval($current0) > 1) {
+                                    if (intval($check) == 0) {
+                                        ?>
+                                        <label class="normal"><?php echo Mage::helper('sales')->__('Optional Approver') ?></label>
+                                        <select name="approverdropdown" id="current" onchange="appr()" >
+                                            <?php for ($i = 0; $i < count($cusId); $i++) { ?>
+                                                <option value="<?php echo $cusId[$i]; ?>"><?php echo $cusName[$i]; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    <?php
+                                    } else {
+                                        if (intval($next) > 1) {
+                                            ?>
+                                            <label class="normal"><?php echo Mage::helper('sales')->__('Optional Approver') ?></label>
+                                        <?php } else { ?>
+                                            <label class="normal"><?php echo Mage::helper('sales')->__('Next Required Approver') ?></label>
+                                            <?php } ?>
+                                        <select name="approverdropdown"  id="current">
+                                            <?php for ($i = 0; $i < count($cusId); $i++) { ?>
+                                                <option value="<?php echo $cusId[$i]; ?>"><?php echo $cusName[$i]; ?></option>
+                                        <?php } ?>
+                                        </select>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                                </br>
+                                </br>
+                                &emsp;&emsp;&emsp;
+            <?php if ($check == 0) { ?>
+                                    <button type="button" title="<?php echo $this->__('Next Approver') ?>" id="finalO" class="button" onclick="redirect1()">
+                                        <span>
+                                            <span><?php echo $this->__('Give Final Approval') ?></span>
+                                        </span>
+                                    </button>
+                                    <button type="button" title="<?php echo $this->__('Next Approver') ?>" id="approveO" style="display:none" class="button" onclick="redirect()">
+                                        <span>
+                                            <span><?php echo $this->__('Approve Order') ?></span>
+                                        </span>
+                                    </button>
+                                    <?php
+                                } else {
+                                    if ($x == 1) {
+                                        ?>
+                                        <button type="button" title="<?php echo $this->__('Next Approver') ?>" id="approveO" class="button" onclick="redirect()">
+                                            <span>
+                                                <span><?php echo $this->__('Approve Order') ?></span>
+                                            </span>
+                                        </button>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                <button onClick="rejctFunction()" style="display:inline" class="button" type="button">
+                                    <span>
+                                        <span><?php echo $this->__('Reject Order') ?></span>
+                                    </span>
+                                </button>
+                                </br>
+                                <?php if ($current == 1 && $next == 1 || $x == 0) { ?>
+                                    <span class="approver-message"><label class="normal"><b><?php echo $message; ?></b></label> </span>	
+            <?php } ?> 
+                            </div>
+                        </form>
+                    </dl>
+        <?php } else { ?>
+                    <dl class="order-about">
+                        <form method="GET" action="<?php echo $this->getNextApproverUrl($_order) ?>">
+                            <div align="left">
+                                    <?php if ($next > 1) { ?>
+                                    <label class="normal"><?php echo Mage::helper('sales')->__('Next Required Approver') ?></label>
+                                    <select name="approverdropdown" id="next">
+                                        <?php for ($i = 0; $i < count($custId1); $i++) { ?>
+                                            <option value="<?php echo $custId1[$i]; ?>"><?php echo $custName[$i]; ?></option>
+                                    <?php } ?>
+                                    </select>
+                                <?php } ?>
+                                <?php if ($current > 1) { ?>
+                                    
+                                        <?php if ($overideAuthority == 1) { ?>
+                                            <?php if ($next > 1) { ?>
+											<label class="normal"><?php echo Mage::helper('sales')->__('Optional Approver') ?></label>
+                                            <select name="approverdropdown"  id="current">
+                                                <?php for ($i = 0; $i < count($cusId); $i++) { ?>
+                                                    <option value="<?php echo $cusId[$i]; ?>"><?php echo $cusName[$i]; ?></option>
+                                            <?php } ?>
+                                            </select>
+                                            <?php } else { ?>
+												<!--select name="approverdropdown"  id="current" onchange="appr()">
+													<?php for ($i = 0; $i < count($cusId); $i++) { ?>
+														<option value="<?php echo $cusId[$i]; ?>"><?php echo $cusName[$i]; ?></option>
+												<?php } ?>
+												</select-->
+												<label class="normal"><?php echo Mage::helper('sales')->__('Next Level Approver') ?></label>
+												<?php
+													$data = Mage::helper('insync_approve')->getApproverandName($_order->getApproversLevel3());
+													$cusIdM = $data['cust'];
+													$cusNameM = $data['cusname'];
+												?>
+												<select name="approverdropdown"  id="current" onchange="appr()">
+													<?php for ($i = 0; $i < count($cusIdM); $i++) { ?>
+														<option value="<?php echo $cusIdM[$i]; ?>"><?php echo $cusNameM[$i]; ?></option>
+												<?php } ?>
+												</select>
+											<?php } ?>
+                                        <?php } else { ?>
+										<label class="normal"><?php echo Mage::helper('sales')->__('Optional Approver') ?></label>
+                                        <select name="approverdropdown"  id="current" onchange="appr()" >
+                                            <?php for ($i = 0; $i < count($cusId); $i++) { ?>
+                                                <option value="<?php echo $cusId[$i]; ?>"><?php echo $cusName[$i]; ?></option>
+                                        <?php } ?>
+                                        </select>
+									<?php } ?>
+								<?php } ?>
+                                </br>
+                                </br>
+                                &emsp;&emsp;&emsp;
+            <?php if ($next == 1) { ?>
+                                    <button type="button" title="<?php echo $this->__('Next Approver') ?>" id="final0O" style="display:none" class="button" onclick="redirect1()">
+                                        <span>
+                                            <span><?php echo $this->__('Give Final Approval') ?></span>
+                                        </span>
+                                    </button>
+                                    <button type="button" title="<?php echo $this->__('Next Approver') ?>" id="approveO" style="display:none" class="button" onclick="redirect()">
+                                        <span>
+                                            <span><?php echo $this->__('Approve Order') ?></span>
+                                        </span>
+                                    </button>
+                                    <?php
+                                } else {
+                                    if ($x == 1) {
+                                        ?>
+                                        <button type="button" title="<?php echo $this->__('Next Approver') ?>" id="approveO" class="button" onclick="redirect()">
+                                            <span>
+                                                <span><?php echo $this->__('Approve Order') ?></span>
+                                            </span>
+                                        </button>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                <button onClick="rejctFunction()" style="display:inline" class="button" type="button">
+                                    <span>
+                                        <span><?php echo $this->__('Reject Order') ?></span>
+                                    </span>
+                                </button>
+                                </br>
+                                <?php if ($x == 0) { ?>
+                                    <span class="approver-message"><label class="normal"><b><?php echo $message; ?></b></label> </span>	
+            <?php } ?> 
+                            </div>
+                        </form>
+                    </dl>
+
+
+        <?php } ?>
+    <?php } ?>
+
+        </div>
+
+<?php } ?>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->getBackTitle() ?></a></p>
+    </div>
+</div>
+<script  type="text/javascript">
+    function redirect() {
+<?php if ($next > 1 && $current > 1) { ?>
+            var x = document.getElementById('next').value;
+            var y = document.getElementById('current').value;
+            if (confirm('<?php echo $this->__('Are you sure you want to approve this order?') ?>')) {
+                if (x == 0 && y == 0) {
+                    alert('Please select an approver');
+                } else if (x == 0) {
+                    document.getElementById("next").disabled = true;
+                    window.location.assign("<?php echo $this->getApproveUrl($_order) ?>=" + y);
+                } else if (y == 0) {
+                    document.getElementById("current").disabled = true;
+                    window.location.assign("<?php echo $this->getApproveUrl($_order) ?>=" + x);
+                }
+            }
+
+<?php } else if ($next > 1) { ?>
+            if (confirm('<?php echo $this->__('Are you sure you want to approve this order?') ?>')) {
+                var y = document.getElementById('next').value;
+                if (y == 0) {
+                    alert('Please Select An Approver');
+                } else {
+                    window.location.assign("<?php echo $this->getApproveUrl($_order) ?>=" + y);
+                }
+            }
+
+<?php } else { ?>
+            if (confirm('<?php echo $this->__('Are you sure you want to approve this order?') ?>')) {
+                var y = document.getElementById('current').value;
+                if (y == 0) {
+                    alert('Please Select An Approver');
+                } else {
+                    window.location.assign("<?php echo $this->getApproveUrl($_order) ?>=" + y);
+                }
+            }
+<?php } ?>
+    }
+</script>
+<script  type="text/javascript">
+    function redirect1() {
+        if (confirm('<?php echo $this->__('Are you sure you want to approve this order?') ?>')) {
+            window.location.assign("<?php echo $this->getApproveUrl($_order) ?>=0");
+        } else {
+        }
+    }
+
+    function appr() {
+        var x = document.getElementById('current').value;
+        if (x == 0) {
+            document.getElementById('approveO').style.display = 'none';
+            document.getElementById('finalO').style.display = 'inline';
+        } else {
+            document.getElementById('approveO').style.display = 'inline';
+            document.getElementById('finalO').style.display = 'none';
+        }
+    }
+
+    function rejctFunction() {
+        var r = confirm("Do you really want to reject this order ? ");
+        if (r == true) {
+<?php if ($tempCustId != $customerId) { ?>
+                alert('Please add comment for rejecting the order!!!!!!!');
+<?php } else { ?>
+                window.location.assign("<?php echo $this->getRejectUrl($_order) ?>")
+<?php } ?>
+        }
+    }
+</script>intval

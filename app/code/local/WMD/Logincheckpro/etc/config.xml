@@ -1,0 +1,95 @@
+<?xml version="1.0"?> 
+<!--
+/**
+ * WMD Web-Manufaktur/Digiswiss 
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that you find at http://wmdextensions.com/WMD-License-Community.txt
+ *
+ * @category  WMD
+ * @package   WMD_Logincheckpro
+ * @author    Dominik Wyss <info@wmdextensions.com>
+ * @copyright 2011 Dominik Wyss | Digiswiss (http://www.digiswiss.ch)
+ * @link      http://wmdextensions.com/
+ * @license   http://wmdextensions.com/WMD-License-Community.txt 
+ */
+-->
+<config>
+  <modules>
+    <WMD_Logincheckpro>
+      <version>1.0.6</version>
+    </WMD_Logincheckpro>
+  </modules>
+  <frontend>
+  	<events>
+  		<controller_action_layout_load_before>
+  			<observers>
+  				<wmd_logincheckpro_observer>
+  					<type>singleton</type>
+  					<class>WMD_Logincheckpro_Model_Observer</class>
+  					<method>checkLogin</method>
+  				</wmd_logincheckpro_observer>
+  			</observers>
+  		</controller_action_layout_load_before>
+  	</events>
+  </frontend> 
+  <adminhtml>   
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+						  <children>
+						    <config>  
+    						  <children> 
+    						    <logincheckpro>
+    						      <title>Login Check</title>
+    						    </logincheckpro>
+    						  </children>
+						    </config>
+						  </children>
+            </system>
+					</children>
+				</admin>
+			</resources>
+		</acl> 
+	  <translate>
+        <modules>
+            <WMD_Logincheckpro>
+                <files>
+                    <default>WMD_Logincheckpro.csv</default>
+                </files>
+            </WMD_Logincheckpro>
+        </modules>
+    </translate>
+  </adminhtml>
+  <global>
+    <models>             
+        <logincheckpro>
+            <class>WMD_Logincheckpro_Model</class>            
+        </logincheckpro>
+    </models>
+  	<helpers>
+  		<logincheckpro>
+  			<class>WMD_Logincheckpro_Helper</class>
+  		</logincheckpro>
+  	</helpers>
+  </global>  
+  <default>
+    <logincheckpro>
+      <general>
+        <enable>0</enable>
+      </general>
+      <pages>
+        <allowed><![CDATA[no-route,home,about-magento-demo-store,customer-service,enable-cookies]]></allowed>
+      </pages>
+      <actions>
+        <allowed><![CDATA[/customer_account_create/,/customer_account_forgotpassword/]]></allowed>
+      </actions>
+    </logincheckpro>
+  </default>
+</config>

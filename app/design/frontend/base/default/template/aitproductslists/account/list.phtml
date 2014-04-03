@@ -1,0 +1,89 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/account/list.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_lists = $this->getLists(); ?>
+<div class="page-title title-buttons">
+    <h1><?php echo $this->__('My Products Lists') ?></h1>
+	<button onclick="location.href='<?php echo Mage::helper('aitproductslists')->getNewListUrl() ?>'"><?php echo $this->__('Create New List') ?></button>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if($_lists->getSize()): ?>
+<table class="data-table" id="my-orders-table">
+    <col width="1" />
+    <col width="1" />
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('List #') ?></th>
+            <th width="40%"><?php echo $this->__('Name') ?></th>
+            <th><?php echo $this->__('Date') ?></th>
+            <th><?php echo $this->__('Purchase Count') ?></th>
+            <th><?php echo $this->__('Items Qty') ?></th>
+            <th><?php echo $this->__('Subtotal Price') ?></th>
+            <th style="text-align: center"><?php echo $this->__('Actions') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = '';
+              $i = 1;
+              $p =$this->getCurrentPage();
+              $limit = $this->getLimit();
+              if ($p>1)
+              {
+                  $p = $p-1;
+                  $i = $p * $limit +1;
+              }
+        ?>
+        <?php foreach ($_lists as $_list): //echo "<pre>"; print_r(); exit; ?>
+        <?php 
+        $listName = $_list->getName();
+        $listName = strip_tags($listName);
+        //$listName = strip_tags($listName);
+        if (strlen($listName)>25)
+        {
+            $listName = substr($listName,0,25)."...";
+        }
+        ?>
+        <tr>
+            <td><?php echo $i++ ?></td>
+            <td><?php echo $listName; ?></td>
+            <td><span class="nobr"><?php echo $this->formatDate($_list->getCreateDate()) ?></span></td>
+            <td><?php echo $_list->getPayQty() ?></td>
+            <td><?php echo $_list->getData('items_qty')*1 ?></td>			
+            <!-- <td><em>
+                <?php if ($this->canDiscount($_list)): ?>
+                    <?php echo Mage::helper('core')->currency($_list->getSubtotal()-$_list->getSubtotal()*($_list->getDiscount()->getPrice()/100)) ?>
+                <?php else: ?>
+                    <?php echo Mage::helper('core')->currency($_list->getSubtotal()) ?>
+                <?php endif; ?>
+            </em></td> -->
+			<td>N/A</td>
+            <td class="a-left">
+                <span class="nobr">
+            <a href="<?php echo $this->getViewUrl($_list) ?>"><?php echo $this->__('View List') ?></a>
+            <?php if($_list->getQuote()->getItemsCollection()->getSize()): ?>
+            <span class="separator">|</span> 
+            <a href="<?php echo $this->getToCartUrl($_list) ?>" class="link-reorder"><?php echo $this->__('Add to Cart') ?></a>
+            <?php endif; ?>
+                </span>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('You have no items in your list of personal product lists. '); ?></p>
+<?php endif ?>

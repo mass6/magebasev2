@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/aitproductslists/styles.css</stylesheet></action>
+        </reference>
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="aitproductslists"><label>My Product Lists</label><url helper="aitproductslists/list/getAccountListUrl"/><title>My Product Lists</title><prepare/><urlParams/><position>10</position></action>
+        </reference>
+        <reference name="right">
+            <block type="aitproductslists/list_sidebar" name="list_sidebar" template="aitproductslists/list/sidebar.phtml" before="-">
+                <action method="addItemRender"><type>simple</type><block>aitproductslists/list_sidebar_item_renderer</block><template>aitproductslists/list/sidebar/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>aitproductslists/list_sidebar_item_renderer_grouped</block><template>aitproductslists/list/sidebar/default.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>aitproductslists/list_sidebar_item_renderer_configurable</block><template>aitproductslists/list/sidebar/default.phtml</template></action>
+                <action method="addItemRender"><type>bundle</type><block>aitproductslists/list_sidebar_item_renderer_bundle</block><template>aitproductslists/list/sidebar/default.phtml</template></action>
+            </block>
+        </reference>
+    </default>
+    
+
+    
+    <catalog_product_view>
+        <reference name="product.info.addtocart">
+            <block type='aitproductslists/catalog_product_listform' name='aitproductslists.listform' as="aitproductslists.listform" template="aitproductslists/catalog/product/listform.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type='core/template' name='aitproductslists.jsadd' after="product.info" template="aitproductslists/catalog/product/jsadd.phtml"/>
+        </reference>
+    </catalog_product_view>
+    
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="aitproductslists">
+                <name>aitproductslists</name>
+                <path>aitproductslists/list/grid</path>
+                <label>My Product Lists</label>
+            </action>
+        </reference>
+    </customer_account>    
+    <!-- customer_account_login translate="label">
+        <reference name='content'>
+            <block type="aitproductslists/account_list" name="aitproductslists.account.list">
+                <block type="core/text_list" name="aitproductslists.account.list.info" as="info" translate="label">
+                    <label>My Products Lists Info</label>
+                </block>
+            </block>
+        </reference>
+    </customer_account_login -->
+    <aitproductslists_list_grid translate="label">
+        <label>My Products Lists</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="aitproductslists/account_list" name="aitproductslists.account.list">
+                <block type="core/text_list" name="aitproductslists.account.list.info" as="info" translate="label">
+                    <label>My Products Lists Info</label>
+                </block>
+            </block>
+    </reference>
+    </aitproductslists_list_grid>
+    
+    <aitproductslists_list_view translate="label">
+         <label>Customer My Products List View</label>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+            <block type="core/html_calendar" name="html_calendar" as="calendar" template="aitproductslists/js/calendar.phtml"></block>
+        </reference>
+        <reference name="my.account.wrapper">
+            <block type="aitproductslists/account_view" name="aitproductslists.account.list.view">
+                <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml"/>
+                <block type="aitproductslists/account_list_items" name="aitproductslists_list_items" template="aitproductslists/account/list/items.phtml">
+           
+                    <block type="aitproductslists/account_list_massaction" name='aitproductslists_massaction' template='aitproductslists/account/list/massaction.phtml'></block>
+                </block>
+                <block type="aitproductslists/account_list_merge" name='aitproductslists_list_merge' template='aitproductslists/account/list/merge.phtml'/>
+                <block type="aitproductslists/account_list_share" name='aitproductslists_list_share' template='aitproductslists/account/list/share.phtml'/>
+            </block>
+            <block type="aitproductslists/account_list" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
+            
+        </reference>
+    </aitproductslists_list_view>  
+    
+    <aitproductslists_list_new translate="label">
+        
+        <label>Customer My Products List New</label>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+            <block type="core/html_calendar" name="html_calendar" as="calendar" template="aitproductslists/js/calendar.phtml"></block>
+        </reference>
+        <reference name="my.account.wrapper">
+            <block type="aitproductslists/account_view" name="aitproductslists.account.list.view">
+                <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml"/>
+                <block type="aitproductslists/account_list_items" name="aitproductslists_list_items" template="aitproductslists/account/list/items.phtml">
+                    <block type="aitproductslists/account_list_massaction" name='aitproductslists_massaction' template='aitproductslists/account/list/massaction.phtml'></block>
+                </block>
+                <block type="aitproductslists/account_list_merge" name='aitproductslists_list_merge' template='aitproductslists/account/list/merge.phtml'/>
+                <block type="aitproductslists/account_list_share" name='aitproductslists_list_share' template='aitproductslists/account/list/share.phtml'/>
+            </block>
+            <block type="aitproductslists/account_list" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
+            
+        </reference>
+        
+    </aitproductslists_list_new>  
+    
+    <aitproductslists_share_index>
+        <reference name='content'>
+            <block type="aitproductslists/share_view" name="aitproductslists_share_view" template="aitproductslists/share/view.phtml"/>
+        </reference>
+    </aitproductslists_share_index>
+    <aitproductslists_share_preview>
+        <reference name="root">
+            <action method="setTemplate"><template>page/popup.phtml</template></action>
+        </reference>
+        <reference name='content'>
+            <block type="aitproductslists/share_preview" name="aitproductslists_share_preview" template="aitproductslists/share/preview.phtml"/>
+        </reference>
+    </aitproductslists_share_preview>
+    <catalog_category_default>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/aitoc/aitproductslists/confirm.js</name></action>    
+        </reference>
+        <reference name="product_list">
+            <action method="setTemplate"><template>aitcommonfiles/design--frontend--base--default--template--catalog--product--list.phtml</template></action>
+        </reference>
+    </catalog_category_default>
+    <catalog_category_layered>
+		<reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/aitoc/aitproductslists/confirm.js</name></action>    
+        </reference>
+        <reference name="product_list">
+            <action method="setTemplate"><template>aitcommonfiles/design--frontend--base--default--template--catalog--product--list.phtml</template></action>
+        </reference>
+    </catalog_category_layered>
+    <catalogsearch_result_index> 
+		<reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/aitoc/aitproductslists/confirm.js</name></action>    
+        </reference>
+         <reference name="search_result_list">
+            <action method="setTemplate"><template>aitcommonfiles/design--frontend--base--default--template--catalog--product--list.phtml</template></action>
+        </reference>
+    </catalogsearch_result_index> 
+    <catalogsearch_advanced_result> 
+		<reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/aitoc/aitproductslists/confirm.js</name></action>    
+        </reference>
+        <reference name="search_result_list">
+            <action method="setTemplate"><template>aitcommonfiles/design--frontend--base--default--template--catalog--product--list.phtml</template></action>
+        </reference>
+    </catalogsearch_advanced_result> 
+    
+    <checkout_cart_index translate="label">
+        <reference name="checkout.cart">
+                <action method="setCartTemplate"><value>aitcommonfiles/design--frontend--base--default--template--checkout--cart.phtml</value></action>
+                <action method="setEmptyTemplate"><value>checkout/cart/noItems.phtml</value></action>
+                <action method="chooseTemplate"/>
+
+            <block type="aitproductslists/checkout_form" name="aitproductslists_checkout_form" template="aitproductslists/checkout/form.phtml"/>
+        </reference>
+    </checkout_cart_index>
+    
+    <sales_order_view>
+        <reference name='sales.order.info'>
+                <action method="setTemplate">
+                        <template>aitcommonfiles/design--frontend--base--default--template--sales--order--info.phtml</template>
+                </action>
+             <block type="aitproductslists/sales_order_form" name="aitproductslists_order_form" template="aitproductslists/sales/order/form.phtml"/>
+        </reference>
+    </sales_order_view>
+    
+    <aitproductslists_list_configure translate="label">
+        <label>Configure List Item</label>
+        <update handle="catalog_product_view"/>
+        <reference name="product.info">
+            <block type="aitproductslists/list_configure" name="checkout.cart.item.configure.block"></block>
+        </reference>
+    </aitproductslists_list_configure>
+</layout>
+<!--
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/layout/aitproductslists.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

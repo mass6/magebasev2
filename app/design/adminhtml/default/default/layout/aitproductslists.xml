@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_aitppl_index>
+        <reference name="content">
+             <block type="aitproductslists/adminhtml_list_lists" name="aitppl_lists" template='aitproductslists/list/container.phtml' />
+        </reference>
+    </adminhtml_aitppl_index>
+    <adminhtml_aitppl_grid>
+        <reference name="content" output="toHtml">
+             <block type="aitproductslists/adminhtml_list_grid" name="aitppl_grid"/>
+        </reference>
+    </adminhtml_aitppl_grid>
+    
+    <adminhtml_aitppl_edit>
+        <reference name="head">
+            <action method="addJs"><file>mage/adminhtml/sales.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
+            <action method="addJs"><file>varien/configurable.js</file></action>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" template="aitproductslists/list/js.phtml" name="create" />
+        </reference>
+        <reference name="content">
+            <block type="aitproductslists/adminhtml_list_edit" name="aitppl_edit" />
+            <block type="adminhtml/catalog_product_composite_configure" name="product.configure" />
+        </reference>
+        <reference name="left">
+            <block type="aitproductslists/adminhtml_list_edit_tabs" name="aitppl_edit_tabs" />
+        </reference>
+    </adminhtml_aitppl_edit>
+
+    <adminhtml_aitppl_add>
+        <update handle="adminhtml_aitppl_edit" />
+    </adminhtml_aitppl_add>
+
+    <adminhtml_aitppl_products>
+        <block type="aitproductslists/adminhtml_list_edit_tab_products" name="root" template="aitproductslists/list/products.phtml" output="toHtml">
+            <block type="adminhtml/sales_order_create_messages" name="message" />
+            <block type="aitproductslists/adminhtml_list_edit_tab_products_search" template="sales/order/create/abstract.phtml" name="search">
+                <block type="aitproductslists/adminhtml_list_edit_tab_products_search_grid" name="grid" />
+            </block>
+	        <block type="aitproductslists/adminhtml_list_edit_tab_products_items" template="sales/order/create/items.phtml" name="items">
+	            <block type="aitproductslists/adminhtml_list_edit_tab_products_items_grid" template="aitproductslists/list/products/items/grid.phtml" name="items_grid" />
+	        </block>
+            <block type="core/text_list" name="order_item_extra_info" />
+        </block>
+    </adminhtml_aitppl_products>
+
+    <adminhtml_aitppl_products_block_search>
+        <reference name="content">
+            <block type="aitproductslists/adminhtml_list_edit_tab_products_search" template="sales/order/create/abstract.phtml" name="search">
+                <block type="aitproductslists/adminhtml_list_edit_tab_products_search_grid" name="grid" />
+            </block>
+        </reference>
+    </adminhtml_aitppl_products_block_search>
+
+    <adminhtml_aitppl_products_block_search_grid>
+        <reference name="content">
+            <block type="aitproductslists/adminhtml_list_edit_tab_products_search_grid" name="grid" />
+        </reference>
+    </adminhtml_aitppl_products_block_search_grid>
+    
+   <adminhtml_aitppl_products_block_message>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_messages" name="message" />
+        </reference>
+    </adminhtml_aitppl_products_block_message>
+
+    <adminhtml_aitppl_products_block_items>
+        <reference name="content">
+            <block type="aitproductslists/adminhtml_list_edit_tab_products_items" template="sales/order/create/items.phtml" name="items">
+                <block type="aitproductslists/adminhtml_list_edit_tab_products_items_grid" template="aitproductslists/list/products/items/grid.phtml" name="items_grid" />
+            </block>
+            <block type="core/text_list" name="order_item_extra_info"></block>
+        </reference>
+    </adminhtml_aitppl_products_block_items>
+    
+    <adminhtml_sales_order_create_index>
+        <reference name="head">
+                <action method="addItem"><type>skin_js</type><name>aitproductslists/js/sidebar.js</name><params/></action>
+        </reference>
+        <reference name="sidebar">
+            <block type="aitproductslists/adminhtml_sidebar" before='-' template="aitproductslists/sidebar.phtml" name="aitproductslists_sidebar" />
+            <block type="aitproductslists/adminhtml_sidebar_items" after='aitproductslists' template="aitproductslists/sidebar/items.phtml" name="aitproductslists_sidebar_items" />
+        </reference>
+    </adminhtml_sales_order_create_index>
+
+    <adminhtml_sales_order_create_load_block_sidebar>
+        <reference name="sidebar">
+            <block type="aitproductslists/adminhtml_sidebar" before='-' template="aitproductslists/sidebar.phtml" name="aitproductslists_sidebar" />
+            <block type="aitproductslists/adminhtml_sidebar_items" after='aitproductslists' template="aitproductslists/sidebar/items.phtml" name="aitproductslists_sidebar_items" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_sidebar>
+    
+    <adminhtml_sales_order_create_load_block_data>
+        <reference name="sidebar">
+            <block type="aitproductslists/adminhtml_sidebar" before='-' template="aitproductslists/sidebar.phtml" name="aitproductslists_sidebar" />
+            <block type="aitproductslists/adminhtml_sidebar_items" after='aitproductslists' template="aitproductslists/sidebar/items.phtml" name="aitproductslists_sidebar_items" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_data>
+    
+    <adminhtml_sales_order_create_load_block_sidebar_aitproductslists_sidebar_items>
+        <reference name="content">
+           <block type="aitproductslists/adminhtml_sidebar_items" template="aitproductslists/sidebar/items.phtml" name="sidebar_aitproductslists_sidebar_items" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_sidebar_aitproductslists_sidebar_items>
+    
+    <adminhtml_sales_order_create_load_block_sidebar_aitproductslists_sidebar>
+        <reference name="content">
+           <block type="aitproductslists/adminhtml_sidebar" template="aitproductslists/sidebar.phtml" name="sidebar_aitproductslists_sidebar" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_sidebar_aitproductslists_sidebar>
+</layout>
+<!--
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/adminhtml/default/default/layout/aitproductslists.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

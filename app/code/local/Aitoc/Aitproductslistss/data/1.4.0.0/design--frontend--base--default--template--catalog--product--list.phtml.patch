@@ -1,0 +1,25 @@
+diff -aurBb 
+--- D:/TEMP/list - �����.phtml	Thu Feb 03 16:33:36 2011
++++ D:/TEMP/list.phtml	Fri Jul 29 18:08:35 2011
+@@ -58,7 +58,11 @@
+                     <?php endif; ?>
+                     <?php echo $this->getPriceHtml($_product, true) ?>
+                     <?php if($_product->isSaleable()): ?>
++                        <?php /*
+                         <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
++						*/ ?>
++                        <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
++						<button type="button" title="<?php echo $this->__('Add to List') ?>" class="button btn-list" onclick="<?php echo Mage::helper('aitproductslists/list')->needConfirm() ? "ait_confirm('".Mage::helper('aitproductslists/list')->getAddUrl($_product)."')" : "setLocation('".Mage::helper('aitproductslists/list')->getAddUrl($_product)."')"; ?>"><span><span><?php echo $this->__('Add to List') ?></span></span></button></p>
+                     <?php else: ?>
+                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                     <?php endif; ?>
+@@ -105,6 +109,9 @@
+                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                     <?php endif; ?>
+                     <ul class="add-to-links">
++						<?php if($_product->isSaleable()): ?>
++	                        <li><a href="#" onClick="<?php echo Mage::helper('aitproductslists/list')->needConfirm() ? "ait_confirm('".Mage::helper('aitproductslists/list')->getAddUrl($_product)."')" : "setLocation('".Mage::helper('aitproductslists/list')->getAddUrl($_product)."')"; ?>" class="link-compare"><?php echo $this->__('Add to List')  ?></a></li>
++	                    <?php endif; ?>
+                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                             <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                         <?php endif; ?>

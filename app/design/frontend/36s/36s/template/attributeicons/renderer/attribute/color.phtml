@@ -1,0 +1,29 @@
+<?php 
+/**
+ * Dima Makaruk
+ * @category   Dmx
+ * @package    Dmx_AttributeIcons
+ * @copyright  Copyright (c) 2012 Dima Makaruk. 
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+	$_content = $this->getContent();
+	$_helper = Mage::helper('attributeicons');
+	$iconDimensions = $_helper->getDimensions('icon');
+?>
+<?php if(count($_content)):?>
+	<?php foreach($_content as $_item):?>
+		<?php if(isset($_item['icon'])):?>
+		<div class="has-icon">
+			<img src="<?php echo $_helper->getImageUrl($_item['icon']);?>" alt="<?php echo $_item['description']?>" title="<?php echo $this->getValue();?>"/>
+			<?php if($_item['show_both']):?>
+				<span class="text-value"><?php echo $_item['original_value'];?></span>
+			<?php endif;?>
+			<span style="display:none;" class="description"><?php echo $_item['description'];?></span>
+		</div>
+		<?php else:?>
+			<?php echo $_item['original_value'];?>
+		<?php endif;?>
+	<?php endforeach;?>
+<?php endif;?>

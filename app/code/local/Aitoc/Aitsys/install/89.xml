@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<install><product id="89" key="Aitoc_Aitconfcheckout" version="2.1.11" license_id="13736" link_id="434995"><![CDATA[Configurable Checkout]]></product><serial>cNogWVhB2mHCXupuJxNbglhN7PlDCxQldTSTebqOTK</serial><checkid>b2fa8f5664187a280305fbb64833dd91</checkid><store_url><![CDATA[http://www.aitoc.com/en/]]></store_url><service><![CDATA[https://www.aitoc.com/api/xmlrpc/]]></service><constraint><store label="Number of stores">1</store></constraint></install>

@@ -1,0 +1,169 @@
+
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: n/a
+ * Generated:   2013-03-08 08:15:21
+ * File path:   skin/frontend/base/default/css/aitproductslists/styles.css
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+.aitproductslists_block {
+    width: 100% }
+
+.aitproductslists_block .product-essential {
+    width: auto;
+    float: none;
+    border: 1px solid #C4C6C8;
+    font-size: 11px;
+    padding: 10px;
+    margin-bottom: 10px; }
+
+.aitproductslists_block .product-essential table td {
+    padding-bottom: 5px }
+
+#existing_list_block td,
+#new_list_block td {
+    padding-top: 5px }
+
+.aitproductslists_block input,
+.aitproductslists_block select,
+.aitproductslists_block textarea {
+    font-size: 11px }
+
+.aitproductslists_block .or {
+    float: none;
+    line-height: 30px; }
+
+.aitproductslists_block #existing_lists {
+    width: 140px }
+
+.aitproductslists_block #add_list_input {
+    width: 146px }
+
+.aitoc_ppl_lable {
+    float: none !important }
+
+.aitoc-totals {
+    background: none repeat scroll 0 0 #FAFAEC !important;
+    margin-top: 10px;
+    font-size: 12px; }
+
+.aitoc-totals #input_elements {
+    width: 160px }
+
+.aitoc-totals #input_elements_textarea {
+    width: 155px }
+
+#ait_create_product_list #input_elements {
+    width: 160px }
+
+#ait_create_product_list #input_elements_textarea {
+    width: 155px }
+
+#ait_create_product_list table{
+	overflow:hidden;
+	clear:both;}
+
+#ait_create_product_list table td {
+    padding-top: 5px }
+
+.aitoc-totals h2 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #E76200;
+    padding: 5px 0 0 21px; }
+
+#ait_create_product_list {
+    top: 200px;
+    left: 63%;
+    position: fixed;
+    z-index: 999;
+    background: #FFFFFF;
+    border: 1px solid #D0CBC1;
+    padding: 14px;
+    margin: 5px 0px 5px 0px;
+    width: auto; }
+
+.aitproductslists-list-new .title-buttons {
+    margin-top: 30px }
+
+#aitproductslists-info-form .box-content table td {
+    padding-bottom:5px; }
+
+#aitproductslists-info-form .box-content table td input,
+#aitproductslists-info-form .box-content table td textarea {
+    width: 163px;
+    max-width: 163px;
+    padding: 1px 0px; }
+
+#aitproductslists-info-form .box-content table td select {
+    width: 164px }
+
+#aitproductslists-info-form .box-content table td input[type="checkbox"] {
+    width: auto }
+
+#aitproductslists-info-form .box-content table td input.date {
+    width: 143px }
+
+.aitproductslists-list-view .box-account .box-head h2 {
+    padding-left: 0;
+    color: #E76200; }
+
+.aitlist_marge_table td {
+    padding-bottom: 5px }
+
+.aitlist_share_head {
+    line-height: 25px;
+    padding-bottom: 5px; }
+
+.aitlist_share_head a {
+    margin-left: 5px }
+	
+.aitproductslists-list-grid .title-buttons button,
+.aitproductslists-list-new .title-buttons button,
+.aitproductslists-list-view .title-buttons button,
+.aitproductslists-list-view .box button{
+    cursor: pointer;
+    margin: 0;
+    width: auto;
+	background: none repeat scroll 0 0 #F18200;
+    border: 1px solid #DE5400;
+    color: #FFFFFF;
+    font: bold 11px/19px Arial,Helvetica,sans-serif;
+    padding: 1px 2px;
+    text-align: center;
+    white-space: nowrap;}
+	
+.aitproductslists-list-view .title-buttons h1{
+	width:306px;
+	text-align:left;}
+	
+.aitproductslists-list-configure .add-to-cart button{
+	margin-right:5px;}
+	
+#existing_list_block td table td{
+	text-align:left;
+	padding-right:5px;
+	padding-bottom:10px;}
+	
+.aitproductslists-list-view .account-login{
+	margin-bottom:30px;}
+	
+#product_addtocart_form .product-options-bottom .add-to-cart{
+	float:none;
+	clear:both;
+	padding-top:10px;}
+
+*+html .box-account{
+    overflow:hidden;}
+*+html .aitproductslists-list-grid .title-buttons button, 
+*+html .aitproductslists-list-new .title-buttons button, 
+*+html .aitproductslists-list-view .title-buttons button, 
+*+html .aitproductslists-list-view .box button {
+    margin-left:3px;}
+.mass-action button.mass-action{
+    margin:3px 0px;}
+
+.block-cart .block-title {
+	background-color: #FFF;
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <customer>
+            <children>
+                <aitproductslists translate="title" module="aitproductslists">
+                    <title>Manage Aitoc Products Lists</title>
+                    <sort_order>220</sort_order>
+                    <action>adminhtml/aitppl</action>
+                </aitproductslists>
+            </children>
+        </customer>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <aitproductslists translate="title" module="aitproductslists">
+                                <title>Manage Aitoc Products Lists</title>
+                                <sort_order>5</sort_order>
+                            </aitproductslists>
+                            <config>
+                                <children>
+                                    <aitproductslists translate="title" module="aitproductslists">
+                                        <title>Manage Aitoc Products Lists</title>
+                                    </aitproductslists>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+                <children>
+                    <customer>
+                        <children>
+                            <aitproductslists translate="title" module="aitproductslists">
+                                <title>Manage Aitoc Products Lists</title>
+                                <sort_order>220</sort_order>
+                            </aitproductslists>
+                        </children>
+                    </customer>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
+<!--
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/code/local/Aitoc/Aitproductslists/etc/adminhtml.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

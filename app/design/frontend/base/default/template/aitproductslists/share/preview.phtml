@@ -1,0 +1,100 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/share/preview.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php  $_items = $this->getVisibleItems(); ?>
+<div class="box-account box-info">
+    <div class="col-set">
+        <div class="box-head title-buttons"><h2 style="color:#E76200;"><?php echo $this->__('%s PRODUCTS LIST "%s"',$this->getCustomerName(),  strip_tags($this->getList()->getName())) ?></h2>
+        </div>
+        <?php  echo $this->getPagerHtml(); ?>
+        <div class="col-set">
+            <div class="box">
+                <form action="<?php echo $this->getUrl('aitproductslists/list/massaction',array('list'=>$this->getList()->getId())); ?>" name="aitproductslists/list/massaction" method="POST">
+                <?php $_index = 0 ?>
+                <?php if(count($_items)): ?>
+                <?php echo $this->getChildHtml('aitproductslists_massaction'); ?>
+                <table class="data-table order-items" id="my-orders-table">
+                    <col width="1" />
+                    <col width="1" />
+                    <col width="1" />
+                    <col width="1" />
+                    <thead>
+                        <tr>
+                            <th width="50%"><?php echo $this->__('Name') ?></th>
+                            <th><?php echo $this->__('Price') ?></th>
+                            <th><?php echo $this->__('Qty') ?></th>
+                            <th><?php echo $this->__('Subtotal Price') ?></th>
+                        </tr>
+                    </thead>
+                        <?php $_odd = '';
+                        ?>
+                        <?php foreach ($_items as $_item)
+                            {
+                            ?>
+                    <tbody>
+                        <tr <?php if($this->getProductType($_item) !== 'bundle') echo 'class="border"'; ?> id="order-item-row-<?php echo $_item->getId() ?>">
+                            <td>
+                                <h3 class='product-name'><?php echo $_item->getName() ?></h3>        
+                        <?php if ($_options = $this->getItemOptions($_item)):?>
+                        <dl class="item-options">
+                            <?php foreach ($_options as $_option) : ?>
+                            <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
+                            <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
+                            <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
+                                <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                <div class="truncated_full_value">
+                                    <dl class="item-options">
+                                        <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
+                                        <dd><?php echo $_formatedOptionValue['full_view'] ?></dd>
+                                    </dl>
+                                </div>
+                                <?php endif; ?>
+                            </dd>
+                            <?php endforeach; ?>
+                        </dl>
+                        <?php endif;?>
+
+                            </td>
+                            <td><span class="nobr"><?php echo Mage::helper('core')->currency($_item->getPrice()) ?></span></td>
+                            <td><?php echo $_item->getQty()*1 ?></td>
+                            <td><em><?php echo Mage::helper('core')->currency($_item->getRowTotal()) ?></em></td>
+                        </tr>
+                    <?php if ( $this->getProductType($_item) == 'bundle'): ?>
+                    <?php $childs = $this->getChildItems($_item) ?>
+                    <?php $_count = count ($childs) ?>
+                    <?php foreach ($childs as $child): ?>
+                        <tr<?php if (++$_index==$_count) echo' class="border"'; ?> id="order-item-row-<?php echo $_item->getId() ?>">
+                            <td><em style="font-size:90%;"><?php echo $child->getName() ?></em></td>
+                            <td>&nbsp;</td>
+                            <td><em><?php echo $child->getQty() ?></em></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <?php endforeach; ?>
+                     <?php endif; ?>
+                        </tbody>
+                        <?php } ?>
+                        <tfoot>
+                            <tr id="order-item-row-total">
+                                <th colspan="2" style="text-align:right"><b><?php echo $this->__('Totals') ?></b></th>
+                                <th><b><?php echo $this->getTotalQty() ?></b></th>
+                                <th><b><?php echo Mage::helper('core')->currency($this->getSubtotal()) ?></b></th>
+                            </tr>
+                        </tfoot>
+                </table>
+                <script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+                </form>
+                <?php echo $this->getPagerHtml(); ?>
+                <?php else: ?>
+                    <p><?php echo $this->__('You have no items in your list of personal products list.'); ?></p>
+                <?php endif ?>
+            </div>
+        </div>
+    </div>
+</div>

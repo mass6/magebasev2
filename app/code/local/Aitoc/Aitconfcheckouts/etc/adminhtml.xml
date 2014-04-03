@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <aitconfcheckout translate="title" module="aitconfcheckout">
+                                        <title>Aitoc Configurable Checkout Section</title>
+                                    </aitconfcheckout>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
+<!--
+/**
+ * Product:     Configurable Checkout
+ * Package:     Aitoc_Aitconfcheckout_2.1.11_2.0.3_434995
+ * Purchase ID: cNogWVhB2mHCXupuJxNbglhN7PlDCxQldTSTebqOTK
+ * Generated:   2012-11-20 05:29:30
+ * File path:   app/code/local/Aitoc/Aitconfcheckout/etc/adminhtml.xml
+ * Copyright:   (c) 2012 AITOC, Inc.
+ */
+-->

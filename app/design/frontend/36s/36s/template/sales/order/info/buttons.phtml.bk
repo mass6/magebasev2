@@ -1,0 +1,308 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php  
+$_order = $this->getOrder();
+$tempId = $_order->getId();
+$l1=$_order->getL1();
+$l2=$_order->getL2();
+$l3=$_order->getL3();
+$l4=$_order->getL4();
+$l5=$_order->getL5();
+$nextApprover=$_order->getNextApprover();
+$approved=$_order->getApproved();
+$check=0;
+$customerflag=Mage::getModel('customer/session')->getCustomer()->getCustCategory();
+$customerId=Mage::getModel('customer/session')->getCustomer()->getId();
+$attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'cust_category');
+		$options1 = array();
+		$options2 = array();
+		if ($attribute->usesSource()) {
+			foreach ($attribute->getSource()->getAllOptions() as $optionValue) {
+			foreach($optionValue as $key=>$value){
+				if($key == 'label')$options1[] = $value ; 
+				if($key == 'value')$options2[] = $value ; 
+				}
+			}
+		}
+		$appId = '';
+		for($i=0;$i<count($options1);$i++){
+		if($options1[$i] == 'Approver')
+		$appId = $options2[$i];
+		}
+		
+		$attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'approval_level');
+		$options3 = array();
+		$options4 = array();
+		if ($attribute->usesSource()) {
+			foreach ($attribute->getSource()->getAllOptions() as $optionValue) {
+			foreach($optionValue as $key=>$value){
+				if($key == 'label')$options3[] = $value ; 
+				if($key == 'value')$options4[] = $value ; 
+				}
+			}
+		}
+		$applevel1 = '';
+		$applevel2 = '';
+		$applevel3 = '';
+		$applevel4 = '';
+		$applevel5 = '';
+		for($i=0;$i<count($options3);$i++){
+			if($options3[$i] == 1) $appLevel1 = $options4[$i];
+			if($options3[$i] == 2) $appLevel2 = $options4[$i];
+			if($options3[$i] == 3) $appLevel3 = $options4[$i];
+			if($options3[$i] == 4) $appLevel4 = $options4[$i];
+			if($options3[$i] == 5) $appLevel5 = $options4[$i];
+		}
+		
+		
+		
+		
+
+if($customerflag == $appId){
+	$applevel=Mage::getModel('customer/session')->getCustomer()->getApprovalLevel();
+	if($applevel==$appLevel1){
+		if($l1==0){
+			if($l2!=0){
+				$appLev2=$_order->getApproversLevel2();
+				$level2app=explode(',',$appLev2);
+				for($i=0;$i<count($level2app);$i++){
+					if($level2app[$i]==$nextApprover)$check=1;
+					}
+				}
+			else{
+				$check=1;
+			}	
+		}
+		else{
+			$appLev1=$_order->getApproversLevel1();
+			$level1app=explode(',',$appLev1);
+			for($i=0;$i<count($level1app);$i++){
+				if($level1app[$i]==$nextApprover)$check=1;
+				}
+			}
+		}
+		else if($applevel==$appLevel2){
+		if($l2==0){
+			if($l3!=0){
+				$appLev3=$_order->getApproversLevel3();
+				$level3app=explode(',',$appLev3);
+				for($i=0;$i<count($level3app);$i++){
+					if($level3app[$i]==$nextApprover)$check=1;
+					}
+				}
+			else{
+				$check=1;
+			}	
+		}
+		else{
+			$appLev2=$_order->getApproversLevel2();
+			$level2app=explode(',',$appLev2);
+			for($i=0;$i<count($level2app);$i++){
+				if($level2app[$i]==$nextApprover)$check=1;
+				}
+			}
+		}
+		else if($applevel==$appLevel3){
+		if($l3==0){
+			if($l3!=0){
+				$appLev4=$_order->getApproversLevel4();
+				$level4app=explode(',',$appLev4);
+				for($i=0;$i<count($level4app);$i++){
+					if($level4app[$i]==$nextApprover)$check=1;
+					}
+				}
+			else{
+				$check=1;
+			}	
+		}
+		else{
+			$appLev3=$_order->getApproversLevel3();
+			$level3app=explode(',',$appLev3);
+			for($i=0;$i<count($level3app);$i++){
+				if($level3app[$i]==$nextApprover)$check=1;
+				}
+			}
+		}
+		else if($applevel==$appLevel4){
+		if($l4==0){
+			if($l5!=0){
+				$appLev5=$_order->getApproversLevel5();
+				$level5app=explode(',',$appLev5);
+				for($i=0;$i<count($level5app);$i++){
+					if($level5app[$i]==$nextApprover)$check=1;
+					}
+				}
+			else{
+				$check=1;
+			}	
+		}
+		else{
+			$appLev4=$_order->getApproversLevel4();
+			$level4app=explode(',',$appLev4);
+			for($i=0;$i<count($level4app);$i++){
+				if($level4app[$i]==$nextApprover)$check=1;
+				}
+			}
+		}
+		else if($applevel==$appLevel5){
+		if($l5==0){
+			
+				$check=1;
+			
+		}
+		else{
+			$appLev5=$_order->getApproversLevel5();
+			$level5app=explode(',',$appLev5);
+			for($i=0;$i<count($level5app);$i++){
+				if($level5app[$i]==$nextApprover)$check=1;
+				}
+			}
+		}
+		
+	}
+		
+		
+
+
+
+ 
+ if($approved==0){
+	$approver=$_order->getApprover();
+	$collection = Mage::getModel('customer/customer')->getCollection()
+				->addAttributeToSelect('*')
+				->addFieldToFilter('entity_id',$approver) 
+				 ->addFieldToFilter('cust_category',$appId);
+				 
+				
+		foreach ($collection as $customer) {
+			$custName1[] = $customer->getData('firstname'). ' ' . $customer->getData('lastname');	
+		}
+  $message='Your order is under review by '. $custName1[0];
+ }else{
+	$approver=$_order->getApprover();
+	$collection = Mage::getModel('customer/customer')->getCollection()
+				->addAttributeToSelect('*')
+				->addFieldToFilter('entity_id',$approver) 
+				 ->addFieldToFilter('cust_category',$appId);
+				 
+				
+		foreach ($collection as $customer) {
+			$custName1[] = $customer->getData('firstname'). ' ' . $customer->getData('lastname');	
+		}
+	$approved1=$_order->getApproved();
+	$collection = Mage::getModel('customer/customer')->getCollection()
+				->addAttributeToSelect('*')
+				->addFieldToFilter('entity_id',$approved1) 
+				 ->addFieldToFilter('cust_category',$appId);
+				 
+				
+		foreach ($collection as $customer) {
+			$custName2[] = $customer->getData('firstname'). ' ' . $customer->getData('lastname');
+		}	
+  $message='Your order has been approved by '. $custName2[0] .' but still wating for ' . $custName1[0].' to approve.';
+ }
+ 
+
+
+$read = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $sql = "SELECT `comment` FROM  `sales_flat_order_status_history` WHERE  `parent_id` = " . $tempId . "";
+        $entityid = $read->fetchAll($sql);
+		
+		$tempComment = array();
+        foreach ($entityid as $key) {
+            foreach ($key as $key1 => $value) {
+				
+				
+				if($key1 == 'comment'){
+				 $tempComment[] = $value;
+				}
+            }
+        }
+
+
+// Mage::log('$tempComment====================');
+// Mage::log($tempComment);
+// Mage::log(count($tempComment));
+
+
+$sql = "SELECT MAX(`entity_id`) FROM  `sales_flat_order_status_history` WHERE  `parent_id` = " . $tempId . "";
+        $entityid = $read->fetchAll($sql);
+        $tempentityid = '';
+        foreach ($entityid as $key) {
+            foreach ($key as $key1 => $value) {
+                $tempentityid = $value;
+            }
+        }
+		$read = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $sql = "SELECT `customer_id` FROM  `sales_flat_order_status_history` WHERE  `entity_id` = " . $tempentityid . "";
+        $entityid = $read->fetchAll($sql);
+		$tempCustId = '';
+		
+        foreach ($entityid as $key) {
+            foreach ($key as $key1 => $value) {
+				
+				if($key1 == 'customer_id'){
+				 $tempCustId = $value;
+				}
+				
+            }
+        }
+
+
+
+
+
+
+	
+?>
+
+<div class="msg-note">
+	<?php if($customerflag != $appId && $_order->getStatus()=='pending_approval'){ ?>
+      
+			<br><font color = 'red'> <b> <?php echo $message; ?> </b> </font></br>
+    
+	<?php }?>
+</div>
+<div class="order-button">
+<?php if($this->helper('rss/order')->isStatusNotificationAllow()): ?>
+    <a href="<?php echo $this->helper('rss/order')->getStatusHistoryRssUrl($_order) ?>" class="link-rss f-none"><?php echo $this->__('Subscribe to Order Status') ?></a>
+    <span class="separator">|</span>
+<?php endif; ?>
+
+<?php if($customerflag != $appId){ ?>
+<?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
+    <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
+    <span class="separator">|</span>
+<?php endif ?>
+<?php } ?>
+
+<a href="<?php echo $this->getPrintUrl($_order) ?>" class="link-print" onclick="this.target='_blank';"><?php echo $this->__('Print Order') ?></a>
+
+<?php echo $this->getChildHtml(); ?>
+</div>
+

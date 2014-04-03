@@ -1,0 +1,162 @@
+<?php
+/**
+ * Product:     {#AITOC_PACKAGE_FILELINK#}
+ * Package:     {#AITOC_PACKAGE_FILENAME#}
+ * Purchase ID: {#AITOC_PACKAGE_PURCHASE_ID#}
+ * Generated:   2013-03-08 08:15:21
+ * File path:   {#AITOC_PACKAGE_FILEPATH#}
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php if(Aitoc_Aitsys_Abstract_Service::initSource(__FILE__,'Aitoc_Aitproductslists')){ {#AITOC_UNIQUE_CHECK_CODE#} ?><?php
+class Aitoc_Aitproductslists_MassactionController extends Aitoc_Aitproductslists_Controller_Front_Action
+{
+    public function indexAction()
+    {
+        $items = array();
+        $items = $this->getRequest()->getPost('item_ids');
+        $list_id = $this->getRequest()->getParam('list_id');
+        if (sizeof($items)<1)
+        {
+            $this->_getSession()->addError($this->__('No selected items. Please check items.'));
+            return $this->getResponse()->setRedirect($this->_getRefererUrl());
+        }
+        $params = $this->getRequest()->getParams();
+     //   echo '<pre>'; print_r($this->getRequest()->getParams()); exit;
+        switch ($this->getRequest()->getPost('action'))
+        {
+            case "add_to_cart":
+                foreach ($items as $itemId)
+                {
+                $this->_prepareProductParams($itemId);
+                $params = $this->getRequest()->getParams();    
+                
+                $this->_sendProductToCart($itemId,$params);
+                }
+                return $this->getResponse()->setRedirect($this->_getRefererUrl());
+            break;
+
+            case "copy":
+                foreach ($items as $itemId)
+                {
+                    $this->_copyProductToList($itemId,$postData);
+                }
+                break;
+
+            case "move":
+                foreach ($items as $itemId)
+                {
+                    $this->_moveProductToList($itemId,$postData,$params);
+                }
+                break;
+
+            case "remove":
+                foreach ($items as $itemId)
+                {
+                    $this->_removeProductFromList($itemId,$params);
+                }
+                break;
+        
+        }
+        return $this->_goBack();
+    }
+    
+    protected function _sendProductToCart($itemId,$params)
+    {
+        
+        $cart   = $this->_getCart();
+     //   try {
+            $item = $this->_initItem($itemId);
+            if ($item->getQty()) {
+                $filter = new Zend_Filter_LocalizedToNormalized(
+                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                );
+                $params['qty'] = $filter->filter($item->getQty());
+            }
+           
+            $product = $this->_initProduct();
+            /**
+             * Check product availability
+             */
+            if (!$product) {
+                return;
+            }
+
+            $cart->addProduct($product, $params);
+            $cart->save();
+            $this->_getCartSession()->setCartWasUpdated(true);
+
+            Mage::dispatchEvent('aitproductslists_list_add_product_complete',
+                array('product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse())
+            );
+            if (!$cart->getQuote()->getHasError()){
+                    $message = $this->__('%s was added to your shopping cart.', Mage::helper('core')->htmlEscape($product->getName()));
+                return $this->_getSession()->addSuccess($message);
+            //      $this->_redirect('checkout/cart');
+            }
+    //    } 
+    //    catch (Exception $e) 
+    //    {
+    //        $this->_getSession()->addException($e, $this->__('Cannot add %s to shopping cart.',Mage::helper('core')->htmlEscape($product->getName())));
+    //        Mage::logException($e);
+         //   $this->_goBack();
+    //    }
+            return true;
+    }
+    
+    protected function _copyProductToList($itemId,$params)
+    {
+        $this->_prepareProductParams($itemId);
+        
+        try {
+            $requestData = $this->getRequest()->getParams();
+            $item = $this->_initItem($itemId);
+            $this->getRequest()->setParam('qty',$item->getQty()); 
+            $product = $this->_initProduct();
+            $list = $this->_getList()->load($params['to_list']);
+            $list->addProduct($product,$list->getQuoteId())->collectTotals()->save();
+            $this->_getCartSession()->addSuccess($this->__('Product %s was copied to %s',$product->getName(),$list->getName()));
+        }
+        catch (Exception $e)
+        {
+            $this->_getCartSession()->addError($this->__($e->getMessage()));
+        }
+    }
+    
+    protected function _moveProductToList($itemId,$postData,$params)
+    {
+        try {
+            $iItemId = $itemId;
+            $aParams = $params;
+            $this->_copyProductToList($itemId,$postData);
+            $this->getRequest()->setParams($aParams);
+            $this->_removeProductFromList($iItemId, $params);
+             $this->getRequest()->setParam('return_url', Mage::getUrl("aitproductslists/list/grid"));
+        //    $this->_getSession()->addSuccess($this->__('Product %s was moved to %s',$product->getName(),$list->getName()));
+        }
+        catch (Exception $e)
+        {
+      //      $this->_getCartSession()->addError($this->__($e->getMessage()));
+        }
+    }
+    
+    protected function _removeProductFromList($itemId,$params)
+    {
+        $this->_prepareProductParams($itemId);
+        try {
+            
+            $params = $this->getRequest()->getParams();
+            $this->getRequest()->setParam('id',$itemId);
+            $this->deleteItemAction();
+            $product = $this->_initProduct();
+            $list = $this->_getList()->load($params['list']);
+        //return $this->_redirect("*/*");
+            $this->_getCartSession()->addSuccess($this->__('Product %s was removed from %s',$product->getName(),$list->getName()));
+        }
+        catch (Exception $e)
+        {
+        //    $this->_getCartSession()->addError($this->__($e->getMessage()));
+        }
+            
+    }
+} } 

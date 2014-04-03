@@ -1,0 +1,11 @@
+diff -aurBb 
+--- D:/xampp/htdocs/pplt1/app/design/frontend/base/default/template/sales/order/info.phtml	Wed Jul 27 13:02:02 2011
++++ D:/xampp/htdocs/pplt1/app/design/frontend/base/default/template/sales/order/info_orig.phtml	Wed Jul 27 13:01:37 2011
+@@ -37,7 +37,6 @@
+         <span class="separator">|</span>
+     <?php endif ?>
+     <a href="<?php echo $this->getPrintUrl($_order) ?>" class="link-print" onclick="this.target='_blank';"><?php echo $this->__('Print Order') ?></a>
++	<?php echo $this->getChildHtml('aitproductslists_order_form') ?>
+ </div>
+ <?php echo $this->getStatusHistoryRssUrl($_order) ?>
+ <dl class="order-info">

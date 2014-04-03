@@ -1,0 +1,71 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/list/sidebar.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php // echo print_r($this->getCurrentList()->getData()); exit; ?>
+<?php 
+$listName = Mage::helper('core')->htmlEscape($this->getCurrentList()->getName());
+if (strlen($listName)>25)
+{
+    $listName = substr($listName,0,25)."...";
+}
+if($listName)
+{
+    $listName .= ' (CURRENT)';
+}
+?>
+<?php if ($this->getIsNeedToDisplaySideBar()):?>
+<div class="block block-cart">
+    <?php $_cartQty = $this->getItemsQty() ?>
+    <div class="block-title">
+        <strong><span><?php echo $this->__('%s PRODUCTS LIST',$listName) ?></span></strong>
+    </div>
+    <div class="block-content">
+    <?php if ($_cartQty>0): ?>
+        <div class="summary">
+            <?php if ($_cartQty==1): ?>
+                <p class="amount"><?php echo $this->__('There is <a href="%s">1 item</a> in your current product list.', Mage::helper('aitproductslists/list')->getCurrentListUrl()) ?></p>
+            <?php else: ?>
+                <p class="amount"><?php echo $this->__('There are <a href="%s">%s items</a> in your current product list.', Mage::helper('aitproductslists/list')->getCurrentListUrl(), $_cartQty) ?></p>
+            <?php endif ?>
+            <p class="subtotal">
+                <span class="label"><?php echo $this->__('List Subtotal:') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getTotals()) ?>
+                <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
+                    <br />(<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>)
+                <?php endif; ?>
+            </p>
+        </div>
+    <?php endif ?>
+    <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+    <div class="actions">
+        <?php echo $this->getChildHtml('extra_actions') ?>
+        <button type="button" title="<?php echo $this->__('Add To Cart') ?>" class="button" onclick="setLocation('<?php echo $this->getSidebarButtonUrl() ?>')"><span><span><?php echo $this->__('Add To Cart') ?></span></span></button>
+    </div>
+    <?php endif ?>
+    <?php $_items = $this->getRecentItems() ?>
+    <?php if(count($_items)): ?>
+        <p class="block-subtitle"><?php echo $this->__('Recently added item(s)') ?></p>
+        <ol id="cart-sidebar" class="mini-products-list">
+        <?php foreach($_items as $_item): ?>
+            <?php 
+          //  $_item = Mage::getModel('aitproductslists/quote_item')->load($_item->getId());
+            echo $this->getItemHtml($_item) ?>
+        <?php endforeach; ?>
+        </ol>
+        <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
+    <?php elseif($listName): ?>
+        <p class="empty"><?php echo $this->__('The current list is empty') ?></p>
+    <?php endif ?>
+    <?php if(!$listName): ?>
+        <p class="empty"><?php echo $this->__('Current product list is\'nt selected') ?></p>
+        
+    <?php endif ?>
+    </div>
+</div>
+<?php endif;?>

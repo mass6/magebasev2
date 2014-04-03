@@ -1,0 +1,11 @@
+diff -aurBb 
+--- S:/kabanov/mg160dd/app/design/frontend/base/default/template/sales/order/info.phtml	Fri Aug 19 09:32:43 2011
++++ S:/kabanov/mg160dd/app/design/frontend/base/default/template/sales/order/info - copy.phtml	Thu Sep 08 13:28:58 2011
+@@ -29,6 +29,7 @@
+ <div class="page-title title-buttons">
+     <h1><?php echo $this->__('Order #%s - %s', $_order->getRealOrderId(), $_order->getStatusLabel()) ?></h1>
+     <?php echo $this->getChildHtml('buttons') ?>
++	<?php echo $this->getChildHtml('aitproductslists_order_form') ?>
+ </div>
+ <?php echo $this->getStatusHistoryRssUrl($_order) ?>
+ <dl class="order-info">

@@ -1,0 +1,209 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/account/view.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php echo $this->getChildHtml('customer_form_login') ?>
+<?php 
+if ($this->isLoggedIn())
+{
+    echo $this->getMessagesBlock()->getGroupedHtml();
+}
+?>
+<?php  $_list = $this->getList();
+$this->getRequest()->setParam('list_id',$_list->getId());
+
+?>
+<script type="text/javascript">
+    function confirmDelete()
+    {
+        var a = confirm("Are you sure you want to delete this product list?");
+        if (a)
+        {
+            location.href='<?php echo $this->getDeleteListUrl() ?>';
+        }
+    }
+</script>  
+<div class="page-title title-buttons">
+    <h1><?php echo $this->__('My Products List - %s', Mage::helper('core')->escapeHtml($this->getListName($_list))) ?></h1>
+    <?php if (Mage::getStoreConfig('aitproductslists/customer/discount') AND $_list->getPayQty() >= Mage::getStoreConfig('aitproductslists/customer/discount') AND $_list->getData('customer_id')!==0 AND $_list->getDiscountListStatus()==0): ?>
+    <button onclick="location.href='<?php echo $this->getWantDiscountUrl() ?>'"><?php echo $this->__('Request for Discount') ?></button>
+    <span class="separator">|</span>
+    <?php endif; ?>
+    <?php if($_list->getId()): ?>
+    <button onclick="confirmDelete()"><?php echo $this->__('Delete') ?></button>
+    <button onclick="location.href='<?php echo $this->getDuplicateListUrl() ?>'"><?php echo $this->__('Duplicate') ?></button>
+    <?php endif; ?>
+    <button onclick="dataForm.submit();"><?php echo $this->__('Save') ?></button>
+    
+</div>
+<div class="dashboard box-account box-info">
+    <form action="<?php echo $this->getSaveListUrl() ?>" id="aitproductslists-info-form" method="POST">
+    <input type="hidden" id="form_action" name="form_action" value="list_save" />    
+    <?php if ($this->isLoggedIn()): ?>
+    <div class="col2-set">
+    <?php else: ?>
+        <div class="col-set">
+    <?php endif; ?>
+        <div class="box-head "><h2 style="color:#E76200;"><?php echo $this->__('PRODUCT LIST INFORMATION') ?></h2></div>
+        <div class="col-1">
+            <div class="box">
+                <div class="box-title">
+                    <h3>General Information</h3>
+                </div>
+                <div class="box-content">
+                    <table>
+                        <tr>
+                            <td width="30%"><?php echo $this->__("Name");?><span style="color:red;">*</span> </td>
+                            <td><input type="text" name="list[name]" class="input-text required-entry" value="<?php echo Mage::helper('core')->escapeHtml($_list->getName()) ?>"/></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__("Notes");?> </td>
+                            <td><textarea  cols="17" rows="3" name="list[notes]"><?php echo $_list->getNotes();?></textarea></td>
+                        </tr>
+                        <?php if ($this->isLoggedIn() AND (Mage::getStoreConfig('catalog/productalert/allow_price') OR Mage::getStoreConfig('catalog/productalert/allow_stock')) ): ?>
+                        <tr>
+                            <td><?php echo $this->__("Subscribe to Product Alerts");?> </td>
+                            <td>
+                                <select name="list[product_change_notify_status]">
+                                    <option value="0">Disabled</option>
+                                    <option <?php if($_list->getData('product_change_notify_status')) { echo " selected='selected' "; }?> value="1">Enabled</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <?php if ($this->isLoggedIn()): ?>
+        <div class="col-2">
+            <div class="box">
+                <div class="box-title">
+                    <h3>Reminder Information</h3>
+                </div>
+                <div class="box-content">
+                    <table>
+                        <input type="hidden" name="reminder[id]" value="<?php echo $_list->getReminder()->getId() ?>" />
+                        <tr>
+                            <td width="40%"><?php echo $this->__("Enable Reminder");?> </td>
+                            <td>
+                                <select name="reminder[status]">
+                                    <option value="0">No</option>
+                                    <option <?php if($_list->getReminder()->getStatus()) { echo " selected='selected' "; }?> value="1">Yes</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__("Start From date");?> </td>
+                            <td>
+                                <?php echo $this->getCalendar("reminder[start_date]","reminder[start_date]",$this->__("Start From date"),"date",$_list->getReminder()->getStartDate())?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__("Reminder Period");?> </td>
+                            <td>
+                                <select name="reminder[period]">
+                                    <option value="-1">Please select</option>
+                                    <?php 
+                                    foreach($this->getReminderPeriods() as $value=>$title)
+                                    {
+                                        echo "<option value='$value' ";
+                                        if ($_list->getReminder()->getPeriod() == $value)
+                                        {
+                                            echo " selected=selected ";
+                                        }
+                                        echo " >$title</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td><?php echo $this->__("How often");?> </td>
+                            <td>
+                                <input  type="text" name="reminder[frequency]" value="<?php echo $_list->getReminder()->getFrequency() ?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__("Reminder Quantity");?> </td>
+                            <td>
+                                <input type="text" name="reminder[max_notify_qty]" value="<?php echo $_list->getReminder()->getMaxNotifyQty() ?>" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+    <?php # to phase 2 ?>
+    <!--div class="col-set">
+        <div class="box">
+            <div class="box-title"><h3><?php echo $this->__('Recurring Billing Profile Information');?></h3></div>
+            <div class="box-content">
+                <table>
+                    <tr>
+                        <td width="30%"><?php echo $this->__("Enable Recurring Profile");?> </td>
+                        <td>
+                            <select  name="list[recurring_profile_status]">
+                                <option value="0">No</option>
+                                <option <?php if($_list->getData('recurring_profile_status')) { echo " selected='selected' "; }?> value="1">Yes</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->__("Billing Period Unit");?> </td>
+                        <td>
+                            <select  name="list[recurring_profile_period]">
+                                <option value="-1">Please select</option>
+                                    <?php 
+                                    foreach($this->getRequringPeriods() as $value=>$title)
+                                    {
+                                        echo "<option value='$value' ";
+                                        if ($_list->getReminderFrequency() == $value)
+                                        {
+                                            echo " selected=selected ";
+                                        }
+                                        echo " >$title</option>";
+                                    }
+                                    ?>
+                            </select>
+                        </td>
+                        <td><?php echo $this->__("Unit for billing during the subscription period.") ?></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->__("Billing Frequency");?> </td>
+                        <td>
+                            <input type="text" name="list[recurring_frequency]" value="<?php echo $_list->getRecurringFrequency() ?>" />
+                        </td>
+                        <td><?php echo $this->__("The number of billing cycles for payment period.") ?></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->__("Maximum Billing Cycles");?> </td>
+                        <td>
+                            <input type="text" name="list[recurring_max_notify_qty]" value="<?php echo $_list->getRecurringMaxNotifyQty() ?>" />
+                        </td>
+                        <td><?php echo $this->__("The number of billing cycles for payment period."); ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div -->
+    
+</div>
+    <script type="text/javascript">
+         var dataForm = new VarienForm('aitproductslists-info-form', true);
+    </script>
+<?php if ($this->isListNew()): ?>
+<?php echo $this->getChildHtml('aitproductslists_list_items') ?>
+</form>
+<?php echo $this->getChildHtml('aitproductslists_list_merge') ?>
+<?php echo $this->getChildHtml('aitproductslists_list_share') ?>
+<?php endif; ?>

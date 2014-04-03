@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Dtn_Mobiapp>
+            <version>1.0.2</version>
+        </Dtn_Mobiapp>
+    </modules>
+    <frontend>
+        <routers>
+            <mobiapp>
+                <use>standard</use>
+                <args>
+                    <module>Dtn_Mobiapp</module>
+                    <frontName>mobiapp</frontName>
+                </args>
+            </mobiapp>
+        </routers>
+    </frontend>
+    <global>
+        <resources>
+            <mobiapp_setup>
+                <setup>
+                    <module>Dtn_Mobiapp</module>
+                </setup>
+            </mobiapp_setup>
+        </resources>
+        <models>
+            <mobiapp>
+                <class>Dtn_Mobiapp_Model</class>
+            </mobiapp>
+        </models>
+        <helpers>
+            <mobiapp>
+                <class>Dtn_Mobiapp_Helper</class>
+            </mobiapp>
+        </helpers>
+    </global>
+    <crontab>
+        <jobs>
+            <mobiapp>
+                <schedule><cron_expr>*/1 * * * *</cron_expr></schedule>
+                <run><model>mobiapp/cron::pushMessages</model></run>
+            </mobiapp>
+        </jobs>
+    </crontab>
+</config>

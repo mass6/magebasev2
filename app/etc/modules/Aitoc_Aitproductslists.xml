@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aitoc_Aitproductslists>
+            <active>false</active>
+            <codePool>local</codePool>
+            <self_name>Recurring Purchase Assistant</self_name>
+            <priority>10091</priority>
+        </Aitoc_Aitproductslists>
+	</modules>
+</config>
+<!--
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/etc/modules/Aitoc_Aitproductslists.xml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+-->

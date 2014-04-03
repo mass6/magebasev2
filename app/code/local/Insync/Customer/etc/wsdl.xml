@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+    name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+			<complexType name="sboeconnectCustomerEntityToCreate">
+				<all>
+					<element name="email" type="xsd:string" minOccurs="0" />
+					<element name="firstname" type="xsd:string" minOccurs="0" />
+					<element name="lastname" type="xsd:string" minOccurs="0" />
+					<element name="password" type="xsd:string" minOccurs="0" />
+					<element name="website_id" type="xsd:int" minOccurs="0" />
+					<element name="store_id" type="xsd:int" minOccurs="0" />
+					<element name="group_id" type="xsd:int" minOccurs="0" />
+					<element name="gender" type="xsd:int" minOccurs="0" />
+					<element name="dob" type="xsd:string" minOccurs="0" />
+					<element name="taxvat" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="sboeconnectCustomerEntity">
+				<all>
+					<element name="customer_id" type="xsd:int" minOccurs="0" />
+					<element name="created_at" type="xsd:string" minOccurs="0" />
+					<element name="updated_at" type="xsd:string" minOccurs="0" />
+					<element name="increment_id" type="xsd:string" minOccurs="0" />
+					<element name="store_id" type="xsd:int" minOccurs="0" />
+					<element name="website_id" type="xsd:int" minOccurs="0" />
+					<element name="created_in" type="xsd:string" minOccurs="0" />
+					<element name="email" type="xsd:string" minOccurs="0" />
+					<element name="firstname" type="xsd:string" minOccurs="0" />
+					<element name="lastname" type="xsd:string" minOccurs="0" />
+					<element name="group_id" type="xsd:int" minOccurs="0" />
+					<element name="gender" type="xsd:int" minOccurs="0" />
+					<element name="dob" type="xsd:string" minOccurs="0" />
+					<element name="taxvat" type="xsd:string" minOccurs="0" />
+					<element name="password_hash" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="sboeconnectCustomerEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:sboeconnectCustomerEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="customerGroupEntity">
+				<all>
+					<element name="customer_group_id" type="xsd:int" />
+					<element name="customer_group_code" type="xsd:string" />
+				</all>
+			</complexType>
+			<complexType name="customerGroupEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:customerGroupEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="sboeconnectCustomerAddressEntityCreate">
+				<all>
+					<element name="city" type="xsd:string" minOccurs="0" />
+					<element name="company" type="xsd:string" minOccurs="0" />
+					<element name="country_id" type="xsd:string" minOccurs="0" />
+					<element name="fax" type="xsd:string" minOccurs="0" />
+					<element name="firstname" type="xsd:string" minOccurs="0" />
+					<element name="lastname" type="xsd:string" minOccurs="0" />
+					<element name="middlename" type="xsd:string" minOccurs="0" />
+					<element name="postcode" type="xsd:string" minOccurs="0" />
+					<element name="prefix" type="xsd:string" minOccurs="0" />
+					<element name="region_id" type="xsd:int" minOccurs="0" />
+					<element name="region" type="xsd:string" minOccurs="0" />
+					<element name="street" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="suffix" type="xsd:string" minOccurs="0" />
+					<element name="telephone" type="xsd:string" minOccurs="0" />
+					<element name="is_default_billing" type="xsd:boolean" minOccurs="0" />
+					<element name="is_default_shipping" type="xsd:boolean" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="sboeconnectCustomerAddressEntityItem">
+				<all>
+					<element name="customer_address_id" type="xsd:int" minOccurs="0" />
+					<element name="created_at" type="xsd:string" minOccurs="0" />
+					<element name="updated_at" type="xsd:string" minOccurs="0" />
+					<element name="increment_id" type="xsd:string" minOccurs="0" />
+					<element name="city" type="xsd:string" minOccurs="0" />
+					<element name="company" type="xsd:string" minOccurs="0" />
+					<element name="country_id" type="xsd:string" minOccurs="0" />
+					<element name="fax" type="xsd:string" minOccurs="0" />
+					<element name="firstname" type="xsd:string" minOccurs="0" />
+					<element name="lastname" type="xsd:string" minOccurs="0" />
+					<element name="middlename" type="xsd:string" minOccurs="0" />
+					<element name="postcode" type="xsd:string" minOccurs="0" />
+					<element name="prefix" type="xsd:string" minOccurs="0" />
+					<element name="region" type="xsd:string" minOccurs="0" />
+					<element name="region_id" type="xsd:int" minOccurs="0" />
+					<element name="street" type="typens:ArrayOfString" minOccurs="0" />
+					<element name="suffix" type="xsd:string" minOccurs="0" />
+					<element name="telephone" type="xsd:string" minOccurs="0" />
+					<element name="is_default_billing" type="xsd:boolean" minOccurs="0" />
+					<element name="is_default_shipping" type="xsd:boolean" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="sboeconnectCustomerAddressEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:sboeconnectCustomerAddressEntityItem[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+		</schema>
+	</types>
+	<message name="sboeconnectCustomerListRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="filters" type="typens:filters" />
+	</message>
+	<message name="sboeconnectCustomerListResponse">
+		<part name="storeView" type="typens:sboeconnectCustomerEntityArray" />
+	</message>
+	<message name="sboeconnectCustomerCreateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="customerData" type="typens:sboeconnectCustomerEntityToCreate" />
+	</message>
+	<message name="sboeconnectCustomerCreateResponse">
+		<part name="result" type="xsd:int" />
+	</message>
+	<message name="sboeconnectCustomerUpdateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="customerId" type="xsd:int" />
+		<part name="customerData" type="typens:sboeconnectCustomerEntityToCreate" />
+	</message>
+	<message name="sboeconnectCustomerUpdateResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+	<message name="sboeconnectCustomerDeleteRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="customerId" type="xsd:int" />
+	</message>
+	<message name="sboeconnectCustomerDeleteResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+	<message name="customerGroupListRequest">
+		<part name="sessionId" type="xsd:string" />
+	</message>
+	<message name="customerGroupListResponse">
+		<part name="result" type="typens:customerGroupEntityArray" />
+	</message>
+	<message name="sboeconnectCustomerAddressListRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="customerId" type="xsd:int" />
+	</message>
+	<message name="sboeconnectCustomerAddressListResponse">
+		<part name="result" type="typens:sboeconnectCustomerAddressEntityArray" />
+	</message>
+	<message name="sboeconnectCustomerAddressCreateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="customerId" type="xsd:int" />
+		<part name="addressData" type="typens:sboeconnectCustomerAddressEntityCreate" />
+	</message>
+	<message name="sboeconnectCustomerAddressCreateResponse">
+		<part name="result" type="xsd:int" />
+	</message>
+	<message name="sboeconnectCustomerAddressUpdateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="addressId" type="xsd:int" />
+		<part name="addressData" type="typens:sboeconnectCustomerAddressEntityCreate" />
+	</message>
+	<message name="sboeconnectCustomerAddressUpdateResponse">
+		<part name="info" type="xsd:boolean" />
+	</message>
+	<message name="sboeconnectCustomerAddressDeleteRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="addressId" type="xsd:int" />
+	</message>
+	<message name="sboeconnectCustomerAddressDeleteResponse">
+		<part name="info" type="xsd:boolean" />
+	</message>
+    
+	<message name="sboeconnectCustomerSyncRequest">        
+		<part name="sessionId" type="xsd:string" />        
+		<part name="customerId" type="xsd:string" />		
+		<part name="syncFlag" type="xsd:string" />    
+	</message>	
+	<message name="sboeconnectCustomerSyncResponse">             
+		<part name="result" type="xsd:boolean" />    
+	</message>
+	<portType name="{{var wsdl.handler}}PortType">
+		<operation name="sboeconnectCustomerList">
+			<documentation>Retrieve customers</documentation>
+			<input message="typens:sboeconnectCustomerListRequest" />
+			<output message="typens:sboeconnectCustomerListResponse" />
+		</operation>				
+		<operation name="sboeconnectCustomerSync">            
+			<documentation>Sync Customers With SBO</documentation>            
+			<input message="typens:sboeconnectCustomerSyncRequest" />            
+			<output message="typens:sboeconnectCustomerSyncResponse" />        
+		</operation>
+		<operation name="sboeconnectCustomerCreate">
+			<documentation>Create customer</documentation>
+			<input message="typens:sboeconnectCustomerCreateRequest" />
+			<output message="typens:sboeconnectCustomerCreateResponse" />
+		</operation>
+		<operation name="sboeconnectCustomerUpdate">
+			<documentation>Update customer data</documentation>
+			<input message="typens:sboeconnectCustomerUpdateRequest" />
+			<output message="typens:sboeconnectCustomerUpdateResponse" />
+		</operation>
+		<operation name="customerGroupList">
+			<documentation>Retrieve customer groups</documentation>
+			<input message="typens:customerGroupListRequest" />
+			<output message="typens:customerGroupListResponse" />
+		</operation>
+		<operation name="sboeconnectCustomerAddressList">
+			<documentation>Retrieve customer addresses</documentation>
+			<input message="typens:sboeconnectCustomerAddressListRequest" />
+			<output message="typens:sboeconnectCustomerAddressListResponse" />
+		</operation>
+		<operation name="sboeconnectCustomerAddressCreate">
+			<documentation>Create customer address</documentation>
+			<input message="typens:sboeconnectCustomerAddressCreateRequest" />
+			<output message="typens:sboeconnectCustomerAddressCreateResponse" />
+		</operation>
+		<operation name="sboeconnectCustomerAddressUpdate">
+			<documentation>Update customer address data</documentation>
+			<input message="typens:sboeconnectCustomerAddressUpdateRequest" />
+			<output message="typens:sboeconnectCustomerAddressUpdateResponse" />
+		</operation>
+		<operation name="sboeconnectCustomerAddressDelete">
+			<documentation>Delete customer address</documentation>
+			<input message="typens:sboeconnectCustomerAddressDeleteRequest" />
+			<output message="typens:sboeconnectCustomerAddressDeleteResponse" />
+		</operation>
+	</portType>
+	<binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="sboeconnectCustomerList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>				 
+		<operation name="sboeconnectCustomerSync">            
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />            
+			<input>                
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />            
+			</input>            
+			<output>                
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />            
+			</output>        
+		</operation>
+		<operation name="sboeconnectCustomerCreate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCustomerUpdate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="customerGroupList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCustomerAddressList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCustomerAddressCreate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCustomerAddressUpdate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="sboeconnectCustomerAddressDelete">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+	</binding>
+</definitions>

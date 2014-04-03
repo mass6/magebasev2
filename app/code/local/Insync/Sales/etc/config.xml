@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><config>    <modules>        <Insync_Sales>            <version>1.0</version>        </Insync_Sales>    </modules>    <global>        <models>            <salessbo>                <class>Insync_Sales_Model</class>            </salessbo>        </models>    </global></config>

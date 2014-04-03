@@ -1,0 +1,68 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/checkout/form.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<div class="totals aitoc-totals" style="">
+    <form action="<?php echo $this->getSaveListUrl() ?>" id="aitproductslists-info-form" method="POST">
+    <div class="col2-set " >
+        <div class="box-head "><h2 style="padding-left:5px;"><?php echo $this->__('ADD PRODUCTS TO NEW PRODUCT LIST') ?></h2></div>
+        <div class="col-1">
+            <div class="box">
+                <div class="box-content">
+                    <table>
+                        <tr>
+                            <td width="30%"><?php echo $this->__("Name");?><span style='color:red'>*</span> </td>
+                            <td><input type="text" id="input_elements" class="input-text required-entry" name="list[name]" value=""/></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__("Notes");?> </td>
+                            <td><textarea style="" id="input_elements_textarea" cols="17" rows="3" name="list[notes]"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__("Go to list");?></td>
+                            <td>
+                                <input type="checkbox" name="edit_new_list" value="1"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="checkout-types">
+                                <div style="margin-right: 25px;" align="right">
+                                    <button onclick='aitForm.submit()' class="button btn-proceed-checkout btn-checkout" title="Create List" type="button"><span><span>Create Products List</span></span></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+     </div>
+    </form>  
+</div>
+    <script type="text/javascript">
+         var aitForm = new VarienForm('aitproductslists-info-form', true);
+         $$('form').each(function(f,index)
+         {
+             if(f.id =="")
+             {
+                 f.id = 'aitCheckForm-'+index;
+                 $$('button.button').each(function(n){
+                     if(n.type == 'submit')
+                     {
+                         if (n.readAttribute('class').indexOf('-update')+1)
+                         {
+                             n.observe('click',function(){
+                             var updateForm  = new VarienForm(f.id, true);
+                             updateForm.submit();
+                            })
+                         }
+                     }
+                 })
+             }
+         });
+    </script>

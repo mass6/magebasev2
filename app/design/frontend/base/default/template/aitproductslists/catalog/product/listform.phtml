@@ -1,0 +1,191 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/catalog/product/listform.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<script type='text/javascript'>
+function aitproductslists_show_hide_fields(el)
+{
+      if (el.id == "existing_list")
+      {
+          $('new_list_block').hide();
+          $('existing_list_block').show();
+          $('existing_lists').className='required validate-select';
+      }
+      if (el.id == "new_list")
+      {
+          $('new_list_block').show();
+          $('existing_list_block').hide();
+          $('add_list_input').className='input-text required-entry';
+      
+      }
+}
+</script>
+
+<script type="text/javascript">
+    function confirmAdd()
+    {
+        if ($('new_list')!==null && $('new_list').checked == true)
+            {
+               return productAddToCartForm.addToList(this,'<?php echo $this->getSubmitListUrl() ?>');
+            }
+
+        if ($('add_list_input')!==null)
+            {
+                $('add_list_input').className='input-text required-entry';
+            }
+        <?php if (Mage::getStoreConfig('aitproductslists/customer/reset')):?>           
+        
+        var selectElement = $$('#existing_lists option').find(function(ele){return !!ele.selected});
+       
+        if (typeof selectElement!="undefined" && selectElement.getAttribute('discount'))
+        {
+            var a = confirm("All discount will be removed. Are you sure you want to add/edit product to your product list?");
+            if (a)
+            {
+               return productAddToCartForm.addToList(this,'<?php echo $this->getSubmitListUrl() ?>');
+            }
+            return false;
+        }
+        if (<?php echo $this->canDiscount() ?> === 1)
+        {
+            var a = confirm("All discount will be removed. Are you sure you want to add/edit product to your product list?");
+            if (a)
+            {
+               return productAddToCartForm.addToList(this,'<?php echo $this->getSubmitListUrl() ?>');
+            }
+            return false;
+        }
+        productAddToCartForm.addToList(this,'<?php echo $this->getSubmitListUrl() ?>');
+        <?php else: ?>
+            productAddToCartForm.addToList(this,'<?php echo $this->getSubmitListUrl() ?>');
+        <?php endif; ?>
+    }
+</script>  
+<?php if (!$this->getUpdateList()): ?>   
+ <?php $lists = $this->getCustomerLists(); ?>
+ <div class='aitproductslists_block' style='float:left;'>
+    <center class="or">-OR-</center>
+    <div class='product-essential'>
+    <input type='hidden' name='product' value='<?php echo $this->getProductId(); ?>'>
+    <?php if ($this->getUpdateList()): ?>
+        <input type='hidden' name='list[edit]' value='1'>
+    <?php endif; ?> 
+      <table width='100%' border=0>
+       <?php if (count($lists)>0): ?> 
+       <tr>
+          <td width='50%'><b><?php echo $this->__("Add configured product to"); ?>:</b></td>
+          <td>
+              <input type='radio' checked='checked' value='exist' name='list_action' id='existing_list' onClick='aitproductslists_show_hide_fields(this);' />
+               <label class="aitoc_ppl_lable" for='existing_list'><?php echo $this->__("Existing Product List");?></label>
+              <BR />
+              <input type='radio' name='list_action' value='new' id='new_list' onClick='aitproductslists_show_hide_fields(this);' />
+               <label class="aitoc_ppl_lable" for='new_list'><?php echo $this->__("New Product List");?></label>
+          </td>
+        </tr>
+        <tr id='existing_list_block'>
+          <td colspan=2>
+              <table width='100%' border="0">
+                <tr>
+                <td width='50%'>Choose Product List <span style='color:red'>*</span></td>
+              
+                <td><select class='required validate-select' name='existing_lists' id='existing_lists'>
+                  <option value="">Please select</option>      
+                  <?php 
+                        if (count($lists)>0)
+                        {
+                          foreach ($lists->getItems() as $listId=>$list)
+                          {
+                                $listName = $list->getName();
+                                $listName = strip_tags($listName);
+                                //$listName = strip_tags($listName);
+                                if (strlen($listName)>25)
+                                {
+                                    $listName = substr($listName,0,25)."...";
+                                }
+                              echo "<option discount='".$list->checkDiscount()."' value='".$list->getId()."'";
+                          
+                              if ($this->getUpdateList() AND $list->getId()==$this->getUpdateList())
+                              {
+                                  echo " selected='selected'";
+                              }
+                              elseif($this->getCurrentList()==$list->getId())
+                              {
+                                  echo " selected='selected'";
+                              }
+                              echo ">".$listName."</option>";
+                          }
+                        }
+                  ?></select>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <?php else: ?>
+        <tr id='new_list_block'>
+           <td colspan=2>
+              ADD TO NEW PRODUCT LIST:
+          </td>
+        </tr>
+        <?php endif; ?>
+        <tr id='new_list_block'>
+           <td colspan=2>
+              <table width='100%'>
+                <tr>
+                  <td width='50%'>Product List Name <span style='color:red'>*</span></td>
+                  <td><input id="add_list_input" type='text' class='input-text required-entry' name='list[name]'></td>
+              </tr>
+              <tr>
+                  <td>Product List Notes</td>
+                  <td><input id="add_list_input" type='text' name='list[notes]'></td>
+              </tr>
+              <tr>
+                  <td>Product List Item Notes</td>
+                  <td><input id="add_list_input" type='text' name='item[notes]'></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>
+            <div class='add-to-cart' style='margin-right:0;' align=right>
+              <?php if($this->getProductType() !== 'grouped')
+              {
+                  $qty = $this->getQty();
+              ?>
+                <label for='list[item_qty]'><?php echo $this->__("Qty");?></label><input type='text' class='input-text qty' name='list_qty' value=<?php echo $qty ?> />
+              <?php
+              }
+              ?>
+			  <!-- sci edit : added an extra span tag surrounding the button label -->
+              <button class='button btn-cart' type='button' onClick="confirmAdd();"><span><span><?php echo $this->getButtonLabel()?></span></span></button>
+            </div>
+          </td>
+        </tr>
+      </table>  
+    </div>
+</div>
+<?php else: ?>
+<!-- sci edit : added an extra span tag surrounding the button label -->
+ <button class='button btn-cart' type='button' id="update_list_button" onClick=" confirmAdd();"><span><span><?php echo $this->getButtonLabel()?></span></span></button>
+            
+<?php endif; ?>
+ <script type="text/javascript">
+     if ($('existing_list'))
+    {
+      if ($('existing_list').checked == true)
+      {
+          aitproductslists_show_hide_fields($('existing_list'));
+      }
+      else
+      {
+          aitproductslists_show_hide_fields($('new_list'));
+      }
+    }
+ </script>

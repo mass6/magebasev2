@@ -1,0 +1,5 @@
+<?php
+class Company_Web_Block_Web_Contract extends Mage_Core_Block_Template
+{
+	
+}

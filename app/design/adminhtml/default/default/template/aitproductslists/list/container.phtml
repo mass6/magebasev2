@@ -1,0 +1,28 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/adminhtml/default/default/template/aitproductslists/list/container.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php echo $this->getFormInitScripts() ?>
+<div class="content-header">
+    <?php echo $this->getHeaderHtml() ?>
+    <p class="form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
+</div>
+<?php echo $this->getFormHtml() ?>
+<?php if ($this->hasFooterButtons()): ?>
+    <div class="content-footer">
+        <p class="form-buttons"><?php echo $this->getButtonsHtml('footer') ?></p>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+    editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
+</script>
+<?php echo $this->getFormScripts() ?>
+<?php
+echo $this->getChildHtml();
+?>

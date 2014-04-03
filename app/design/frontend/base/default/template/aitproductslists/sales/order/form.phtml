@@ -1,0 +1,53 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/sales/order/form.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<span class="separator">|</span>
+   <a href="#" class="link-reorder" onclick="showDiv('ait_create_product_list')"><?php echo $this->__('Save as Products List') ?></a>
+   <form action="<?php echo $this->getSaveListUrl() ?>" id="aitproductslists-info-form" method="POST">
+       <input type="hidden" name="order_id" value="<?php echo $this->getRequest()->getParam('order_id') ?>" />
+       <div id="ait_create_product_list" align="right" class="col2-set" style="display:none;">
+           <div class="box-head " style="border-bottom:1px dotted #D0CBC1"><h4 style="color:#E76200;"><?php echo $this->__('CREATE PRODUCTS LIST') ?></h3><span style="cursor: pointer;" onclick="showDiv('ait_create_product_list')">X</span></div>
+           <table>
+                <tr>
+                    <td width="60"><?php echo $this->__("Name");?><span style='color:red'>*</span> </td>
+                    <td><input type="text" id="input_elements" class='input-text required-entry' name="list[name]" value=""/></td>
+                </tr>
+                <tr>
+                    <td><?php echo $this->__("Notes");?> </td>
+                    <td><textarea id="input_elements_textarea" name="list[notes]"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Edit a list</td>
+                    <td>
+                        <input type="checkbox" name="edit_new_list" value="1"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <center>
+                            <button onclick='aitForm.submit()' class="button btn-proceed-checkout btn-checkout" title="Create List" type="button"><span><span>Create Products List</span></span></button>
+                        </center>
+                    </td>
+                </tr>
+            </table>
+
+       </div>
+   </form>
+       <script type="text/javascript">
+         var aitForm = new VarienForm('aitproductslists-info-form', true);
+    </script>
+   <script type="text/javascript">
+   function showDiv(div) {
+  with (document.getElementById(div).style) {
+      
+       display = display == "none"  ? "block" : "none";
+   }
+}
+   </script>

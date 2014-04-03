@@ -1,0 +1,189 @@
+<?xml version="1.0"?> 
+<!--
+/**
+ * WMD Web-Manufaktur/Digiswiss 
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that you find at http://wmdextensions.com/WMD-License-Community.txt
+ *
+ * @category  WMD
+ * @package   WMD_Logincheckpro
+ * @author    Dominik Wyss <info@wmdextensions.com>
+ * @copyright 2011 Dominik Wyss | Digiswiss (http://www.digiswiss.ch)
+ * @link      http://www.wmdextensions.com/
+ * @license   http://wmdextensions.com/WMD-License-Community.txt 
+ */
+-->
+<config>
+    <sections>
+        <logincheckpro translate="label" module="logincheckpro">
+            <class>separator-top</class>
+            <label>WMD Login Check Pro</label>
+            <tab>customer</tab>
+            <sort_order>135</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">                    
+                    <label>General Login Check Configuration</label>
+                    <frontend_type>text</frontend_type>     
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label,comment">
+                            <label>Enable Login Check</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select 'Yes' to stop users accessing the catalog without logging in.]]></comment>
+                        </enable>
+                    </fields>
+                </general>
+                <pages translate="label">                    
+                    <label>Login Check Pages</label>
+                    <frontend_type>text</frontend_type>     
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allowed translate="label,comment">
+                       		  <label>Allowed Pages</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>Mage_Cms_Model_Resource_Page_Collection</source_model>
+    				                <backend_model>logincheckpro/system_config_backend_logincheckpro_pages_allowed</backend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select(Ctrl + Click to select more then one) the pages users can access without logging in.]]></comment>
+                        </allowed>	
+                    </fields>
+                </pages>
+                <actions translate="label">                    
+                    <label>Login Check Actions</label>
+                    <frontend_type>text</frontend_type>     
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allowed translate="label,comment">
+                       		  <label>Allowed Actions</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>WMD_Logincheckpro_Model_System_Config_Source_Customer_Logincheckpro_Actions</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select(Ctrl + Click to select more then one) the actions users can access without logging in.]]></comment>
+                        </allowed>	
+                    </fields>
+                </actions> 
+                <redirect>                   
+                    <label>Redirect After Login</label>
+                    <frontend_type>text</frontend_type>     
+                    <sort_order>35</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <url translate="label,comment">
+                            <label>URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Fill in value. e.g. http://yourdomain.com/category1.html]]></comment>
+                        </url>
+                    </fields> 
+                </redirect>
+                <contacts translate="label">                    
+                    <label>Contacts Page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <protect translate="label,comment">
+                            <label>Login Protect</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select 'Yes' to stop users accessing the contacts page without logging in.]]></comment>
+                        </protect>
+                    </fields>
+                </contacts>
+                <additionalaction translate="label">                    
+                    <label>Additional Modules Actions</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allow translate="label,comment">
+                            <label>Allow</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Fill in value. e.g. wordpress, to allow all actions from module with name wordpress. Seperate by empty space, e.g. catalog wordpress to allow more then one.]]></comment>
+                        </allow>
+                    </fields>
+                </additionalaction>
+                <bypassip translate="label">                    
+                    <label>Bypass Login by Domain/IP</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>70</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allow translate="label,comment">
+                            <label>Domain/IP</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Fill in value. e.g. 31.13.24.0/21, to bypass login check. Fill in one ip per line to allow more than one ip. Keep on mind that the ip can be spoofed. Your Login Check Pro security level is low if not empty.]]></comment>
+                        </allow>
+                    </fields>
+                </bypassip>
+                <bypassagent translate="label">                    
+                    <label>Bypass Login by User-Agent</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>80</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allow translate="label,comment">
+                            <label>User-Agent</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Fill in value. e.g. facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php), to let fb crawler bypass login check. Seperate by semikolon to allow more than one. Keep on mind that a false user-agent can be provided easy. Your Login Check Pro security level very low if not empty.]]></comment>
+                        </allow>
+                    </fields>
+                </bypassagent>
+            </groups>
+        </logincheckpro>
+    </sections>
+</config>

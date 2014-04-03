@@ -1,0 +1,545 @@
+
+<div class="order-items order-details">
+    <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('items', $this->getOrder())) { ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            function giftMessageToogle(giftMessageIdentifier)
+            {
+                var link = $('order-item-gift-message-link-' + giftMessageIdentifier);
+                var container = $('order-item-gift-message-' + giftMessageIdentifier);
+                var row = $('order-item-row-' + giftMessageIdentifier);
+                if (link.expanded) {
+                    link.expanded = false;
+                    link.removeClassName('expanded');
+                    if (container.hasClassName('last')) {
+                        row.addClassName('last');
+                    }
+                    container.hide();
+                } else {
+                    link.expanded = true;
+                    link.addClassName('expanded');
+                    if (container.hasClassName('last')) {
+                        row.removeClassName('last');
+                    }
+                    container.show();
+                }
+
+                return false;
+            }
+            //]]>
+        </script>
+    <?php } ?>
+    <?php
+	
+    $_order = $this->getOrder();
+	// Mage::log('-------------------------------------------order---');
+	// Mage::log($_order->toArray());
+	// Mage::log('-------------------------------------------order---');
+    $customerleveloverrideboolean = '';
+    $cancustomeroverridepresentlevel = false;
+    $orderid = $_order->getId();
+    $l1 = $_order->getL1()+1;
+    $l2 = $_order->getL2();
+    $l3 = $_order->getL3();
+    $l4 = $_order->getL4();
+    $l5 = $_order->getL5();
+	
+	$orderlevel = array();
+	$orderlevel[] = $_order->getL1()+1;
+    $orderlevel[] = $_order->getL2();
+    $orderlevel[] = $_order->getL3();
+    $orderlevel[] = $_order->getL4();
+    $orderlevel[] = $_order->getL5();
+	
+    Mage::log('-------------------------------------------1--- ORDER LEVEL');
+    Mage::log($l1);
+    Mage::log($l2);
+    Mage::log($l3);
+    Mage::log($l4);
+    Mage::log($l5);
+    Mage::log('-------------------------------------------1--- ORDER LEVEL');
+    $override = $_order->getOverride();
+    $BaseGrandTotal = $_order->getBaseGrandTotal();
+
+    $lastMessage = 'No further approvals required.';
+    $orderContractId = $_order->getContractId();
+    $contractDetails = Mage::getModel('web/web')->getCollection()->addFieldToFilter('web_id', $orderContractId);
+    $contractUserId = array();
+    foreach ($contractDetails as $each) {
+        //user id
+		$totalcontract = 20;
+		for($i=1;$i<=$totalcontract;$i++){
+			if ($each['user'.$i] != '0'){
+				$contractUserId[] = $each['user'.$i];
+			}
+		}
+    }
+    $tempContractBilling1 = array();
+    // $contractCode21 = '';
+	
+    $billing_address = $_order->getBillingAddress();
+    $tempContractBilling1[] = $billing_address->getFirstname() . ' ' . $billing_address->getLastname();
+    $tempContractBilling1[] = $billing_address->getStreet();
+    // $tempContractBilling[] = $each['street1_bill'];
+    $tempContractBilling1[] = $billing_address->getCity();
+    $tempContractBilling1[] = $billing_address->getCountryId();
+    $tempContractBilling1[] = $billing_address->getRegion();
+    $tempContractBilling1[] = $billing_address->getPostcode();
+    // $contractCode21 = implode('<br/>', $tempContractBilling1);
+
+    $customerId = Mage::getModel('customer/session')->getCustomer()->getId();
+    $customerData = Mage::getModel('customer/customer')->load($customerId)->getData();
+    $customerCategory = $customerData['cust_category'];
+    unset($customerData);
+    $message = '';
+	$showmessage = false;
+	$customercategoryoptionid = Mage::helper('insync_approve')->getCustomerCategoryOptionId('Approver');
+
+    $customerisapprover = false;
+    $customerisactiveapprover = false;
+    $customercanoverridelevel = false;
+    $currentCustomerApproverLevel = '';
+    $customerleveloverrideboolean = '';
+    $customerleveloverridevalue = 0;
+
+    $customercollection = Mage::getModel('customer/customer')->getCollection()
+            ->addAttributeToSelect('*')
+            ->addFieldToFilter('entity_id', $customerId)
+            ->addFieldToFilter('cust_category', $customercategoryoptionid);
+    foreach ($customercollection as $customer) {
+        $currentCustomerApproverLevel = $customer->getApprovalLevel();
+        $customerisapprover = true;
+        $customerleveloverrideboolean = $customer->getLo();
+        $customerleveloverridevalue = $customer->getOav();
+        $customeractiveapprovervalue = $customer->getActiveApprover();
+    }
+	
+	
+	unset($customercollection);
+	Mage::log('-------------------------------------------$currentCustomerApproverLevel---');
+	Mage::log($currentCustomerApproverLevel);
+	Mage::log('-------------------------------------------customerleveloverrideboolean---');
+	Mage::log($customerleveloverrideboolean);
+
+	$customerapproverlevels = Mage::helper('insync_approve')->getCustomerApproverLevel();
+	$customerActiveApproverOptionId = Mage::helper('insync_approve')->getCustomerActiveApproverOptionId('Yes');
+	$customerOverrideBooleanOptionId = Mage::helper('insync_approve')->getCustomerOverrideBooleanOptionId('Yes');
+	
+	Mage::log('-------------------------------------------$customerapproverlevels---');
+	Mage::log($customerapproverlevels);
+	
+	if($customeractiveapprovervalue == $customerActiveApproverOptionId){
+		$customerisactiveapprover = true;
+	}
+    if ($customerCategory == $customercategoryoptionid) {
+        if ($override == 0) {
+            if ($customerOverrideBooleanOptionId == $customerleveloverrideboolean) {
+                if ($BaseGrandTotal <= $customerleveloverridevalue) {
+                    $cancustomeroverridepresentlevel = true;
+					Mage::log('------------------------------------customer can override the present level-----');
+                }
+            }
+        }
+    }
+	
+	
+		
+	// current level
+	$currentlevelofuser = array_search($currentCustomerApproverLevel, $customerapproverlevels);
+	
+	// get next level approer
+	Mage::log('get next level approer');
+	$nextapproverdata = Mage::helper('insync_approve')->getApproverandName(Mage::helper('insync_approve')->getOrderApproverUser($currentlevelofuser, $_order, 1), 
+				$customerapproverlevels[$currentlevelofuser+1]);
+	Mage::log($nextapproverdata);
+	
+	// get optional approver
+	Mage::log('get optional approver');
+	$optionalapproverdata = Mage::helper('insync_approve')->getApproverandName(Mage::helper('insync_approve')->getOrderApproverUser($currentlevelofuser, $_order, 0), 
+				$customerapproverlevels[$currentlevelofuser]);
+	Mage::log($optionalapproverdata);
+	
+	
+    $totalCustomerInCurrentLevel = count($optionalapproverdata);
+    $totalCustomerInNextLevel = count($nextapproverdata);
+	
+	$approvelerror = true;
+	$finaloverallapproverlevel = false;
+	$finalcurrentapproverlevel = false;
+	$moreapproverrequiredinlevel = false;
+	Mage::log('--------------------------$currentleveloforder--------------------');
+	Mage::log($orderlevel[$currentlevelofuser-1]);
+	Mage::log('--------------------------$currentuserlevel--------------------');
+	Mage::log($currentlevelofuser);
+	
+	if((($currentlevelofuser!=2 && $currentlevelofuser!=3 && $currentlevelofuser!=4 && $currentlevelofuser!=5) && $orderlevel[$currentlevelofuser-1]==1) || $orderlevel[$currentlevelofuser-1]==0){ // this case will arise if pre order level is set 0
+		Mage::log('------------------------------------last current level approver-----');
+		$finalcurrentapproverlevel = true;
+	}
+	if(count($optionalapproverdata)-1==0){
+		$message = 'You are the last available approver.';
+		$showmessage=true;
+	}
+	
+	if($orderlevel[$currentlevelofuser-1]==0 && $orderlevel[$currentlevelofuser]==0){
+		Mage::log('------------------------------------last over all approver-----');
+		$finaloverallapproverlevel = true;
+	}else if($orderlevel[$currentlevelofuser-1] > 0){
+		Mage::log('-------------------------------------------still some left---'.$orderlevel[$currentlevelofuser-1]);
+		$moreapproverrequiredinlevel = true;
+		Mage::log('------------------------------------aaa-----');
+		
+		Mage::log('------------------------------------aaaa-----');
+		Mage::log($orderlevel[$currentlevelofuser-1]);
+		Mage::log(count($optionalapproverdata));
+		if($currentlevelofuser>1){
+			if($orderlevel[$currentlevelofuser-1]> (count($optionalapproverdata)-1)){
+				Mage::log('-------------------------------------cancustomeroverridepresentlevel >1---------');
+				Mage::log($cancustomeroverridepresentlevel);
+				if(!$cancustomeroverridepresentlevel){
+					Mage::log('------------------------------------bbb-----');
+					$approvelerror = false;
+					$showmessage = true;
+					//if($cancustomeroverridepresentlevel==false) $showmessage = true; // if he is level overrider skip this
+					$message = 'Cannot proceed with approval process: Additional approvers are required in this level, but are either inactive or not configured.';
+				}
+			}
+		}else{
+			if($orderlevel[$currentlevelofuser-1]> (count($optionalapproverdata))){
+				Mage::log('-------------------------------------cancustomeroverridepresentlevel 1---------');
+				Mage::log($cancustomeroverridepresentlevel);
+				if(!$cancustomeroverridepresentlevel){
+					Mage::log('------------------------------------bbb-----');
+					$approvelerror = false;
+					$showmessage = true;
+					//if($cancustomeroverridepresentlevel==false) $showmessage = true; // if he is level overrider skip this
+					$message = 'Cannot proceed with approval process: Additional approvers are required in this level, but are either inactive or not configured.';
+				}
+			}
+
+		}
+	}
+	
+	
+	
+	switch($currentlevelofuser+1){
+		case 2: if($totalCustomerInNextLevel<2 && $_order->getL2() >0 && $totalCustomerInCurrentLevel<1){
+					$showmessage = true;
+					$message = 'Cannot proceed with approval process: Additional approvers are required, but are either inactive or not configured.';
+				}break;
+		case 3: if($totalCustomerInNextLevel<2 && $_order->getL3() >0 && $totalCustomerInCurrentLevel<1){
+					$showmessage = true;
+					$message = 'Cannot proceed with approval process: Additional approvers are required, but are either inactive or not configured.';
+				}break;
+		case 4: if($totalCustomerInNextLevel<2 && $_order->getL4() >0 && $totalCustomerInCurrentLevel<1){
+					$showmessage = true;
+					$message = 'Cannot proceed with approval process: Additional approvers are required, but are either inactive or not configured.';
+				}break;
+		// case 5: $showmessage = true;
+				// $message = 'You are the last available approver.';
+				// break;
+	}
+    
+    $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+    $sql = "SELECT `comment` FROM  `sales_flat_order_status_history` WHERE  `parent_id` = " . $orderid . "";
+    $orderhistory = $read->fetchAll($sql);
+
+    $tempComment = array();
+    foreach ($orderhistory as $row) {
+        foreach ($row as $key1 => $value) {
+            if ($key1 == 'comment') {
+                $tempComment[] = $value;
+            }
+        }
+    }
+    $sql = "SELECT MAX(`entity_id`) FROM  `sales_flat_order_status_history` WHERE  `parent_id` = " . $orderid . "";
+    $orderhistory = $read->fetchAll($sql);
+    $tempentityid = '';
+    foreach ($orderhistory as $row) {
+        foreach ($row as $key1 => $value) {
+            $tempentityid = $value;
+        }
+    }
+    $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+    $sql = "SELECT `customer_id` FROM  `sales_flat_order_status_history` WHERE  `entity_id` = " . $tempentityid . "";
+    $orderhistory = $read->fetchAll($sql);
+    $tempCustId = '';
+
+    foreach ($orderhistory as $row) {
+        foreach ($row as $key1 => $value) {
+            if ($key1 == 'customer_id') {
+                $tempCustId = $value;
+            }
+        }
+    }
+    ?>
+
+    <h2 class="table-caption"><?php echo $this->__('Items Ordered') ?>
+        <?php if ($_order->getTracksCollection()->count()) { ?>
+            <span class="separator">|</span> <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>', 'trackorder', 'top=0,left=0,width=800,height=600,resizable=yes,scrollbars=yes');
+                    return false;" title="<?php echo $this->__('Track your order') ?>"><?php echo $this->__('Track your order') ?></a>
+                                            <?php } ?>
+    </h2>
+
+    <?php echo $this->getChildHtml('order_items') ?>
+
+    <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('order', $_order) && $_order->getGiftMessageId()) { ?>
+        <div class="order-additional order-gift-message">
+            <h2 class="sub-title"><?php echo $this->__('Gift Message for This Order') ?></h2>
+            <?php $_giftMessage = $this->helper('giftmessage/message')->getGiftMessageForEntity($_order); ?>
+            <dl class="gift-message">
+                <dt><strong><?php echo $this->__('From:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?></dt>
+                <dt><strong><?php echo $this->__('To:') ?></strong> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?></dt>
+                <dd><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_order) ?></dd>
+            </dl>
+        </div>
+    <?php } ?>
+    <?php $_history = $this->getOrder()->getAllStatusHistory() ?>
+    <?php if (count($_history)) { ?>
+        <div class="order-info-box">
+            <h2 class="sub-title"><?php echo $this->__('About Your Order') ?></h2>
+            <dl class="order-about">
+                <?php foreach ($_history as $_historyItem): ?>
+                    <dt><?php echo $this->formatDate($_historyItem->getCreatedAtStoreDate(), 'medium', true) ?> <span>|</span><span class="separator" id="comment"><?php echo $this->escapeHtml($_historyItem->getComment()) ?></span></dt>
+                    <!--dd><?php echo $this->escapeHtml($_historyItem->getComment()) ?></dd-->
+                <?php endforeach; ?>
+            </dl>
+
+            <?php if ($customerisapprover == true) { ?>
+                <dl class="order-about">
+                    <form method="GET" action="<?php echo $this->getSubmitUrl($_order) ?>">
+                        <label class="normal" for="history_comment"><?php echo Mage::helper('sales')->__('Comment') ?></label>
+                        <textarea name="history" rows="3" cols="5" style="height:45px; width:472px;" id="history_comment"></textarea>
+                        <div class="f-right">
+                            <button type="submit" title="<?php echo $this->__('Add Comment') ?>" class="button" onclick="<?php echo $this->getSubmitUrl($_order) ?>">
+                                <span>
+                                    <span><?php echo $this->__('Add Comment') ?></span>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </dl>
+                </br>
+				
+                <!-------------- Approver part starts here --------------->	
+                <?php Mage::log('totalCustomerInNextLevel -'.$totalCustomerInNextLevel);  ?>
+                <?php Mage::log('totalCustomerInCurrentLevel -'.$totalCustomerInCurrentLevel);  ?>
+                <?php Mage::log('overideAuthority -'.$cancustomeroverridepresentlevel);  ?>
+                <?php Mage::log('finalcurrentapproverlevel -'.$finalcurrentapproverlevel);  ?>
+                <?php $nextlevelapproverappear = false;
+					$optionalapprovershow = false;
+					$nextlevelapprovershow = false;
+					$finalapprovershow = false;
+				?>
+                
+                <dl class="order-about">
+                    <form method="GET" action="<?php echo $this->getNextApproverUrl($_order) ?>">
+                        <div align="left">
+							<?php if($approvelerror) {?>
+								<!-----------------------  next level approer start -------------------------->
+								<?php if($finaloverallapproverlevel==false || $finalcurrentapproverlevel==true){?>
+									<?php if((count($nextapproverdata)-1)>0){?>
+										<?php if(($cancustomeroverridepresentlevel || $finalcurrentapproverlevel==true) || (count($optionalapproverdata)-1)==0 || $orderlevel[$currentlevelofuser-1]==0){?>
+											<label class="normal"><?php echo Mage::helper('sales')->__('Next Level Approver') ?></label>
+											<select name="approverdropdown" id="next" onchange="appr('next')">
+												<?php foreach($nextapproverdata as $key=>$value) { ?>
+													<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+												<?php } $nextlevelapprovershow = true; ?>
+											</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<?php $nextlevelapproverappear = true; ?>
+										<?php } ?>
+									<?php } ?>
+								<?php } ?>
+								<!-----------------------  next level approer end -------------------------->
+								
+								
+								<!-----------------------  optional approver start -------------------------->
+								<?php if($moreapproverrequiredinlevel || $finalcurrentapproverlevel) {// if not the last user?>
+									<?php if($finaloverallapproverlevel){?>
+										<?php if((count($optionalapproverdata)-1)>0){?>
+											<label class="normal">
+												<?php echo Mage::helper('sales')->__('Optional Approver'); ?>
+											</label>
+											<select name="approverdropdown" id="current" onchange="appr('current')" >
+												<?php foreach($optionalapproverdata as $key=>$value) { ?>
+													<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+												<?php } $optionalapprovershow = true;?>
+											</select>
+											<?php Mage::log('-------------------------------------------comes herere 1---'); ?>
+										<?php } ?>
+									<?php } else if((count($optionalapproverdata)-1)>0){?>
+										<?php //if($moreapproverrequiredinlevel || $cancustomeroverridepresentlevel) {// if not the last user?>
+											<label class="normal">
+												<?php if($nextlevelapproverappear == true){
+													echo Mage::helper('sales')->__('Optional Approver');
+												}else{
+													if($cancustomeroverridepresentlevel || $finalcurrentapproverlevel){
+														echo Mage::helper('sales')->__('Optional Approver');
+													}else{
+														echo Mage::helper('sales')->__('Next Approver');
+													}
+												}?>
+											</label>
+											<?php Mage::log('-------------------------------------------comes herere---'); ?>
+											<select name="approverdropdown" id="current" onchange="appr('current')" >
+												<?php foreach($optionalapproverdata as $key=>$value) { ?>
+													<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+												<?php } $optionalapprovershow = true; ?>
+											</select>
+										<?php //} ?>
+									<?php } ?>
+								<?php } ?>
+								<!-----------------------  optional approver end -------------------------->
+								
+								<?php Mage::log('------------------------------final-----------'); ?>
+								<?php Mage::log('-----------------------(count($nextapproverdata)-1)-----------'.(count($nextapproverdata)-1)); ?>
+								<?php Mage::log('-----------------------(count($optionalapproverdata)-1)-----------'.(count($optionalapproverdata)-1)); ?>
+								<?php Mage::log($orderlevel[$currentlevelofuser-1]); ?>
+								
+								<table style="width:370px;padding-top:15px">
+									<tr>
+										<?php if((count($nextapproverdata)-1)==0 && $orderlevel[$currentlevelofuser]>0){
+											$message = 'Cannot proceed with approval process: Additional approvers are required, but are either inactive or not configured.';
+											$showmessage=true;
+										}else{ ?> 
+											<!-----------------------  Final approval -------------------------->
+											<td style="width: 120px;">
+												<?php if((count($nextapproverdata)-1)==0 && (count($optionalapproverdata)-1)<=1 && $cancustomeroverridepresentlevel) {
+													Mage::log('------------------------------------aq-----');
+													if((count($optionalapproverdata)-1)<1){
+														$message = 'You are the last available approver.';
+														$showmessage=true;
+													} $finalapprovershow = true;?>
+													<button type="button" title="<?php echo $this->__('Final Approver') ?>" id="finalO" class="button" onclick="finalApprove()">
+															<span>
+																	<span><?php echo $this->__('Give Final Approval') ?></span>
+															</span>
+													</button>
+												<?php }else if($orderlevel[$currentlevelofuser-1]==(($currentlevelofuser==1)?1:0) && (count($nextapproverdata)-1)==0){
+													Mage::log('------------------------------------aw-----');
+													if((count($optionalapproverdata)-1)<1){
+														$message = 'You are the last available approver.';
+														$showmessage=true;
+													} $finalapprovershow = true;?>
+													<button type="button" title="<?php echo $this->__('Final Approver') ?>" id="finalO" class="button" onclick="finalApprove()">
+															<span>
+																	<span><?php echo $this->__('Give Final Approval') ?></span>
+															</span>
+													</button>
+												<?php }else if($orderlevel[$currentlevelofuser]==0 && $cancustomeroverridepresentlevel){
+													Mage::log('------------------------------------ae-----');
+													if((count($optionalapproverdata)-1)<1){
+														$message = 'You are the last available approver.';
+														$showmessage=true;
+													} $finalapprovershow = true;?>
+													<button type="button" title="<?php echo $this->__('Final Approver') ?>" id="finalO" class="button" onclick="finalApprove()">
+															<span>
+																	<span><?php echo $this->__('Give Final Approval') ?></span>
+															</span>
+													</button>
+												<?php } ?>
+											</td>
+										<?php } ?>
+										<!-----------------------  Final approval -------------------------->
+										
+										<td style="width: 120px;">
+											<button type="button" title="<?php echo $this->__('Next Approver') ?>" id="approveO" class="button" style="display:none;" onclick="nextApprove()">
+												<span>
+													<span><?php echo $this->__('Approve Order') ?></span>
+												</span>
+											</button>
+										</td>
+										
+										
+										
+										<td style="width: 120px;">
+											<button onClick="rejctFunction()" style="display:inline" class="button" type="button">
+												<span>
+													<span><?php echo $this->__('Reject Order') ?></span>
+												</span>
+											</button>
+										</td>
+									</tr>
+								</table>
+							<?php } ?> 
+							<?php Mage::log('-------------------------------------------info---'); ?> 
+							<?php Mage::log((count($nextapproverdata)-1)); ?> 
+							<?php Mage::log($orderlevel[$currentlevelofuser]); ?> 
+							
+                            
+							<?php 	if($optionalapprovershow == true || $nextlevelapprovershow == true || $finalapprovershow ==true);
+									else{
+										$message = 'Cannot proceed with approval process: Additional approvers are required, but are either inactive or not configured.';
+										$showmessage=true;
+									}?>
+                            
+                            </br>
+                            <?php if ($showmessage) { ?>
+                                <span class="approver-message"><label class="normal"><b><?php echo $message; ?></b></label> </span>	
+                            <?php } ?> 
+                        </div>
+                    </form>
+                </dl>
+				
+                <!-------------- Approver part ends here --------------->	
+			<?php } // if customer is approver ?>
+        </div>
+	<?php } // if any history ?>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->getBackTitle() ?></a></p>
+    </div>
+</div>
+<script  type="text/javascript">
+    function nextApprove() {
+		var x=0; var y=0;
+		try{var x = document.getElementById('next').value;}catch(e){}
+		try{var y = document.getElementById('current').value;}catch(e){}
+		if (confirm('<?php echo $this->__('Are you sure you want to approve this order?') ?>')) {
+			if (y > 0) {
+				window.location.assign("<?php echo $this->getApproveUrl($_order) ?>=" + y);
+			} else if (x > 0) {
+				window.location.assign("<?php echo $this->getApproveUrl($_order) ?>=" + x);
+			}
+		}
+    }
+</script>
+<script  type="text/javascript">
+    function finalApprove() {
+        if (confirm('<?php echo $this->__('Are you sure you want to approve this order?') ?>')) {
+            window.location.assign("<?php echo $this->getApproveUrl($_order) ?>=0");
+        } else {
+        }
+    }
+
+    function appr(obj) {
+	
+        if(obj=='current'){
+            try{document.getElementById('next').selectedIndex = 0;}catch(e){}
+        }else{
+            try{document.getElementById('current').selectedIndex = 0;}catch(e){}
+        }
+		var iftrueforfinal = <?php echo ($totalCustomerInNextLevel<2)?'true':'false'; ?>;
+        if (document.getElementById(obj).value == 0) {
+			document.getElementById('approveO').style.display = 'none';
+            if(iftrueforfinal){
+				document.getElementById('finalO').style.display = 'inline';
+			}
+        } else {
+			document.getElementById('approveO').style.display = 'inline';
+            if(iftrueforfinal){
+				document.getElementById('finalO').style.display = 'none';
+			}
+        }
+    }
+
+    function rejctFunction() {
+        var r = confirm("Do you really want to reject this order ? ");
+        if (r == true) {
+<?php if ($tempCustId != $customerId) { ?>
+                alert('Please add comment for rejecting the order!!!!!!!');
+<?php } else { ?>
+                window.location.assign("<?php echo $this->getRejectUrl($_order) ?>")
+<?php } ?>
+        }
+    }
+</script>

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><config>    <modules>        <Insync_Supplieradd>            <version>1.0</version>        </Insync_Supplieradd>    </modules>	    <global>        <models>            <supplieradd>                <class>Insync_Supplieradd_Model</class>            </supplieradd>        </models>    </global> </config>

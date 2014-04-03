@@ -1,0 +1,64 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/adminhtml/default/default/template/aitproductslists/sidebar/items.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<?php 
+
+?>
+<input type="hidden" name="loaded_list_id" value="<?php echo $this->getListId() ?>" />
+<div class="create-order-sidebar-block" id="sidebar_data_<?php echo $this->getDataId() ?>">
+    <div class="head">
+        <h5> List Items <span class="normal">(<?php echo $this->getItemCount() ?>)</span></h5>
+        <a href="#" title="<?php echo Mage::helper('sales')->__('Refresh') ?>" onclick="order.loadArea('sidebar_<?php echo $this->getDataId() ?>', 'sidebar_data_<?php echo $this->getDataId() ?>');return false;">
+            <img src="<?php echo $this->getSkinUrl('images/fam_refresh.gif') ?>" alt="<?php echo Mage::helper('sales')->__('Refresh') ?>" width="16" height="16"/>
+        </a>
+    </div>
+    <div class="content">
+        <div class="auto-scroll">
+        <?php if($this->getItemCount()): ?>
+        <table style="width:100%">
+            <col />
+            <?php if ($this->canDisplayItemQty()): ?>
+            <col width="20" />
+            <?php endif; ?>
+            <?php if($this->canDisplayPrice()): ?>
+            <col width="60" />
+            <?php endif; ?>
+            <col width="16" />
+            <col width="16" />
+            <tr>
+                <th><?php echo Mage::helper('sales')->__('Product') ?></th>
+                <?php if ($this->canDisplayItemQty()): ?>
+                <th class="a-center"><?php echo Mage::helper('sales')->__('Qty') ?></th>
+                <?php endif; ?>
+                <?php if($this->canDisplayPrice()): ?>
+                <th><?php echo Mage::helper('sales')->__('Price') ?></th>
+                <?php endif; ?>
+                <th class="a-center">Qty</th>
+                <th class="a-center"><img src="<?php echo $this->getSkinUrl('images/fam_package_go.gif') ?>" alt="<?php echo Mage::helper('sales')->__('Add To Order') ?>" title="<?php echo Mage::helper('sales')->__('Add To Order') ?>" width="16" height="16"/></th>
+            </tr>
+            <?php foreach ($this->getItems() as $_item): ?>
+            <tr>
+                <td><?php echo $this->htmlEscape($_item->getName()) ?></td>
+                <?php if($this->canDisplayPrice()): ?>
+                <td><?php echo $this->convertPrice($_item->getPrice()) ?></td>
+                <?php endif; ?>
+                <td class="a-center"><input type="text" style="width:30px;" name="sidebar[aitproductslists_qty][<?php echo $this->getIdentifierId($_item) ?>]" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo Mage::helper('sales')->__('Remove') ?>"/></td>
+                <td class="a-center">
+                    <input type="checkbox" name="sidebar[<?php echo $this->getSidebarStorageAction() ?>][<?php echo $this->getIdentifierId($_item) ?>]" value="<?php echo $_item->getQty()*1; ?>" title="<?php echo Mage::helper('sales')->__('Add To Order') ?>"/>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php else: ?>
+            <p class="center"><?php echo Mage::helper('sales')->__('No items') ?></p>
+        <?php endif ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="ma-footer-container">
+    <div class="footer">
+        
+<ul class="links">
+                        <li class="first" ><a href="http://magebasev2.dev/catalogsearch/term/popular/?___SID=U" title="Search Terms" >Search Terms</a></li>
+                                <li ><a href="http://magebasev2.dev/catalogsearch/advanced/?___SID=U" title="Advanced Search" >Advanced Search</a></li>
+                                <li ><a href="http://magebasev2.dev/sales/guest/form/?___SID=U" title="Orders and Returns" >Orders and Returns</a></li>
+                                <li class=" last" ><a href="http://magebasev2.dev/contacts/?___SID=U" title="Contact Us" >Contact Us</a></li>
+            </ul>
+        <address><p>&copy; 2012 Thirty Six Strategies General Trading LLC.</p><p>All Rights Reserved.</p></address>
+    </div>
+</div>

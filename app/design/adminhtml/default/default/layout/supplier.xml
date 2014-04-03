@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <supplier_adminhtml_supplier_index>
+        <reference name="content">
+            <block type="supplier/adminhtml_supplier" name="supplier" />
+        </reference>
+		 <reference name="content1">
+            <block type="supplier/adminhtml_supplier" name="supplier" />
+        </reference>
+		<reference name="content2">
+            <block type="supplier/adminhtml_supplier" name="supplier" />
+        </reference>
+    </supplier_adminhtml_supplier_index>
+</layout>

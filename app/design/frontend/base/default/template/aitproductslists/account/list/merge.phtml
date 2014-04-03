@@ -1,0 +1,102 @@
+<?php
+/**
+ * Product:     Recurring Purchase Assistant
+ * Package:     Aitoc_Aitproductslists_1.0.4_1.0.0_520324
+ * Purchase ID: kFkbuT14FmWJApKR3QE9iykvMGpr0gLJWvjTDjDtbI
+ * Generated:   2013-03-08 08:15:21
+ * File path:   app/design/frontend/base/default/template/aitproductslists/account/list/merge.phtml
+ * Copyright:   (c) 2013 AITOC, Inc.
+ */
+?>
+<div class="box-account box-info">
+    <div class="col-set">
+        <div class="box-head "><h2 style="color:#E76200;"><?php echo $this->__('PRODUCT LIST MERGE') ?></h2></div>
+        <div class="col-set">
+            <div class="box">
+                <form onSubmit="return confirmMergeSubmit();" action="<?php echo $this->getUrl('aitproductslists/list/merge',array('list_id'=>$this->getList()->getId())); ?>" id="aitproductslists_list_merge" name="aitproductslists/list/merge" method="POST">
+                    <table>
+                        <tr>
+                            <td width="60%"><?php echo $this->__('Choose Personal Product List to merge with') ?></td>
+                            <td>
+                                <select id="ppl_lists_merge" class="validate-select" name="merge_list">
+                                <option value=""><?php echo $this->__('Select Existing List') ?></option>
+                                <?php
+                                if (count($this->getCustomerLists())>0)
+                                {
+                                    foreach ($this->getCustomerLists() as $list)
+                                    {
+                                        $listName = $list->getName();
+                                        $listName = strip_tags($listName);
+                                        //$listName = strip_tags($listName);
+                                        if (strlen($listName)>25)
+                                        {
+                                            $listName = substr($listName,0,25)."...";
+                                        }
+                                        if ($list->getId() == $this->getList()->getId())
+                                            continue;
+                                        echo "<option value='".$list->getId()."'>".$listName."</option>";
+                                    }
+                                }
+                                ?>
+                            </select> 
+
+                            </td>
+                        </tr>
+                        <tr id="tr_merge_hide">
+                            <td><?php echo $this->__("Delete Current Product List after merge") ?></td>
+                            <td>
+                                <select id="merge_list_delete" name="merge_list_delete" disabled="disabled">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__("Merge type") ?></td>
+                            <td>
+                                <select id="ppl_lists_merge_mode" class="validate-select" name="merge_list_mode">
+                                    <option value="<?php echo Aitoc_Aitproductslists_Model_List::AITPPL_MERGE_IN; ?>"><?php echo $this->__("From list selected above to current list") ?></option>
+                                    <option value="<?php echo Aitoc_Aitproductslists_Model_List::AITPPL_MERGE_OUT; ?>"><?php echo $this->__("From current list to selected above") ?></option>
+                                    <option value="<?php echo Aitoc_Aitproductslists_Model_List::AITPPL_MERGE_NEW; ?>"><?php echo $this->__("Merge both into new list") ?></option>
+                                </select>
+
+                            </td>
+                        </tr>
+                    </table>
+                        <div align="right">
+                            <button type="submit"><?php echo $this->__("Merge") ?></button>
+                        </div>
+                    <div align="left" style='font-size:11px'><?php echo $this->__("Note: The discount will be skipped in merged list") ?></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        $('ppl_lists_merge_mode').observe('change',function(el){
+            var selectElement = $$('#ppl_lists_merge_mode option').find(function(ele){return !!ele.selected});
+            
+            if (selectElement.value=='<?php echo Aitoc_Aitproductslists_Model_List::AITPPL_MERGE_IN; ?>')
+            {
+                $('merge_list_delete').disable();
+                $('merge_list_delete').value = '0';
+            }
+            else
+            {
+                $('merge_list_delete').enable();
+            }
+        });
+        function confirmMergeSubmit()
+        {
+      <?php if (Mage::getStoreConfig('aitproductslists/customer/reset')):?>    
+                var a = confirm("<?php echo $this->__("The discount will not be applied to new list. Continue to merge?") ?>");
+                if (a)
+                {
+                    var dataMergeForm = new VarienForm('aitproductslists_list_merge', true);
+                    dataMergeForm.submit();
+                }
+                return false;
+     <?php endif; ?>
+       }
+    </script>
